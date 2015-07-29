@@ -3,7 +3,8 @@ An android wear and handheld app that helps our target users become more familia
 <h2>Who we are?</h2>
 <p> CS160 Team K. Otherwise known as JAWS! </p>
 <ul>
-<li></li>
-<li></li>
-<li></li>
+<li>Ace Haidrey</li>
+<li>Jordan Wong</li>
+<li>Whitney Xu</li>
+<li>Sarah Huang</li>
 </ul>
