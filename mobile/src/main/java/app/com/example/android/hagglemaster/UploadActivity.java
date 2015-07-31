@@ -1,8 +1,12 @@
 package app.com.example.android.hagglemaster;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class UploadActivity extends ActionBarActivity {
@@ -23,6 +32,8 @@ public class UploadActivity extends ActionBarActivity {
     private static final String KEY_IMG = "image";
     private static final String[] COLUMNS = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_IMG};
     private static final String TAG = "UploadActivityTAG";
+    private String mCurrentPhotoPath = null;
+    private Uri realPhoto = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +83,52 @@ public class UploadActivity extends ActionBarActivity {
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
         // fill in
+        //first try
+        dispatchTakePictureIntent();
     }
 
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Log.d(TAG, "ERROR");
+            }
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(photoFile));
+                realPhoto = Uri.fromFile(photoFile);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        mCurrentPhotoPath = "file:" + "/" + image.getAbsolutePath();
+        mCurrentPhotoPath = mCurrentPhotoPath.substring(0, mCurrentPhotoPath.length() - 4);
+        Log.d(TAG, "image path is..." + mCurrentPhotoPath);
+        return image;
+    }
 
 
 
