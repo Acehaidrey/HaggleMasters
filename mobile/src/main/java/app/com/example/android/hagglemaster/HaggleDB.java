@@ -17,7 +17,7 @@ public class HaggleDB extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_ITEM_TABLE = "CREATE TABLE item ( " + "title TEXT, " + "price INT, " +
+        String CREATE_ITEM_TABLE = "CREATE TABLE item ( " + "title TEXT, " + "price DECIMAL(10,5), " +
                 "address TEXT, " + "description TEXT, " + "image BLOB )";
         db.execSQL(CREATE_ITEM_TABLE);
     }

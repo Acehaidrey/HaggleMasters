@@ -36,6 +36,7 @@
         android:id="@+id/title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxLines="1"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
@@ -46,8 +47,9 @@
     <EditText
         android:id="@+id/price_text"
         android:textColor="@color/blu"
+        android:maxLines="1"
         android:paddingLeft="5dp"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
@@ -59,6 +61,7 @@
     <EditText
         android:textColor="@color/blu"
         android:id="@+id/address_text"
+        android:maxLines="1"
         android:paddingTop="10dp"
         android:paddingLeft="5dp"
         android:paddingBottom="10dp"
@@ -79,6 +82,7 @@
         android:background="@android:color/white"
         android:hint="@string/description"
         android:lines="2"
+        android:maxLines="2"
         android:layout_marginBottom="10dp"/>
 
     <Button

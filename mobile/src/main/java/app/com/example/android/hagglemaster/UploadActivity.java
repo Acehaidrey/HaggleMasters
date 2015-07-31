@@ -58,15 +58,16 @@ public class UploadActivity extends ActionBarActivity {
         String titleText = title.getText().toString();
         String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
-        int priceInt = (int) Integer.parseInt(price.getText().toString());
+        double priceVal = Double.valueOf(price.getText().toString()).doubleValue();
 
-        Log.d(TAG, titleText + " " + priceInt + " " + addressText + " " + descriptionText);
+
+        Log.d(TAG, titleText + " " + priceVal + " " + addressText + " " + descriptionText);
 
         db = mHaggleDB.getWritableDatabase();
         ContentValues vals = new ContentValues();
 //        vals.put(KEY_IMG, null); // THIS IS JUST TEMPORARY FIX
         vals.put(KEY_TITLE, titleText);
-        vals.put(KEY_PRICE, priceInt);
+        vals.put(KEY_PRICE, priceVal);
         vals.put(KEY_ADDR, addressText);
         vals.put(KEY_DESC, descriptionText);
         long newRowId = db.insert("item", null, vals);
@@ -82,7 +83,7 @@ public class UploadActivity extends ActionBarActivity {
         Log.v("ADDR_TAG", addr);
         String desc = c.getString(c.getColumnIndex(KEY_DESC));
         Log.v("DESC_TAG", desc);
-        int prc = c.getInt(c.getColumnIndex(KEY_PRICE));
+        double prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
         Log.v("DESC_TAG", "price is " + prc);
 
     }
@@ -93,7 +94,6 @@ public class UploadActivity extends ActionBarActivity {
         //first try
         dispatchTakePictureIntent();
     }
-
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
