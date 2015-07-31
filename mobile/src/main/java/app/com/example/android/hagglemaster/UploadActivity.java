@@ -17,18 +17,19 @@ public class UploadActivity extends ActionBarActivity {
     private HaggleDB mHaggleDB;
     private SQLiteDatabase db;
 
+    private static final String DATABASE_NAME = "item";
     private static final String KEY_TITLE = "title";
     private static final String KEY_ADDR = "address";
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
-    private static final String[] COLUMNS = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_IMG};
+    private static final String KEY_PRICE = "price";
+    private static final String[] COLUMNS = {KEY_TITLE, KEY_PRICE, KEY_ADDR, KEY_DESC, KEY_IMG};
     private static final String TAG = "UploadActivityTAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-
         mHaggleDB = new HaggleDB(getApplicationContext());
     }
 
@@ -41,40 +42,45 @@ public class UploadActivity extends ActionBarActivity {
         EditText title = (EditText) findViewById(R.id.title_text);
         EditText address = (EditText) findViewById(R.id.address_text);
         EditText description = (EditText) findViewById(R.id.description_text);
+        EditText price = (EditText) findViewById(R.id.price_text);
 
         String titleText = title.getText().toString();
         String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
+        int priceInt = (int) Integer.parseInt(price.getText().toString());
 
-        Log.d(TAG, titleText + " " + addressText + " " + descriptionText);
+        Log.d(TAG, titleText + " " + priceInt + " " + addressText + " " + descriptionText);
 
         db = mHaggleDB.getWritableDatabase();
         ContentValues vals = new ContentValues();
 //        vals.put(KEY_IMG, null); // THIS IS JUST TEMPORARY FIX
         vals.put(KEY_TITLE, titleText);
+        vals.put(KEY_PRICE, priceInt);
         vals.put(KEY_ADDR, addressText);
         vals.put(KEY_DESC, descriptionText);
         long newRowId = db.insert("item", null, vals);
 
-
-
         // this is just to check shit got uploaded to DB
         db = mHaggleDB.getReadableDatabase();
-        String[] columns = { "address" };
+        String[] columns = { KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE };
         Cursor c = db.query("item", columns, null, null, null, null, null);
         c.moveToFirst();
-        String addr = c.getString(c.getColumnIndex("address"));
+        String titlel = c.getString(c.getColumnIndex(KEY_TITLE));
+        Log.v("TITLE_TAG", titlel);
+        String addr = c.getString(c.getColumnIndex(KEY_ADDR));
         Log.v("ADDR_TAG", addr);
-
+        String desc = c.getString(c.getColumnIndex(KEY_DESC));
+        Log.v("DESC_TAG", desc);
+        int prc = c.getInt(c.getColumnIndex(KEY_PRICE));
+        Log.v("DESC_TAG", "price is " + prc);
 
     }
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
         // fill in
+
     }
-
-
 
 
 

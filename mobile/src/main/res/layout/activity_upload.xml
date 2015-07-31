@@ -21,14 +21,13 @@
 
     <Button
         android:id="@+id/imagebtn"
-        android:layout_below="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textColor="@color/blu"
         android:background="@android:color/white"
         android:text="@string/imgbtn"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:onClick="cameraOpen"
         />
 
@@ -37,13 +36,25 @@
         android:id="@+id/title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imagebtn"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:background="@android:color/white"
         android:hint="@string/title"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/price_text"
+        android:textColor="@color/blu"
+        android:paddingLeft="5dp"
+        android:inputType="number"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:hint="@string/price"
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:textColor="@color/blu"
@@ -53,10 +64,9 @@
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title_text"
         android:background="@android:color/white"
         android:hint="@string/address"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:id="@+id/description_text"
@@ -66,23 +76,20 @@
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/address_text"
         android:background="@android:color/white"
         android:hint="@string/description"
         android:lines="2"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:id="@+id/uploadbtn"
         android:textColor="@color/blu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/description_text"
         android:text="@string/upload_submit"
         android:background="@android:color/white"
         android:layout_gravity="center_horizontal"
         android:onClick="DBUpload"/>
-
 
 
 </LinearLayout>

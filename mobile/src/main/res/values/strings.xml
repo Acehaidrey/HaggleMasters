@@ -9,6 +9,7 @@
     <string name="address">Purchase Location</string>
     <string name="description">Item Description</string>
     <string name="upload_submit">Upload</string>
+    <string name="price">Item Price</string>
 
     <color name="blu">#122C4B</color>
     <color name="off_white">#FEFBF7</color>
