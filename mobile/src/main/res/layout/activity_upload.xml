@@ -19,7 +19,6 @@
         android:paddingBottom="20dp"
         />
 
-
     <Button
         android:id="@+id/imagebtn"
         android:layout_below="@+id/title"
@@ -33,13 +32,6 @@
         android:onClick="cameraOpen"
         />
 
-    <!--<TextView-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:layout_below="@+id/imagebtn"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--/>-->
-
     <EditText
         android:textColor="@color/blu"
         android:id="@+id/title_text"
@@ -50,7 +42,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:background="@android:color/white"
-        android:text="@string/title"
+        android:hint="@string/title"
         android:layout_marginBottom="20dp"/>
 
     <EditText
@@ -63,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_text"
         android:background="@android:color/white"
-        android:text="@string/address"
+        android:hint="@string/address"
         android:layout_marginBottom="20dp"/>
 
     <EditText
@@ -76,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/address_text"
         android:background="@android:color/white"
-        android:text="@string/description"
+        android:hint="@string/description"
         android:lines="2"
         android:layout_marginBottom="20dp"/>
 
