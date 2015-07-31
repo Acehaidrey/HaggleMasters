@@ -43,7 +43,6 @@ public class GoogleApiClientService extends IntentService {
     }
 
     public void initGoogleAPI() {
-        Log.d(TAG, "Google Client Init");
         myGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
@@ -75,7 +74,7 @@ public class GoogleApiClientService extends IntentService {
                         CapabilityApi.FILTER_REACHABLE)
                         .await();
         nodes = capResult.getCapability().getNodes();
-        Log.d(TAG, "nodes size: " + nodes.size());
+
         if (nodes.size() > 0) {
             node = nodes.iterator().next();
         }
