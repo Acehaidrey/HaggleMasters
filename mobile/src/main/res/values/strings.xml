@@ -4,7 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="search_query">Search for an item</string>
     <string name="search">Search</string>
-    <string name="title">HaggleMaster</string>
+    <string name="HaggleMaster">HaggleMaster</string>
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>
     <color name="darkgray">#a3a3a3</color>
