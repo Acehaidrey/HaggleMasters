@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -85,6 +86,8 @@ public class UploadActivity extends ActionBarActivity {
         Log.v("DESC_TAG", desc);
         double prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
         Log.v("DESC_TAG", "price is " + prc);
+
+        Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
 
     }
 

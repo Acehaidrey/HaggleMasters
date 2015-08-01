@@ -31,6 +31,10 @@
             android:name=".UploadActivity"
             android:label="@string/title_activity_upload" >
         </activity>
+        <activity
+            android:name=".DisplayResultsActivity"
+            android:label="@string/title_activity_display_results" >
+        </activity>
     </application>
 
 </manifest>

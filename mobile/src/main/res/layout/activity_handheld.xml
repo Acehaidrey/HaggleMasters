@@ -60,6 +60,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/search"
+                android:onClick="startSearch"
                 />
 
         </LinearLayout>

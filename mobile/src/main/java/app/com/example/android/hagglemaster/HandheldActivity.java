@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -80,7 +81,9 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     }
 
-    public void startSearch(){
-
+    /** on click for search icon */
+    public void startSearch(View view) {
+         Intent resultsIntent = new Intent(getApplicationContext(), DisplayResultsActivity.class);
+         startActivity(resultsIntent);
     }
 }

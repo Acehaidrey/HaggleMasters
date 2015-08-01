@@ -18,4 +18,5 @@
     <string name="price">Item Price</string>
     <color name="blu">#122C4B</color>
     <color name="off_white">#FEFBF7</color>
+    <string name="title_activity_display_results">DisplayResultsActivity</string>
 </resources>
