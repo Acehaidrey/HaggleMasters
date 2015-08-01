@@ -85,27 +85,15 @@ public class ListViewActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
                 // ListView Clicked item index
                 int itemPosition = position;
-
                 // ListView Clicked item value
                 String  itemValue = (String) listView.getItemAtPosition(position);
-
-                if (itemPosition == 3){
-                    //take it
-
-
-
-                    sendNotification();
-
-                }
-
+                sendNotification(itemValue);
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                         .show();
-
             }
 
         });
@@ -130,15 +118,15 @@ public class ListViewActivity extends Activity {
         return dateFormat.format(new Date());
     }
 
-    private void sendNotification() {
+    private void sendNotification(String s) {
         if (mGoogleApiClient.isConnected()) {
             PutDataMapRequest dataMapRequest = PutDataMapRequest.create("/notification");
             // Make sure the data item is unique. Usually, this will not be required, as the payload
             // (in this case the title and the content of the notification) will be different for almost all
             // situations. However, in this example, the text and the content are always the same, so we need
             // to disambiguate the data item by adding a field that contains teh current time in milliseconds.
-            dataMapRequest.getDataMap().putString("TITLE", "Take if");
-            //dataMapRequest.putLong("time", new Date().getTime());
+            dataMapRequest.getDataMap().putString("TITLE", s);
+            dataMapRequest.putLong("time", new Date().getTime());
             dataMapRequest.getDataMap().putString("TEXT", "Please work");
             PutDataRequest putDataRequest = dataMapRequest.asPutDataRequest();
             Wearable.DataApi.putDataItem(mGoogleApiClient, putDataRequest);
