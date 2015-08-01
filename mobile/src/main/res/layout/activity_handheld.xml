@@ -57,9 +57,9 @@
                 android:layout_gravity="center"
                 android:singleLine="true"/>
             <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/search"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/search1"
                 android:onClick="startSearch"
                 />
 
