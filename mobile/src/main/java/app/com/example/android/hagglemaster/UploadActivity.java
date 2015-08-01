@@ -14,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,6 +86,8 @@ public class UploadActivity extends ActionBarActivity {
     public void cameraOpen(View view) {
         // fill in
         //first try
+        Button btn = (Button) findViewById(R.id.imagebtn);
+        btn.setVisibility(View.INVISIBLE);
         dispatchTakePictureIntent();
     }
 
@@ -110,6 +114,11 @@ public class UploadActivity extends ActionBarActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        ImageView image = (ImageView) findViewById(R.id.imageView1);
+        image.setImageURI(realPhoto);
+        image.getLayoutParams().width = 1000;
+        image.getLayoutParams().height = 500;
+        image.setVisibility(View.VISIBLE);
 
     }
 

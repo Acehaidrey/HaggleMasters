@@ -27,6 +27,11 @@
             </intent-filter>
         </service>
 
+
+        <activity
+            android:name=".ListViewActivity"
+            android:label="ListViewActivity" >
+        </activity>
         <activity
             android:name=".UploadActivity"
             android:label="@string/title_activity_upload" >
