@@ -18,6 +18,7 @@ public class HandheldActivity extends ActionBarActivity {
         startActivity(uploadIntent);
 
         setContentView(R.layout.activity_handheld);
+        Log.v("jordan was here", "work please");
 
 
     }
