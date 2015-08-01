@@ -10,13 +10,19 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.ImageView;
+
+import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -28,11 +34,13 @@ public class UploadActivity extends ActionBarActivity {
     private HaggleDB mHaggleDB;
     private SQLiteDatabase db;
 
+    private static final String DATABASE_NAME = "item";
     private static final String KEY_TITLE = "title";
     private static final String KEY_ADDR = "address";
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
-    private static final String[] COLUMNS = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_IMG};
+    private static final String KEY_PRICE = "price";
+    private static final String[] COLUMNS = {KEY_TITLE, KEY_PRICE, KEY_ADDR, KEY_DESC, KEY_IMG};
     private static final String TAG = "UploadActivityTAG";
     private String mCurrentPhotoPath = null;
     private Uri realPhoto = null;
@@ -41,7 +49,6 @@ public class UploadActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-
         mHaggleDB = new HaggleDB(getApplicationContext());
     }
 
@@ -50,36 +57,35 @@ public class UploadActivity extends ActionBarActivity {
     public void DBUpload(View view) {
 
         // somehow need to be able to get the image as well
-
         EditText title = (EditText) findViewById(R.id.title_text);
         EditText address = (EditText) findViewById(R.id.address_text);
         EditText description = (EditText) findViewById(R.id.description_text);
+        EditText price = (EditText) findViewById(R.id.price_text);
 
         String titleText = title.getText().toString();
         String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
+        double priceVal = Double.valueOf(price.getText().toString()).doubleValue();
 
-        Log.d(TAG, titleText + " " + addressText + " " + descriptionText);
+        Log.d(TAG, titleText + " " + priceVal + " " + addressText + " " + descriptionText);
 
         db = mHaggleDB.getWritableDatabase();
         ContentValues vals = new ContentValues();
 //        vals.put(KEY_IMG, null); // THIS IS JUST TEMPORARY FIX
         vals.put(KEY_TITLE, titleText);
+        vals.put(KEY_PRICE, priceVal);
         vals.put(KEY_ADDR, addressText);
         vals.put(KEY_DESC, descriptionText);
         long newRowId = db.insert("item", null, vals);
 
+        // clear all text
+        title.setText("");
+        address.setText("");
+        price.setText("");
+        description.setText("");
 
-
-        // this is just to check shit got uploaded to DB
-        db = mHaggleDB.getReadableDatabase();
-        String[] columns = { "address" };
-        Cursor c = db.query("item", columns, null, null, null, null, null);
-        c.moveToFirst();
-        String addr = c.getString(c.getColumnIndex("address"));
-        Log.v("ADDR_TAG", addr);
-
-
+        // message sent to let user know updated
+        Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
     }
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
@@ -90,7 +96,6 @@ public class UploadActivity extends ActionBarActivity {
         btn.setVisibility(View.INVISIBLE);
         dispatchTakePictureIntent();
     }
-
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -138,8 +143,6 @@ public class UploadActivity extends ActionBarActivity {
         Log.d(TAG, "image path is..." + mCurrentPhotoPath);
         return image;
     }
-
-
 
 
     @Override
