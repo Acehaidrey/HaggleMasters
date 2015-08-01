@@ -1,26 +1,37 @@
 package app.com.example.android.hagglemaster;
 
+
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.view.Window;
 
 
-public class HandheldActivity extends ActionBarActivity {
+
+public class HandheldActivity extends Activity implements Animation.AnimationListener {
+
+    TextView title;
+    Animation animFadein;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
-        startActivity(uploadIntent);
+        // Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
+        // startActivity(uploadIntent);
 
         setContentView(R.layout.activity_handheld);
-        Log.v("jordan was here", "work please");
-
-
+        title = (TextView) findViewById(R.id.title);
+        animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+        animFadein.setDuration(3500);
+        title.startAnimation(animFadein);
     }
 
     @Override
@@ -43,5 +54,33 @@ public class HandheldActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        // Take any action after completing the animation
+
+        // check for fade in animation
+        if (animation == animFadein) {
+            Toast.makeText(getApplicationContext(), "Animation Stopped",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void startSearch(){
+
     }
 }
