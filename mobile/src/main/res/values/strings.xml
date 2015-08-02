@@ -4,9 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="search_query">Search for an item</string>
     <string name="search">Search</string>
-    <color name="newblu">#CC122C4B</color>
-    <color name="offwhite">#FEFBF7</color>
-    <color name="darkgray">#a3a3a3</color>
+    <string name="HaggleMaster">HaggleMaster</string>
     <string name="title_activity_upload">UploadActivity</string>
     <string name="upload_title">Upload Your Product!</string>
     <string name="imgbtn">Add Image</string>
@@ -15,6 +13,17 @@
     <string name="description">Item Description</string>
     <string name="upload_submit">Upload</string>
     <string name="price">Item Price</string>
+    <string name="title_activity_display_results">DisplayResultsActivity</string>
+    <string name="result_title">Search Results</string>
+    <string name="Location">Location:</string>
+    <string name="Description">Description:</string>
+    <string name="Name">Name:</string>
+    <string name="Price">Price:</string>
+
+    <color name="newblu">#CC122C4B</color>
+    <color name="offwhite">#FEFBF7</color>
+    <color name="darkgray">#a3a3a3</color>
     <color name="blu">#122C4B</color>
     <color name="off_white">#FEFBF7</color>
+    <string name="title_activity_results">ResultsActivity</string>
 </resources>

@@ -10,11 +10,19 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+
+import android.widget.ImageView;
+
+import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -44,22 +52,19 @@ public class UploadActivity extends ActionBarActivity {
         mHaggleDB = new HaggleDB(getApplicationContext());
     }
 
-    /** submit button clicked. need to upload shiza to the db, and then add a modal or
-     * something to show that it was submitted */
+    /** submit button clicked. need to upload shiza to the db */
     public void DBUpload(View view) {
 
         // somehow need to be able to get the image as well
-
         EditText title = (EditText) findViewById(R.id.title_text);
         EditText address = (EditText) findViewById(R.id.address_text);
         EditText description = (EditText) findViewById(R.id.description_text);
         EditText price = (EditText) findViewById(R.id.price_text);
 
-        String titleText = title.getText().toString();
+        String titleText = title.getText().toString().toLowerCase();
         String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
         double priceVal = Double.valueOf(price.getText().toString()).doubleValue();
-
 
         Log.d(TAG, titleText + " " + priceVal + " " + addressText + " " + descriptionText);
 
@@ -72,26 +77,21 @@ public class UploadActivity extends ActionBarActivity {
         vals.put(KEY_DESC, descriptionText);
         long newRowId = db.insert("item", null, vals);
 
-        // this is just to check shit got uploaded to DB
-        db = mHaggleDB.getReadableDatabase();
-        String[] columns = { KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE };
-        Cursor c = db.query("item", columns, null, null, null, null, null);
-        c.moveToFirst();
-        String titlel = c.getString(c.getColumnIndex(KEY_TITLE));
-        Log.v("TITLE_TAG", titlel);
-        String addr = c.getString(c.getColumnIndex(KEY_ADDR));
-        Log.v("ADDR_TAG", addr);
-        String desc = c.getString(c.getColumnIndex(KEY_DESC));
-        Log.v("DESC_TAG", desc);
-        double prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
-        Log.v("DESC_TAG", "price is " + prc);
+        // clear all text
+        title.setText("");
+        address.setText("");
+        price.setText("");
+        description.setText("");
 
+        // message sent to let user know updated
+        Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
     }
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
-        // fill in
         //first try
+        Button btn = (Button) findViewById(R.id.imagebtn);
+        btn.setVisibility(View.INVISIBLE);
         dispatchTakePictureIntent();
     }
 
@@ -117,6 +117,11 @@ public class UploadActivity extends ActionBarActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        ImageView image = (ImageView) findViewById(R.id.imageView1);
+        image.setImageURI(realPhoto);
+        image.getLayoutParams().width = 1000;
+        image.getLayoutParams().height = 500;
+        image.setVisibility(View.VISIBLE);
 
     }
 

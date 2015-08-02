@@ -28,8 +28,16 @@
         </service>
 
         <activity
+            android:name=".ListViewActivity"
+            android:label="ListViewActivity" >
+        </activity>
+        <activity
             android:name=".UploadActivity"
             android:label="@string/title_activity_upload" >
+        </activity>
+        <activity
+            android:name=".ResultsActivity"
+            android:label="@string/title_activity_results" >
         </activity>
     </application>
 

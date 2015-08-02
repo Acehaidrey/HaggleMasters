@@ -1,99 +1,222 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@color/blu"
+    android:layout_height="match_parent"
+    android:background="@drawable/marketplace"
     android:weightSum="1"
     android:orientation="vertical"
-    tools:context="app.com.example.android.hagglemaster.UploadActivity">
+    tools:context="app.com.example.android.hagglemaster.UploadActivity"
+    android:visibility="visible">
 
-    <TextView android:text="@string/upload_title"
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/off_white"
-        android:paddingBottom="20dp"
-        />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/newblu"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true">
 
-    <Button
-        android:id="@+id/imagebtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="@color/blu"
-        android:background="@android:color/white"
-        android:text="@string/imgbtn"
-        android:layout_marginBottom="10dp"
-        android:onClick="cameraOpen"
-        />
-
-    <EditText
-        android:textColor="@color/blu"
-        android:id="@+id/title_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="@android:color/white"
-        android:hint="@string/title"
-        android:layout_marginBottom="10dp"/>
-
-    <EditText
-        android:id="@+id/price_text"
-        android:textColor="@color/blu"
-        android:singleLine="true"
-        android:paddingLeft="5dp"
-        android:inputType="numberDecimal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:hint="@string/price"
-        android:layout_marginBottom="10dp"/>
-
-    <EditText
-        android:textColor="@color/blu"
-        android:id="@+id/address_text"
-        android:singleLine="true"
-        android:paddingTop="10dp"
-        android:paddingLeft="5dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:hint="@string/address"
-        android:layout_marginBottom="10dp"/>
-
-    <EditText
-        android:id="@+id/description_text"
-        android:textColor="@color/blu"
-        android:paddingLeft="5dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:hint="@string/description"
-        android:lines="2"
-        android:maxLines="2"
-        android:layout_marginBottom="10dp"/>
-
-    <Button
-        android:id="@+id/uploadbtn"
-        android:textColor="@color/blu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/upload_submit"
-        android:background="@android:color/white"
-        android:layout_gravity="center_horizontal"
-        android:onClick="DBUpload"/>
+        <TextView android:text="@string/upload_title"
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:paddingLeft="40dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/off_white"
+            android:paddingBottom="20dp"
+            />
+        <!--<Button-->
+        <!--android:id="@+id/imagebtn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:textColor="@color/blu"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:text="@string/imgbtn"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:onClick="cameraOpen"-->
+        <!--/>-->
 
 
-</LinearLayout>
+        <EditText
+            android:textColor="@color/blu"
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:paddingStart="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/rounded_edittext"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/title"
+            android:layout_above="@+id/textView"
+            android:layout_marginLeft="10dp"
+            android:layout_alignStart="@+id/textView" />
+
+
+        <EditText
+            android:id="@+id/price_text"
+            android:textColor="@color/blu"
+            android:singleLine="true"
+            android:layout_marginEnd="10dp"
+            android:paddingStart="5dp"
+            android:inputType="numberDecimal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            android:hint="@string/price"
+            android:layout_alignBottom="@+id/imagebtn"
+            android:layout_marginLeft="10dp"
+            android:layout_alignStart="@+id/textView" />
+
+
+        <EditText
+            android:textColor="@color/blu"
+            android:id="@+id/address_text"
+            android:singleLine="true"
+            android:paddingTop="10dp"
+            android:paddingStart="5dp"
+            android:paddingBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            android:hint="@string/address"
+            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/price_text" />
+
+
+        <EditText
+            android:id="@+id/description_text"
+            android:textColor="@color/blu"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            android:hint="@string/description"
+            android:lines="2"
+            android:minHeight="30dp"
+            android:maxLines="2"
+            android:layout_below="@+id/address_text"
+            android:layout_alignEnd="@+id/price_text"
+            android:layout_marginTop="41dp" />
+
+
+        <Button
+            android:id="@+id/uploadbtn"
+            android:textColor="@color/blu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_submit"
+            android:background="@drawable/rounded_edittext"
+            android:layout_gravity="center_horizontal"
+            android:onClick="DBUpload"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="56dp" />
+
+        <Button
+            android:id="@+id/imagebtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blu"
+            android:background="@color/offwhite"
+            android:text="@string/imgbtn"
+            android:onClick="cameraOpen"
+            android:maxHeight="128dp"
+            android:minHeight="128dp"
+            android:maxWidth="150dp"
+            android:minWidth="150dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@+id/uploadbtn"
+            android:layout_above="@+id/textView3"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/Price"
+            android:id="@+id/textView"
+            android:textColor="@color/off_white"
+            android:layout_above="@+id/price_text"
+            android:layout_alignEnd="@+id/uploadbtn"
+            android:paddingStart="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/Name"
+            android:id="@+id/textView2"
+            android:textColor="@color/off_white"
+            android:layout_above="@+id/title_text"
+            android:layout_alignStart="@+id/price_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/Location"
+            android:id="@+id/textView3"
+            android:layout_marginTop="5dp"
+            android:paddingStart="15dp"
+            android:textColor="@color/off_white"
+            android:layout_above="@+id/address_text"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/Description"
+            android:textColor="@color/off_white"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:id="@+id/textView4"
+            android:layout_below="@+id/address_text"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/imageframe"
+            android:src="@drawable/frame"
+            android:layout_width="wrap_content"
+            android:layout_height="1918dp"
+            android:layout_above="@+id/textView3"
+            android:layout_below="@+id/title"
+            android:layout_alignStart="@+id/address_text"
+            android:layout_alignParentStart="false"
+            android:layout_toStartOf="@+id/uploadbtn"
+            android:layout_marginRight="-5dp" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:maxHeight="50dp"
+            android:maxWidth="800dp"
+            android:minHeight="50dp"
+            android:layout_alignTop="@+id/imagebtn"
+            android:layout_alignStart="@+id/imagebtn"
+            android:layout_toStartOf="@+id/uploadbtn"
+            android:layout_alignEnd="@+id/imagebtn"
+            android:layout_alignBottom="@+id/imagebtn"
+            android:layout_marginBottom="1dp" />
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
+
