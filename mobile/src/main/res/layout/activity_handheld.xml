@@ -21,7 +21,13 @@
             android:text="@string/HaggleMaster"
             android:id="@+id/title"
             android:textSize="50sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:shadowColor="#454545"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="2"/>
 
     </LinearLayout>
 
