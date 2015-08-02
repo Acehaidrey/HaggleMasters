@@ -36,7 +36,6 @@
         <!--android:onClick="cameraOpen"-->
         <!--/>-->
 
-
         <EditText
             android:textColor="@color/blu"
             android:id="@+id/title_text"

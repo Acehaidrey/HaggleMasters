@@ -4,13 +4,19 @@ package app.com.example.android.hagglemaster;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
+import android.support.v4.content.LocalBroadcastManager;
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,12 +80,25 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         queryDescription = new ArrayList<String>();
         queryImage = new ArrayList<byte[]>();
 
+
         title = (TextView) findViewById(R.id.title);
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         animFadein.setDuration(3500);
         title.startAnimation(animFadein);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mMessageReceiver, new IntentFilter("upload!!!"));
     }
 
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //String action = intent.getAction();
+            Log.d(TAG, "upload!!!!");
+            Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
+            startActivity(uploadIntent);
+        }
+    };
     @Override
     public void onAnimationEnd(Animation animation) {
         // Take any action after completing the animation
@@ -127,29 +146,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 queryImage.add(pic);
 
             } while(c.moveToNext());
-
-
-//            String titlel = c.getString(c.getColumnIndex(KEY_TITLE));
-//            String addr = c.getString(c.getColumnIndex(KEY_ADDR));
-//            String desc = c.getString(c.getColumnIndex(KEY_DESC));
-//            double prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
-//
-//            queryTitle.add(titlel);
-//            queryAddress.add(addr);
-//            queryDescription.add(desc);
-//            queryPrice.add(prc);
-//
-//            while (c.moveToNext()) {
-//                titlel = c.getString(c.getColumnIndex(KEY_TITLE));
-//                addr = c.getString(c.getColumnIndex(KEY_ADDR));
-//                desc = c.getString(c.getColumnIndex(KEY_DESC));
-//                prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
-//
-//                queryTitle.add(titlel);
-//                queryAddress.add(addr);
-//                queryDescription.add(desc);
-//                queryPrice.add(prc);
-//            }
 
             Intent resultsIntent = new Intent(this, ResultsActivity.class);
             resultsIntent.putExtra("queryItem", query);

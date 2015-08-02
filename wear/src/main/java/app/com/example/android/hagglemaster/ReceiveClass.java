@@ -56,6 +56,8 @@ public class ReceiveClass extends WearableListenerService{
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.cancel(notificationId);
         Log.d("onDataChange", "here");
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "onDataChanged: " + dataEvents);
@@ -93,20 +95,28 @@ public class ReceiveClass extends WearableListenerService{
         Intent viewIntent = new Intent(this, WearActivity.class);
         PendingIntent pendingViewIntent = PendingIntent.getActivity(this, 0, viewIntent, 0);
 
+        Intent clickIntent = new Intent(this, GoogleApiClientService.class);
+        PendingIntent clickPendingIntent =
+                PendingIntent.getService(this, 0, clickIntent, 0);
         // this intent will be sent when the user swipes the notification to dismiss it
 //        Intent dismissIntent = new Intent(Constants.ACTION_DISMISS);
 //        PendingIntent pendingDeleteIntent = PendingIntent.getService(this, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //Intent purchaseIntent = new Intent(this, UploadActivity.class);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setContentIntent(pendingViewIntent);
+                .setContentIntent(pendingViewIntent)
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                .addAction(R.mipmap.pic1,
+                        getString(R.string.purchase), clickPendingIntent);;
 
         Notification notification = builder.build();
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-        notificationManagerCompat.notify(notificationId++, notification);
+        notificationManagerCompat.notify(notificationId, notification);
+
     }
 
 //    private void dismissNotification() {
