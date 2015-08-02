@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".UploadActivity"
-            android:label="@string/title_activity_upload" >
+            android:label="@string/title_activity_upload">
         </activity>
         <activity
             android:name=".ResultsActivity"

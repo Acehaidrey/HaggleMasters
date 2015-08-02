@@ -1,9 +1,12 @@
 package app.com.example.android.hagglemaster;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -44,6 +48,8 @@ public class UploadActivity extends ActionBarActivity {
     private static final String TAG = "UploadActivityTAG";
     private String mCurrentPhotoPath = null;
     private Uri realPhoto = null;
+    private byte[] img = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,24 @@ public class UploadActivity extends ActionBarActivity {
         EditText address = (EditText) findViewById(R.id.address_text);
         EditText description = (EditText) findViewById(R.id.description_text);
         EditText price = (EditText) findViewById(R.id.price_text);
+        ImageView imgView = (ImageView) findViewById(R.id.imageView1);
+        Button imgbut = (Button) findViewById(R.id.imagebtn);
+
+        // bitmap stuff to put image in db
+//        Bitmap bm = ((BitmapDrawable)imgView.getDrawable()).getBitmap();
+        try
+        {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver() , realPhoto);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            img = bos.toByteArray();
+        }
+        catch (Exception e)
+        {
+            // handle exception
+            Log.e(TAG, "error handling bitmap");
+        }
+
 
         String titleText = title.getText().toString().toLowerCase();
         String addressText = address.getText().toString();
@@ -70,28 +94,34 @@ public class UploadActivity extends ActionBarActivity {
 
         db = mHaggleDB.getWritableDatabase();
         ContentValues vals = new ContentValues();
-//        vals.put(KEY_IMG, null); // THIS IS JUST TEMPORARY FIX
         vals.put(KEY_TITLE, titleText);
         vals.put(KEY_PRICE, priceVal);
         vals.put(KEY_ADDR, addressText);
         vals.put(KEY_DESC, descriptionText);
-        long newRowId = db.insert("item", null, vals);
+        vals.put(KEY_IMG, img);
+        db.insert("item", null, vals);
 
         // clear all text
         title.setText("");
         address.setText("");
         price.setText("");
         description.setText("");
+        imgView.setVisibility(View.INVISIBLE);
+        imgbut.setVisibility(View.VISIBLE);
+
 
         // message sent to let user know updated
         Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
     }
+
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
         //first try
         Button btn = (Button) findViewById(R.id.imagebtn);
         btn.setVisibility(View.INVISIBLE);
+        ImageView frame = (ImageView) findViewById(R.id.imageframe);
+        frame.setVisibility(View.INVISIBLE);
         dispatchTakePictureIntent();
     }
 
@@ -121,6 +151,8 @@ public class UploadActivity extends ActionBarActivity {
         image.setImageURI(realPhoto);
         image.getLayoutParams().width = 1000;
         image.getLayoutParams().height = 500;
+        ImageView frame = (ImageView) findViewById(R.id.imageframe);
+        frame.setVisibility(View.VISIBLE);
         image.setVisibility(View.VISIBLE);
 
     }

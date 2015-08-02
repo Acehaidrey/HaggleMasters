@@ -6,10 +6,6 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -63,6 +59,10 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
+        startActivity(uploadIntent);
+
         setContentView(R.layout.activity_handheld);
         mHaggleDB = new HaggleDB(getApplicationContext());
         queryTitle = new ArrayList<String>();
@@ -75,8 +75,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 //        startActivity(listView);
 
 
-//        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
-//        startActivity(uploadIntent);
+
 
 
         title = (TextView) findViewById(R.id.title);
@@ -136,8 +135,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     public void startSearch(View view) {
 
         EditText searchText = (EditText) findViewById(R.id.search_query);
-        String query = searchText.getText().toString();
-//        .toLowerCase();
+        String query = searchText.getText().toString().toLowerCase();
         Log.d(TAG, "Query is " + query);
 
 
@@ -180,7 +178,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putStringArrayListExtra("titleAL", queryTitle);
             resultsIntent.putExtra("priceAL", queryPrice);
             startActivity(resultsIntent);
-
 
         } else {
             // TODO: make exception for wrong input or blank input
