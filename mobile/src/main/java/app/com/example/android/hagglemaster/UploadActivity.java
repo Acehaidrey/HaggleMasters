@@ -52,8 +52,7 @@ public class UploadActivity extends ActionBarActivity {
         mHaggleDB = new HaggleDB(getApplicationContext());
     }
 
-    /** submit button clicked. need to upload shiza to the db, and then add a modal or
-     * something to show that it was submitted */
+    /** submit button clicked. need to upload shiza to the db */
     public void DBUpload(View view) {
 
         // somehow need to be able to get the image as well
@@ -62,7 +61,7 @@ public class UploadActivity extends ActionBarActivity {
         EditText description = (EditText) findViewById(R.id.description_text);
         EditText price = (EditText) findViewById(R.id.price_text);
 
-        String titleText = title.getText().toString();
+        String titleText = title.getText().toString().toLowerCase();
         String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
         double priceVal = Double.valueOf(price.getText().toString()).doubleValue();
@@ -90,7 +89,6 @@ public class UploadActivity extends ActionBarActivity {
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
-        // fill in
         //first try
         Button btn = (Button) findViewById(R.id.imagebtn);
         btn.setVisibility(View.INVISIBLE);

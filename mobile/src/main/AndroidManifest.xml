@@ -27,7 +27,6 @@
             </intent-filter>
         </service>
 
-
         <activity
             android:name=".ListViewActivity"
             android:label="ListViewActivity" >
@@ -39,6 +38,10 @@
         <activity
             android:name=".DisplayResultsActivity"
             android:label="@string/title_activity_display_results" >
+        </activity>
+        <activity
+            android:name=".ResultsActivity"
+            android:label="@string/title_activity_results" >
         </activity>
     </application>
 
