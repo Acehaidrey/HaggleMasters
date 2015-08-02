@@ -37,7 +37,7 @@
     <EditText
         android:textColor="@color/blu"
         android:id="@+id/title_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:paddingLeft="5dp"
@@ -45,8 +45,8 @@
         android:paddingBottom="10dp"
         android:background="@android:color/white"
         android:hint="@string/title"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_below="@+id/imageView1"
+        android:layout_alignStart="@+id/price_text" />
 
     <EditText
         android:id="@+id/price_text"
@@ -56,11 +56,12 @@
         android:inputType="numberDecimal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:hint="@string/price"
-        android:layout_marginBottom="10dp"/>
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_toEndOf="@+id/title" />
 
 
     <EditText
@@ -74,8 +75,8 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:hint="@string/address"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 
 
     <EditText
@@ -89,10 +90,10 @@
         android:background="@android:color/white"
         android:hint="@string/description"
         android:lines="2"
-        android:layout_marginTop="10dp"
         android:minHeight="30dp"
         android:maxLines="2"
-        android:layout_marginBottom="10dp"/>
+        android:layout_below="@+id/address_text"
+        android:layout_alignParentStart="false" />
 
 
     <Button
@@ -105,11 +106,12 @@
         android:layout_gravity="center_horizontal"
         android:onClick="DBUpload"
         android:layout_marginLeft="120dp"
-        android:layout_marginTop="10dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         android:adjustViewBounds="true"
@@ -123,18 +125,17 @@
 
     <Button
         android:id="@+id/imagebtn"
-        android:layout_below="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:textColor="@color/blu"
         android:background="@android:color/white"
         android:text="@string/imgbtn"
-        android:layout_marginBottom="10dp"
         android:onClick="cameraOpen"
-        android:layout_marginTop="-10dp"
         android:maxHeight="150dp"
-        android:minHeight="150dp" />
+        android:minHeight="150dp"
+        android:layout_below="@+id/title"
+        android:layout_alignParentStart="true" />
 
 
 
