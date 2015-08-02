@@ -15,6 +15,10 @@
     <string name="price">Item Price</string>
     <string name="title_activity_display_results">DisplayResultsActivity</string>
     <string name="result_title">Search Results</string>
+    <string name="Location">Location:</string>
+    <string name="Description">Description:</string>
+    <string name="Name">Name:</string>
+    <string name="Price">Price:</string>
 
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>
