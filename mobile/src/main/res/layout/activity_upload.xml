@@ -212,11 +212,7 @@
             android:layout_alignEnd="@+id/imagebtn"
             android:layout_alignBottom="@+id/imagebtn"
             android:layout_marginBottom="1dp" />
-
     </RelativeLayout>
-
-
-
 
 </RelativeLayout>
 
