@@ -2,9 +2,14 @@ package app.com.example.android.hagglemaster;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
+import android.app.Activity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 public class WearActivity extends Activity {
 
@@ -15,18 +20,29 @@ public class WearActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wear);
 
+        /*
+        mTextView = (TextView) findViewById(R.id.logotext);
+        Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/CCokerHand1.ttf");
+        mTextView.setTypeface(typeFace);
+        */
+
         // start messaging through GoogleApiClient
         Intent serviceIntent = new Intent(getApplicationContext(), GoogleApiClientService.class);
         startService(serviceIntent);
 
-        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
-        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
-            @Override
-            public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
-            }
-        });
+        /*
+        mTextView = (TextView)findViewById(R.id.text);
 
-
+        Animation animationFadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        mTextView.startAnimation(animationFadeIn);
+        */
     }
+    /*
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        mTextView.clearAnimation();
+    }
+    */
 }

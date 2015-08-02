@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:orientation="vertical"
-    tools:context=".WearActivity" tools:deviceIds="wear_square">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".WearActivity"
+    tools:deviceIds="wear_square"
+    android:background="@drawable/marketplace">
 
-    <TextView android:id="@+id/text" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="@string/hello_square" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#CC122C4B"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/logotext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="HaggleMaster"
+            android:textSize="35dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:shadowColor="#454545"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="2"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="120dp"
+            android:gravity="center" >
+
+            <ProgressBar
+                android:id="@+id/loadingPanel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/loadingPanel"
+                android:layout_marginTop="13dp"
+                android:text="waiting for friends' input"
+                android:textSize="12.5dp"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="italic"
+                android:shadowColor="#454545"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:shadowRadius="2"
+                android:gravity="center" />
+
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

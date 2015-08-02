@@ -8,11 +8,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+<<<<<<< HEAD
 import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
+=======
+>>>>>>> 944960ee2c45a764b50923c8a29ce2c1044de110
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -37,15 +40,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 
 public class HandheldActivity extends Activity implements Animation.AnimationListener {
-
-    TextView title;
-    Animation animFadein;
-
-    private HaggleDB mHaggleDB;
-    private SQLiteDatabase db;
 
     private static final String DATABASE_NAME = "item";
     private static final String KEY_TITLE = "title";
@@ -57,22 +55,37 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     private static final String TAG = "handheldMainTAG";
 
+    TextView title;
+    Animation animFadein;
+
+    private HaggleDB mHaggleDB;
+    private SQLiteDatabase db;
+    private ArrayList<String> queryTitle;
+    private ArrayList<Double> queryPrice;
+    private ArrayList<String> queryAddress;
+    private ArrayList<String> queryDescription;
+//    private ArrayList<String> queryImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
+        startActivity(uploadIntent);
+
         setContentView(R.layout.activity_handheld);
         mHaggleDB = new HaggleDB(getApplicationContext());
+        queryTitle = new ArrayList<String>();
+        queryPrice = new ArrayList<Double>();
+        queryAddress = new ArrayList<String>();
+        queryDescription = new ArrayList<String>();
 
 
         Intent listView = new Intent(this, ListViewActivity.class);
         startActivity(listView);
 
 
-
-
-//        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
-//        startActivity(uploadIntent);
 
 
         title = (TextView) findViewById(R.id.title);
@@ -140,47 +153,57 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     }
 
     /** on click for search icon */
+    // TODO: if item doesn't exist in our DB or if pass in nothing don't break!
     public void startSearch(View view) {
-//         Intent resultsIntent = new Intent(getApplicationContext(), DisplayResultsActivity.class);
-//         startActivity(resultsIntent);
-
-//         Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
-//         startActivity(uploadIntent);
 
         EditText searchText = (EditText) findViewById(R.id.search_query);
-        String query = searchText.getText().toString();
+        String query = searchText.getText().toString().toLowerCase();
         Log.d(TAG, "Query is " + query);
 
 
         // this is just to check shit got uploaded to DB
         db = mHaggleDB.getReadableDatabase();
-        String[] columns = { KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE };
+        String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE};
         String predicate = "title = ?";
         String[] predicate_values = {query};
         String orderBy = "price ASC";
 
         Cursor c = db.query("item", columns, predicate, predicate_values, null, null, orderBy);
-        c.moveToFirst();
 
-        String titlel = c.getString(c.getColumnIndex(KEY_TITLE));
-        Log.v("TITLE_TAG from main", titlel);
-        String addr = c.getString(c.getColumnIndex(KEY_ADDR));
-        Log.v("ADDR_TAG", addr);
-        String desc = c.getString(c.getColumnIndex(KEY_DESC));
-        Log.v("DESC_TAG", desc);
-        double prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
-        Log.v("DESC_TAG", "price is " + prc);
+        if (c != null) {
+            c.moveToFirst();
+            String titlel = c.getString(c.getColumnIndex(KEY_TITLE));
+            String addr = c.getString(c.getColumnIndex(KEY_ADDR));
+            String desc = c.getString(c.getColumnIndex(KEY_DESC));
+            double prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
 
-        while (c.moveToNext()) {
-            titlel = c.getString(c.getColumnIndex(KEY_TITLE));
-            Log.v("TITLE_TAG from main", titlel);
-            addr = c.getString(c.getColumnIndex(KEY_ADDR));
-            Log.v("ADDR_TAG", addr);
-            desc = c.getString(c.getColumnIndex(KEY_DESC));
-            Log.v("DESC_TAG", desc);
-            prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
-            Log.v("DESC_TAG", "price is " + prc);
+            queryTitle.add(titlel);
+            queryAddress.add(addr);
+            queryDescription.add(desc);
+            queryPrice.add(prc);
+
+            while (c.moveToNext()) {
+                titlel = c.getString(c.getColumnIndex(KEY_TITLE));
+                addr = c.getString(c.getColumnIndex(KEY_ADDR));
+                desc = c.getString(c.getColumnIndex(KEY_DESC));
+                prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
+
+                queryTitle.add(titlel);
+                queryAddress.add(addr);
+                queryDescription.add(desc);
+                queryPrice.add(prc);
+            }
+
+            Intent resultsIntent = new Intent(this, ResultsActivity.class);
+            resultsIntent.putExtra("queryItem", query);
+            resultsIntent.putStringArrayListExtra("addressAL", queryAddress);
+            resultsIntent.putStringArrayListExtra("titleAL", queryTitle);
+            resultsIntent.putExtra("priceAL", queryPrice);
+            startActivity(resultsIntent);
+
+        } else {
+            // TODO: make exception for wrong input or blank input
+            Toast.makeText(this, "Sorry, item not found ):", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
