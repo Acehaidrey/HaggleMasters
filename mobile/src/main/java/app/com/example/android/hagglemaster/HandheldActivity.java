@@ -4,11 +4,22 @@ package app.com.example.android.hagglemaster;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
+<<<<<<< HEAD
+import android.content.IntentFilter;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+
+=======
+>>>>>>> 944960ee2c45a764b50923c8a29ce2c1044de110
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,9 +82,8 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         queryDescription = new ArrayList<String>();
 
 
-//        Intent listView = new Intent(this, ListViewActivity.class);
-//        startActivity(listView);
-
+        Intent listView = new Intent(this, ListViewActivity.class);
+        startActivity(listView);
 
 
 
@@ -82,8 +92,20 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         animFadein.setDuration(3500);
         title.startAnimation(animFadein);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mMessageReceiver, new IntentFilter("upload!!!"));
     }
 
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //String action = intent.getAction();
+            Log.d(TAG, "upload!!!!");
+            Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
+            startActivity(uploadIntent);
+        }
+    };
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

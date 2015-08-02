@@ -1,14 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ListView
-        android:id="@+id/list"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="8px">
-    </ListView>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/newblu"
+    tools:context="app.com.example.android.hagglemaster.Suggestions"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:weightSum="1"
+    android:visibility="visible">
 
-</LinearLayout>
+    <TextView android:text="Suggestion"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/off_white"
+        android:paddingBottom="20dp"
+        />
+
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:text="higher"
+        android:id="@+id/higher"
+        android:drawableBottom="@drawable/up2"
+        android:layout_marginLeft="40dp"
+        android:layout_alignParentStart="false"
+        android:layout_marginBottom="59dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/off_white"/>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:text="lower"
+        android:id="@+id/lower"
+        android:drawableBottom="@drawable/down2"
+        android:layout_marginRight="40dp"
+        android:layout_alignTop="@+id/higher"
+        android:background="@color/off_white"
+        android:layout_alignParentEnd="true" />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:id="@+id/take"
+        android:drawableBottom="@drawable/take2"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/lower"
+        android:background="@color/off_white"
+        android:layout_marginTop="20dp"
+        android:text="take" />
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:text="leave"
+        android:id="@+id/leave"
+        android:drawableBottom="@drawable/leave4"
+        android:layout_alignTop="@+id/take"
+        android:background="@color/off_white"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="40dp" />
+
+    <TextView android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/off_white"
+        android:text="Suggest Price: "
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="150dp"
+        android:layout_marginTop="10dp">
+    </TextView>
+
+    <EditText
+        android:id="@+id/editPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/price"
+        android:textColor="@color/off_white"
+        android:layout_toEndOf="@+id/price">
+    </EditText>
+
+    <TextView android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/off_white"
+        android:text="Personal Message: "
+        android:layout_below="@+id/editPrice"
+        android:layout_alignParentStart="true">
+    </TextView>
+
+    <EditText
+        android:id="@+id/editMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/off_white"
+        android:layout_alignTop="@+id/message"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/message"
+        android:inputType="textMultiLine">
+    </EditText>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="send"
+        android:id="@+id/send"
+        android:background="@color/off_white"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="20dp" />
+
+</RelativeLayout>
