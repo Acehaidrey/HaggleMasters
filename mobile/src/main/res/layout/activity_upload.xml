@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/blu"
+    android:weightSum="1"
+    android:orientation="vertical"
+    tools:context="app.com.example.android.hagglemaster.UploadActivity">
+
+    <TextView android:text="@string/upload_title"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/off_white"
+        android:paddingBottom="20dp"
+        />
+
+    <Button
+        android:id="@+id/imagebtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/blu"
+        android:background="@android:color/white"
+        android:text="@string/imgbtn"
+        android:layout_marginBottom="10dp"
+        android:onClick="cameraOpen"
+        />
+
+    <EditText
+        android:textColor="@color/blu"
+        android:id="@+id/title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@android:color/white"
+        android:hint="@string/title"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/price_text"
+        android:textColor="@color/blu"
+        android:singleLine="true"
+        android:paddingLeft="5dp"
+        android:inputType="numberDecimal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:hint="@string/price"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:textColor="@color/blu"
+        android:id="@+id/address_text"
+        android:singleLine="true"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:hint="@string/address"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/description_text"
+        android:textColor="@color/blu"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:hint="@string/description"
+        android:lines="2"
+        android:maxLines="2"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/uploadbtn"
+        android:textColor="@color/blu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_submit"
+        android:background="@android:color/white"
+        android:layout_gravity="center_horizontal"
+        android:onClick="DBUpload"/>
+
+
+</LinearLayout>

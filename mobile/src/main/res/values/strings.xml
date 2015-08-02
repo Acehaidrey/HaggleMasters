@@ -1,6 +1,20 @@
 <resources>
     <string name="app_name">HaggleMaster</string>
-
     <string name="hello_world">Let the haggling begin!</string>
     <string name="action_settings">Settings</string>
+    <string name="search_query">Search for an item</string>
+    <string name="search">Search</string>
+    <color name="newblu">#CC122C4B</color>
+    <color name="offwhite">#FEFBF7</color>
+    <color name="darkgray">#a3a3a3</color>
+    <string name="title_activity_upload">UploadActivity</string>
+    <string name="upload_title">Upload Your Product!</string>
+    <string name="imgbtn">Add Image</string>
+    <string name="title">Item Name</string>
+    <string name="address">Purchase Location</string>
+    <string name="description">Item Description</string>
+    <string name="upload_submit">Upload</string>
+    <string name="price">Item Price</string>
+    <color name="blu">#122C4B</color>
+    <color name="off_white">#FEFBF7</color>
 </resources>
