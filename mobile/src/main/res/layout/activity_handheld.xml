@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.92"
                 android:textColorHint="@color/offwhite"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:hint="@string/search_query"
                 android:textColor="@color/offwhite"
                 android:gravity="center"

@@ -9,6 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.IntentFilter;
+import android.graphics.Typeface;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -69,10 +74,10 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
-//        startActivity(uploadIntent);
-
         setContentView(R.layout.activity_handheld);
+        TextView t = (TextView) findViewById(R.id.title);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
         queryTitle = new ArrayList<String>();
         queryPrice = new ArrayList<Double>();

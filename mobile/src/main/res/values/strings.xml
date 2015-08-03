@@ -30,4 +30,5 @@
     <color name="blu">#122C4B</color>
     <color name="off_white">#FEFBF7</color>
     <string name="title_activity_results">ResultsActivity</string>
+    <string name="title_activity_search_details">SearchDetails</string>
 </resources>
