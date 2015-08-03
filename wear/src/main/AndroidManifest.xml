@@ -33,9 +33,6 @@
             android:name=".GoogleApiClientService"
             android:exported="false" >
         </service>
-        <service
-            android:name=".SendingService"
-            android:exported="false" />
     </application>
 
 </manifest>

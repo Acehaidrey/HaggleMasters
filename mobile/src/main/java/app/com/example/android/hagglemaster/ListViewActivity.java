@@ -5,6 +5,7 @@ import android.app.LauncherActivity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -58,7 +59,13 @@ public class ListViewActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mylist);
         // Get ListView object from xml
+        TextView t = (TextView) findViewById(R.id.title);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        t.setTypeface(type);
 
+//        TextView textView = (TextView) findViewById(R.id.date);
+//        String Date= DateFormat.getDateTimeInstance().format(new Date());
+//        textView.setText(Date);
 
         mGoogleApiClient = new GoogleApiClient.Builder(ListViewActivity.this)
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
