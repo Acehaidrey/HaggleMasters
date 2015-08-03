@@ -1,0 +1,174 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context="app.com.example.android.hagglemaster.SearchDetails">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/blu"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/important"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="15dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="purchase made 5 days ago"
+                android:textStyle="italic"
+                android:textColor="@color/off_white"
+                android:layout_below="@+id/important"
+                android:layout_alignEnd="@+id/save" />
+
+            <TextView
+                android:id="@+id/finalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="final price:"
+                android:textColor="@color/off_white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/startingprice"
+                android:layout_alignStart="@+id/startingprice"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/startingprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="starting price:"
+                android:textColor="@color/off_white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/timestamp"
+                android:layout_alignStart="@+id/timestamp"
+                android:layout_marginTop="15dp" />
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="save for later?"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/finalprice"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:background="@drawable/rounded_edittext"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/off_white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/important"
+            android:layout_toStartOf="@+id/important"
+            android:layout_margin="15dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/image">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/important"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:id="@+id/description">
+
+            <TextView
+                android:id="@+id/description_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/off_white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/map"
+            android:layout_above="@+id/map_img"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/map_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/off_white" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start HaggleHelper"
+            android:id="@+id/hagglehelper"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:background="@drawable/rounded_edittext"/>
+
+        <ImageView
+            android:id="@+id/map_img"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@color/off_white"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_above="@+id/hagglehelper"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="35dp" />
+
+        <TextView
+            android:id="@+id/description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="65dp"
+            android:textColor="@color/off_white"
+            android:text="the birds and the bees are singing in the trees and grapes are tasty but so is boba and is this text long enough yet omg"
+            android:textStyle="italic"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="10dp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
+

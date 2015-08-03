@@ -9,8 +9,8 @@
     android:background="@drawable/marketplace">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#CC122C4B"
         android:orientation="vertical"
         android:gravity="center">
@@ -37,13 +37,13 @@
 
             <ProgressBar
                 android:id="@+id/loadingPanel"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:gravity="center" />
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/loadingPanel"
                 android:layout_marginTop="13dp"
