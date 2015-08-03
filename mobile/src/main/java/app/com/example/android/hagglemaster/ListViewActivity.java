@@ -192,6 +192,5 @@ public class ListViewActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    }
+}
 

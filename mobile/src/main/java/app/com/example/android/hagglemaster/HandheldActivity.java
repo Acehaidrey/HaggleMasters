@@ -104,6 +104,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             startActivity(uploadIntent);
         }
     };
+
     @Override
     public void onAnimationEnd(Animation animation) {
         // Take any action after completing the animation
@@ -121,7 +122,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         EditText searchText = (EditText) findViewById(R.id.search_query);
         String query = searchText.getText().toString().toLowerCase();
-        Log.d(TAG, "Query is " + query);
 
         db = mHaggleDB.getReadableDatabase();
         String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE, KEY_IMG};
@@ -156,6 +156,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putExtra("queryItem", query);
             resultsIntent.putStringArrayListExtra("addressAL", queryAddress);
             resultsIntent.putStringArrayListExtra("titleAL", queryTitle);
+            resultsIntent.putStringArrayListExtra("descriptionAL", queryDescription);
             resultsIntent.putExtra("priceAL", queryPrice);
             resultsIntent.putExtra("imageAL", queryImage);
             startActivity(resultsIntent);

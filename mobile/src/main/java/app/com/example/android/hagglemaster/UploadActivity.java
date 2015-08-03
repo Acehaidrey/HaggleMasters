@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
@@ -35,7 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class UploadActivity extends ActionBarActivity {
+public class UploadActivity extends Activity {
 
     private static final String DATABASE_NAME = "item";
     private static final String KEY_TITLE = "title";
@@ -58,6 +59,9 @@ public class UploadActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        TextView t = (TextView) findViewById(R.id.title);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
     }
 
@@ -89,7 +93,6 @@ public class UploadActivity extends ActionBarActivity {
         String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
         double priceVal = Double.valueOf(price.getText().toString());
-//        Log.d(TAG, titleText + " " + priceVal + " " + addressText + " " + descriptionText);
 
         db = mHaggleDB.getWritableDatabase();
         ContentValues vals = new ContentValues();
@@ -100,6 +103,9 @@ public class UploadActivity extends ActionBarActivity {
         vals.put(KEY_IMG, img);
         db.insert("item", null, vals);
 
+        // message sent to let user know updated
+        Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
+
         // clear all text and remove image
         title.setText("");
         address.setText("");
@@ -108,8 +114,6 @@ public class UploadActivity extends ActionBarActivity {
         imgView.setVisibility(View.INVISIBLE);
         imgbut.setVisibility(View.VISIBLE);
 
-        // message sent to let user know updated
-        Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -163,7 +167,6 @@ public class UploadActivity extends ActionBarActivity {
         Log.d(TAG, "image path is..." + mCurrentPhotoPath);
         return image;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -23,6 +23,7 @@
             android:paddingLeft="40dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/off_white"
+            android:paddingTop="18dp"
             android:paddingBottom="20dp"
             />
         <!--<Button-->
@@ -117,9 +118,9 @@
             android:background="@drawable/rounded_edittext"
             android:layout_gravity="center_horizontal"
             android:onClick="DBUpload"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/description_text"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="56dp" />
+            android:layout_marginTop="41dp" />
 
         <Button
             android:id="@+id/imagebtn"
