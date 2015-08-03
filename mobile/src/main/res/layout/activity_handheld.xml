@@ -21,7 +21,13 @@
             android:text="@string/HaggleMaster"
             android:id="@+id/title"
             android:textSize="50sp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:shadowColor="#454545"
+            android:shadowDx="-2"
+            android:shadowDy="-2"
+            android:shadowRadius="2"/>
 
     </LinearLayout>
 
@@ -48,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.92"
                 android:textColorHint="@color/offwhite"
-                android:textSize="20sp"
+                android:textSize="25sp"
                 android:hint="@string/search_query"
                 android:textColor="@color/offwhite"
                 android:gravity="center"

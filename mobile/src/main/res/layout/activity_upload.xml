@@ -38,7 +38,6 @@
         <!--android:onClick="cameraOpen"-->
         <!--/>-->
 
-
         <EditText
             android:textColor="@color/blu"
             android:id="@+id/title_text"
@@ -214,11 +213,7 @@
             android:layout_alignEnd="@+id/imagebtn"
             android:layout_alignBottom="@+id/imagebtn"
             android:layout_marginBottom="1dp" />
-
     </RelativeLayout>
-
-
-
 
 </RelativeLayout>
 

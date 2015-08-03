@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/loadingPanel"
                 android:layout_marginTop="13dp"
-                android:text="waiting for friends' input"
+                android:text="waiting for friend's input"
                 android:textSize="12.5dp"
                 android:fontFamily="sans-serif-condensed"
                 android:textStyle="italic"

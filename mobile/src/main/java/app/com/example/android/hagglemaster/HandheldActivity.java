@@ -4,14 +4,23 @@ package app.com.example.android.hagglemaster;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import android.support.v4.content.LocalBroadcastManager;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -23,6 +32,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,33 +67,105 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     private ArrayList<Double> queryPrice;
     private ArrayList<String> queryAddress;
     private ArrayList<String> queryDescription;
-//    private ArrayList<String> queryImage;
+    private ArrayList<byte[]> queryImage;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_handheld);
+        TextView t = (TextView) findViewById(R.id.title);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
         queryTitle = new ArrayList<String>();
         queryPrice = new ArrayList<Double>();
         queryAddress = new ArrayList<String>();
         queryDescription = new ArrayList<String>();
-
-
-//        Intent listView = new Intent(this, ListViewActivity.class);
-//        startActivity(listView);
-
-
-//        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
-//        startActivity(uploadIntent);
+        queryImage = new ArrayList<byte[]>();
 
 
         title = (TextView) findViewById(R.id.title);
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         animFadein.setDuration(3500);
         title.startAnimation(animFadein);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mMessageReceiver, new IntentFilter("upload!!!"));
     }
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //String action = intent.getAction();
+            Log.d(TAG, "upload!!!!");
+            Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
+            startActivity(uploadIntent);
+        }
+    };
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        // Take any action after completing the animation
+        // check for fade in animation
+        if (animation == animFadein) {
+            Toast.makeText(getApplicationContext(), "Animation Stopped",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    /** on click for search icon */
+    // TODO: if item doesn't exist in our DB or if pass in nothing don't break!
+    public void startSearch(View view) {
+
+        EditText searchText = (EditText) findViewById(R.id.search_query);
+        String query = searchText.getText().toString().toLowerCase();
+        Log.d(TAG, "Query is " + query);
+
+        db = mHaggleDB.getReadableDatabase();
+        String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE, KEY_IMG};
+        String predicate = "title = ?";
+        String[] predicate_values = {query};
+        String orderBy = "price ASC";
+
+        Cursor c = db.query("item", columns, predicate, predicate_values, null, null, orderBy);
+
+        if (c != null) {
+            c.moveToFirst();
+            String titlel, addr, desc;
+            double prc;
+            byte[] pic;
+
+            do {
+                titlel = c.getString(c.getColumnIndex(KEY_TITLE));
+                addr = c.getString(c.getColumnIndex(KEY_ADDR));
+                desc = c.getString(c.getColumnIndex(KEY_DESC));
+                prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
+                pic = c.getBlob(c.getColumnIndex(KEY_IMG));
+
+                queryTitle.add(titlel);
+                queryAddress.add(addr);
+                queryDescription.add(desc);
+                queryPrice.add(prc);
+                queryImage.add(pic);
+
+            } while(c.moveToNext());
+
+            Intent resultsIntent = new Intent(this, ResultsActivity.class);
+            resultsIntent.putExtra("queryItem", query);
+            resultsIntent.putStringArrayListExtra("addressAL", queryAddress);
+            resultsIntent.putStringArrayListExtra("titleAL", queryTitle);
+            resultsIntent.putExtra("priceAL", queryPrice);
+            resultsIntent.putExtra("imageAL", queryImage);
+            startActivity(resultsIntent);
+
+        } else {
+            // TODO: make exception for wrong input or blank input
+            Toast.makeText(this, "Sorry, item not found ):", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,73 +200,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         // TODO Auto-generated method stub
 
     }
-
-    @Override
-    public void onAnimationEnd(Animation animation) {
-        // Take any action after completing the animation
-
-        // check for fade in animation
-        if (animation == animFadein) {
-            Toast.makeText(getApplicationContext(), "Animation Stopped",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    /** on click for search icon */
-    // TODO: if item doesn't exist in our DB or if pass in nothing don't break!
-    public void startSearch(View view) {
-
-        EditText searchText = (EditText) findViewById(R.id.search_query);
-        String query = searchText.getText().toString();
-//        .toLowerCase();
-        Log.d(TAG, "Query is " + query);
-
-
-        // this is just to check shit got uploaded to DB
-        db = mHaggleDB.getReadableDatabase();
-        String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE};
-        String predicate = "title = ?";
-        String[] predicate_values = {query};
-        String orderBy = "price ASC";
-
-        Cursor c = db.query("item", columns, predicate, predicate_values, null, null, orderBy);
-
-        if (c != null) {
-            c.moveToFirst();
-            String titlel = c.getString(c.getColumnIndex(KEY_TITLE));
-            String addr = c.getString(c.getColumnIndex(KEY_ADDR));
-            String desc = c.getString(c.getColumnIndex(KEY_DESC));
-            double prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
-
-            queryTitle.add(titlel);
-            queryAddress.add(addr);
-            queryDescription.add(desc);
-            queryPrice.add(prc);
-
-            while (c.moveToNext()) {
-                titlel = c.getString(c.getColumnIndex(KEY_TITLE));
-                addr = c.getString(c.getColumnIndex(KEY_ADDR));
-                desc = c.getString(c.getColumnIndex(KEY_DESC));
-                prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
-
-                queryTitle.add(titlel);
-                queryAddress.add(addr);
-                queryDescription.add(desc);
-                queryPrice.add(prc);
-            }
-
-            Intent resultsIntent = new Intent(this, ResultsActivity.class);
-            resultsIntent.putExtra("queryItem", query);
-            resultsIntent.putStringArrayListExtra("addressAL", queryAddress);
-            resultsIntent.putStringArrayListExtra("titleAL", queryTitle);
-            resultsIntent.putExtra("priceAL", queryPrice);
-            startActivity(resultsIntent);
-
-
-        } else {
-            // TODO: make exception for wrong input or blank input
-            Toast.makeText(this, "Sorry, item not found ):", Toast.LENGTH_SHORT).show();
-        }
-    }
 }
+
+

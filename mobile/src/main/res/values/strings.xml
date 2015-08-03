@@ -19,6 +19,10 @@
     <string name="Description">Description:</string>
     <string name="Name">Name:</string>
     <string name="Price">Price:</string>
+    <string name="item_name">Name</string>
+    <string name="item_address">Address</string>
+    <string name="average_price">Average Price</string>
+    <string name="lowest_price">Lowest Price</string>
 
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>
