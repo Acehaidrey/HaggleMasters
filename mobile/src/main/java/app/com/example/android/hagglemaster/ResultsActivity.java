@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -14,13 +12,11 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,25 +25,25 @@ import java.util.Collections;
 public class ResultsActivity extends Activity {
     private static final String TAG = "resultsTAG";
     private String querySearch;
-    private ArrayList<String> addressResults, titleResults;
+    private ArrayList<String> addressResults, titleResults, descriptionResults;
     private ArrayList<Double> priceResults;
     private ArrayList<byte[]> imageResults;
 
-    double minVal, avgVal;
+    //hack
+    private int i;
+    private double avgVal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-
         recoverIntentData();
-
         // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
+//        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+//        titleView.setTypeface(type);
         titleView.setText("Search Results for: " + querySearch);
-
         dynamicDisplay();
-
     }
 
     /** display things to the xml in a scrollable fashion */
@@ -55,13 +51,12 @@ public class ResultsActivity extends Activity {
         ScrollView sv = (ScrollView) findViewById(R.id.scrollView1);
         LinearLayout ll = new LinearLayout(this);
         LinearLayout.LayoutParams pars = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-
         ll.setLayoutParams(pars);
         ll.setOrientation(LinearLayout.VERTICAL);
         sv.addView(ll);
 
-
-        for (int i = 0; i < titleResults.size(); i++) {
+        avgVal = avgPrice(priceResults);
+        for (i = 0; i < titleResults.size(); i++) {
 
             LinearLayout newll = new LinearLayout(this);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -73,7 +68,6 @@ public class ResultsActivity extends Activity {
             LinearLayout linleft = new LinearLayout(this);
             linleft.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 2.0f));
             LinearLayout linright = new LinearLayout(this);
-
             linright.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 3.0f));
 
             ImageView iv = new ImageView(this);
@@ -89,15 +83,14 @@ public class ResultsActivity extends Activity {
 
             String show = "<strong>Item Name: </strong>" + titleResults.get(i) + "<br>" +
                     "<strong>Address: </strong>" + addressResults.get(i) + "<br>" +
-                    "<strong>Avg. Price: </strong>$" + avgPrice(priceResults) + "<br>" + "<strong>Last Price: </strong>$" +
-                    new DecimalFormat("#.00").format(priceResults.get(i));
+                    "<strong>Avg. Price: </strong>$" + new DecimalFormat("#.00").format(avgVal) +
+                    "<br>" + "<strong>Last Price: </strong>$" + new DecimalFormat("#.00").format(priceResults.get(i));
 
             linleft.addView(iv);
             TextView tv = new TextView(this);
             tv.setPadding(dptopx(35), dptopx(45), 0, 0); // hard code. fix for final to center
 //            tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setLineSpacing(2.5f, 1);
-
             tv.setText(Html.fromHtml(show));
             tv.setTextColor(getResources().getColor(R.color.off_white));
             linright.addView(tv);
@@ -108,17 +101,19 @@ public class ResultsActivity extends Activity {
             newll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent upload = new Intent(ResultsActivity.this, UploadActivity.class);
-                    startActivity(upload);
-
+                    Intent detailsIntent = new Intent(ResultsActivity.this, SearchDetails.class);
+                    detailsIntent.putExtra("title", titleResults.get(0));
+                    detailsIntent.putExtra("address", addressResults.get(0));
+                    detailsIntent.putExtra("description", descriptionResults.get(0));
+                    detailsIntent.putExtra("image", imageResults.get(0));
+                    detailsIntent.putExtra("price", priceResults.get(0));
+                    detailsIntent.putExtra("avgprice", avgVal);
+                    startActivity(detailsIntent);
                 }
             });
 
-
             ll.addView(newll);
-
         }
-
     }
 
 
@@ -136,6 +131,7 @@ public class ResultsActivity extends Activity {
         querySearch = resultsIntent.getStringExtra("queryItem");
         addressResults = resultsIntent.getStringArrayListExtra("addressAL");
         titleResults = resultsIntent.getStringArrayListExtra("titleAL");
+        descriptionResults = resultsIntent.getStringArrayListExtra("descriptionAL");
         priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
         imageResults = (ArrayList<byte[]>) resultsIntent.getSerializableExtra("imageAL");
     }
@@ -158,7 +154,6 @@ public class ResultsActivity extends Activity {
         double avg = (sum/size);
         return (double) Math.round(avg * 100) / 100;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

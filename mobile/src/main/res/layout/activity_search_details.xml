@@ -37,19 +37,19 @@
                 android:id="@+id/finalprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="final price:"
+                android:text="final price: "
                 android:textColor="@color/off_white"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:layout_below="@+id/startingprice"
-                android:layout_alignStart="@+id/startingprice"
+                android:layout_below="@+id/avgprice"
+                android:layout_alignStart="@+id/avgprice"
                 android:layout_marginTop="15dp" />
 
             <TextView
-                android:id="@+id/startingprice"
+                android:id="@+id/averageprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="starting price:"
+                android:text="average price: "
                 android:textColor="@color/off_white"
                 android:textSize="16dp"
                 android:textStyle="bold"
@@ -65,7 +65,6 @@
                 android:layout_marginTop="15dp"
                 android:layout_below="@+id/finalprice"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="center_horizontal"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
                 android:background="@drawable/rounded_edittext"/>
@@ -76,7 +75,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/off_white"
+
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_alignBottom="@+id/important"
@@ -86,10 +85,10 @@
             android:id="@+id/image">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView"
-                android:layout_gravity="center_horizontal" />
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                android:id="@+id/addImg" />
         </LinearLayout>
 
         <LinearLayout

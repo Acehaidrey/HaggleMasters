@@ -32,7 +32,7 @@ public class MyReceiverService extends WearableListenerService{
     }
 
 
-    private void broadCastHelper(Intent intent){
+    private void broadCastHelper(Intent intent) {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
