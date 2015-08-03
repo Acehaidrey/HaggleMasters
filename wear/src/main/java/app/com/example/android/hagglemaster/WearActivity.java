@@ -18,7 +18,7 @@ public class WearActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rect_activity_wear);
+        setContentView(R.layout.activity_wear);
 
 
 //        mTextView = (TextView) findViewById(R.id.logotext);

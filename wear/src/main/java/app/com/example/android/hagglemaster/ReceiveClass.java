@@ -56,8 +56,8 @@ public class ReceiveClass extends WearableListenerService{
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.cancel(notificationId);
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.cancel(notificationId);
         Log.d("onDataChange", "here");
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "onDataChanged: " + dataEvents);
@@ -82,7 +82,7 @@ public class ReceiveClass extends WearableListenerService{
                     DataMapItem dataMapItem = DataMapItem.fromDataItem(dataEvent.getDataItem());
                     String title = dataMapItem.getDataMap().getString("TITLE");
                     String content = dataMapItem.getDataMap().getString("TEXT");
-                    Log.d("gotttttt","stringgggg");
+                    Log.d("gotttttt", "stringgggg");
                     sendNotification(title, content);
                 }
             }
@@ -98,6 +98,8 @@ public class ReceiveClass extends WearableListenerService{
         Intent clickIntent = new Intent(this, GoogleApiClientService.class);
         PendingIntent clickPendingIntent =
                 PendingIntent.getService(this, 0, clickIntent, 0);
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.cancel(notificationId);
         // this intent will be sent when the user swipes the notification to dismiss it
 //        Intent dismissIntent = new Intent(Constants.ACTION_DISMISS);
 //        PendingIntent pendingDeleteIntent = PendingIntent.getService(this, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
