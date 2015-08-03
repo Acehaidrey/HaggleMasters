@@ -1,11 +1,14 @@
 package app.com.example.android.hagglemaster;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -16,6 +19,10 @@ import java.util.Collections;
 
 public class ResultsActivity extends ActionBarActivity {
     private static final String TAG = "resultsTAG";
+    private String querySearch;
+    private ArrayList<String> addressResults, titleResults;
+    private ArrayList<Double> priceResults;
+    private ArrayList<byte[]> imageResults;
 
     double minVal, avgVal;
 
@@ -24,33 +31,49 @@ public class ResultsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        Intent resultsIntent = getIntent();
-        String querySearch = resultsIntent.getStringExtra("queryItem");
-        ArrayList<String> addressResults = resultsIntent.getStringArrayListExtra("addressAL");
-        ArrayList<String> titleResults = resultsIntent.getStringArrayListExtra("titleAL");
-        ArrayList<Double> priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
+        recoverIntentData();
 
+        // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
         titleView.setText("Search Results for: " + querySearch);
 
+        // getting average and min prices to display to users
         avgVal = avgPrice(priceResults);
-        minVal = findMin(priceResults);
-        Log.v(TAG, "avg: " + avgVal + " min: " + minVal);
+        minVal = minPrice(priceResults);
 
         String s = "";
         TextView tv = (TextView) findViewById(R.id.textview1);
-        for (Double temp : priceResults) {
-            s += temp + ", ";
+        ImageView iv = (ImageView) findViewById(R.id.imageview1);
+
+        for (byte[] temp : imageResults) {
+            s += temp.toString() + ", ";
+            Log.v(TAG, temp.toString());
         }
         tv.setText(s);
+
+        Bitmap bm = BitmapFactory.decodeByteArray(imageResults.get(0), 0, imageResults.get(0).length);
+        iv.setImageBitmap(bm);
+
     }
 
-    public double findMin(ArrayList<Double> al) {
+    /** Get intent data */
+    private void recoverIntentData() {
+        Intent resultsIntent = getIntent();
+        querySearch = resultsIntent.getStringExtra("queryItem");
+        addressResults = resultsIntent.getStringArrayListExtra("addressAL");
+        titleResults = resultsIntent.getStringArrayListExtra("titleAL");
+        priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
+        imageResults = (ArrayList<byte[]>) resultsIntent.getSerializableExtra("imageAL");
+    }
+
+    /** Retrieves the minimum price of the list */
+    private double minPrice(ArrayList<Double> al) {
         int minIndex = al.indexOf(Collections.min(al));
         return al.get(minIndex);
     }
 
-    public double avgPrice(ArrayList<Double> al) {
+    /** Retrieves the average price of the list */
+    private double avgPrice(ArrayList<Double> al) {
         double sum = 0.0;
         double size = al.size();
         if (size == 0) { return sum; }
@@ -83,4 +106,5 @@ public class ResultsActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
