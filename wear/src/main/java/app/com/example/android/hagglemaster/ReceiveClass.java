@@ -117,7 +117,7 @@ public class ReceiveClass extends WearableListenerService{
         Notification notification = builder.build();
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-        notificationManagerCompat.notify(notificationId, notification);
+        notificationManagerCompat.notify(notificationId++, notification);
 
     }
 

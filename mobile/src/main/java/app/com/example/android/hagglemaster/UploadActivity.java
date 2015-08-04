@@ -34,6 +34,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Handler;
+import java.util.logging.Handler.*;
+import java.util.logging.LogRecord;
 
 
 public class UploadActivity extends Activity {
@@ -63,6 +66,8 @@ public class UploadActivity extends Activity {
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
+
+
     }
 
     /** submit button clicked. need to upload shiza to the db */
@@ -113,6 +118,10 @@ public class UploadActivity extends Activity {
         description.setText("");
         imgView.setVisibility(View.INVISIBLE);
         imgbut.setVisibility(View.VISIBLE);
+
+        Intent i = new Intent(UploadActivity.this, HandheldActivity.class);
+        startActivity(i);
+
 
     }
 
