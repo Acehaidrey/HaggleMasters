@@ -131,7 +131,8 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         Cursor c = db.query("item", columns, predicate, predicate_values, null, null, orderBy);
 
-        if (c != null) {
+
+        if (c.getCount() > 0) {
             c.moveToFirst();
             String titlel, addr, desc;
             double prc;
@@ -150,7 +151,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 queryPrice.add(prc);
                 queryImage.add(pic);
 
-            } while(c.moveToNext());
+            } while (c.moveToNext());
 
             Intent resultsIntent = new Intent(this, ResultsActivity.class);
             resultsIntent.putExtra("queryItem", query);
@@ -160,10 +161,12 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putExtra("priceAL", queryPrice);
             resultsIntent.putExtra("imageAL", queryImage);
             startActivity(resultsIntent);
-
         } else {
             // TODO: make exception for wrong input or blank input
-            Toast.makeText(this, "Sorry, item not found ):", Toast.LENGTH_SHORT).show();
+            searchText.setText("");
+            Toast t = new Toast(this);
+            t.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT);
+            t.show();
         }
     }
 

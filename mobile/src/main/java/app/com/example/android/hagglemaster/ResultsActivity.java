@@ -29,8 +29,6 @@ public class ResultsActivity extends Activity {
     private ArrayList<Double> priceResults;
     private ArrayList<byte[]> imageResults;
 
-    //hack
-    private int i;
     private double avgVal;
 
     @Override
@@ -56,8 +54,9 @@ public class ResultsActivity extends Activity {
         sv.addView(ll);
 
         avgVal = avgPrice(priceResults);
-        for (i = 0; i < titleResults.size(); i++) {
+        for (int i = 0; i < titleResults.size(); i++) {
 
+            final int j = i;
             LinearLayout newll = new LinearLayout(this);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             p.setMargins(0, 0, 0, dptopx(2));
@@ -102,11 +101,11 @@ public class ResultsActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     Intent detailsIntent = new Intent(ResultsActivity.this, SearchDetails.class);
-                    detailsIntent.putExtra("title", titleResults.get(0));
-                    detailsIntent.putExtra("address", addressResults.get(0));
-                    detailsIntent.putExtra("description", descriptionResults.get(0));
-                    detailsIntent.putExtra("image", imageResults.get(0));
-                    detailsIntent.putExtra("price", priceResults.get(0));
+                    detailsIntent.putExtra("title", titleResults.get(j));
+                    detailsIntent.putExtra("address", addressResults.get(j));
+                    detailsIntent.putExtra("description", descriptionResults.get(j));
+                    detailsIntent.putExtra("image", imageResults.get(j));
+                    detailsIntent.putExtra("price", priceResults.get(j));
                     detailsIntent.putExtra("avgprice", avgVal);
                     startActivity(detailsIntent);
                 }
