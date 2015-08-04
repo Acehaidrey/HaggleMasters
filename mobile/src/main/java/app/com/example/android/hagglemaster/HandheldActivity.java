@@ -75,6 +75,10 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_handheld);
+
+        Intent i = new Intent(this,SearchDetails.class);
+        startActivity(i);
+
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);

@@ -20,11 +20,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SearchDetails"
+            android:label="@string/title_activity_search_details" >
+        </activity>
 
         <service android:name=".MyReceiverService" >
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
             </intent-filter>
+        </service>
+        <service android:name=".SendingService"
+            android:enabled="true"
+            android:label="SendingService" >
         </service>
 
         <activity
@@ -44,10 +52,7 @@
             android:name=".ResultsActivity"
             android:label="@string/title_activity_results" >
         </activity>
-        <activity
-            android:name=".SearchDetails"
-            android:label="@string/title_activity_search_details" >
-        </activity>
+
     </application>
 
 </manifest>
