@@ -42,7 +42,7 @@ import java.util.Date;
 /**
  * Created by whitneyxu on 7/31/15.
  */
-public class ListViewActivity extends ActionBarActivity {
+public class ListViewActivity extends Activity {
 
 
     ListView listView;

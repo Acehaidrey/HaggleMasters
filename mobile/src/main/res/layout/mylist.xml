@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/newblu"
+    android:background="@color/blu"
     tools:context="app.com.example.android.hagglemaster.Suggestions"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,7 +14,7 @@
     android:visibility="visible"
     >
 
-    <TextView android:text="Suggestion"
+    <TextView android:text="Suggestions"
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:text="higher"
         android:id="@+id/higher"
         android:drawableBottom="@drawable/up2"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="50dp"
         android:layout_alignParentStart="false"
         android:layout_marginBottom="59dp"
         android:layout_marginTop="75dp"
@@ -51,7 +51,7 @@
         android:text="lower"
         android:id="@+id/lower"
         android:drawableBottom="@drawable/down2"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/button"
         android:layout_alignBaseline="@+id/leave"
         android:layout_alignBottom="@+id/leave"
@@ -61,7 +61,7 @@
         android:layout_height="70dp"
         android:id="@+id/take"
         android:drawableBottom="@drawable/check4"
-        android:layout_marginLeft="33dp"
+        android:layout_marginLeft="20dp"
         android:background="@drawable/button"
         android:text="take it"
         android:layout_alignTop="@+id/higher"
@@ -76,7 +76,7 @@
         android:layout_below="@+id/take"
         android:layout_toEndOf="@+id/send"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="0dp"
         android:layout_alignStart="@+id/take" />
 
     <TextView android:id="@+id/price"
@@ -93,6 +93,7 @@
 
     <EditText
         android:id="@+id/editPrice"
+        android:hint="$10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/price"
@@ -100,7 +101,9 @@
         android:background="@drawable/rounded_edittext"
         android:singleLine="true"
         android:layout_marginTop="10dp"
-        android:inputType="numberDecimal">
+        android:inputType="numberDecimal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
     </EditText>
 
     <TextView android:id="@+id/message"
@@ -121,10 +124,13 @@
         android:inputType="textMultiLine"
         android:background="@drawable/rounded_edittext"
         android:minLines="1"
+        android:hint="Speak confidently"
         android:layout_alignEnd="@+id/editPrice"
         android:layout_alignStart="@+id/title"
         android:layout_alignTop="@+id/message"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
     </EditText>
 
     <Button

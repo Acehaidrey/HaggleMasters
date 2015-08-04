@@ -23,11 +23,13 @@ import com.google.android.gms.wearable.Wearable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class SearchDetails extends Activity {
    // private static final String TAG = "detailsTAG";
 
     private String title, desc, loc;
-    private double avgprice, finprice;
+    private double avgprice = 0.0 , finprice = 0.0;
     private byte[] img;
 
     private static final String TAG = "SearchDetailActivity";
@@ -35,12 +37,9 @@ public class SearchDetails extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_search_details);
         getIntentVals();
         display();
-
-        // sets Activity title to the name of the item
-        setTitle("[name/title in database]");
 
         Button b = (Button) findViewById(R.id.hagglehelper);
         b.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +51,6 @@ public class SearchDetails extends Activity {
                 SearchDetails.this.startService(wear);
             }
         });
-
 
     }
 
@@ -69,17 +67,20 @@ public class SearchDetails extends Activity {
     }
 
     private void display() {
+        TextView nameTV = (TextView) findViewById(R.id.name);
+        nameTV.setText(title);
+
         TextView des = (TextView) findViewById(R.id.description_text);
         des.setText(desc);
 
         TextView fin = (TextView) findViewById(R.id.finalprice);
 
-        fin.append("$" + String.valueOf(finprice));
+        fin.append("$" + String.valueOf(new DecimalFormat("#.00").format(finprice)));
 
         TextView prc = (TextView) findViewById(R.id.averageprice);
-        prc.append("$" + String.valueOf(avgprice));
+        prc.append("$" + String.valueOf(new DecimalFormat("#.00").format(avgprice)));
 
-        ImageView iv = (ImageView) findViewById(R.id.addImg);
+        ImageView iv = (ImageView) findViewById(R.id.imageView);
         Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
         iv.setImageBitmap(bm);
     }

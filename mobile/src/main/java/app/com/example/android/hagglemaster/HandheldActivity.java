@@ -76,9 +76,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         setContentView(R.layout.activity_handheld);
 
-        Intent i = new Intent(this,SearchDetails.class);
-        startActivity(i);
-
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
@@ -167,10 +164,8 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             startActivity(resultsIntent);
         } else {
             // TODO: make exception for wrong input or blank input
+            Toast.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT).show();
             searchText.setText("");
-            Toast t = new Toast(this);
-            t.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT);
-            t.show();
         }
     }
 
