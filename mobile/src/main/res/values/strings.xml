@@ -23,6 +23,7 @@
     <string name="item_address">Address:</string>
     <string name="average_price">Avg. Price:</string>
     <string name="lowest_price">Min. Price:</string>
+    <string name="item_rating">Rate:</string>
 
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>

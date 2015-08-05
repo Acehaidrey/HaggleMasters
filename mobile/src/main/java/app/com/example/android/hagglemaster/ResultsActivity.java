@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -108,6 +109,8 @@ public class ResultsActivity extends Activity {
                     detailsIntent.putExtra("price", priceResults.get(j));
                     detailsIntent.putExtra("avgprice", avgVal);
                     startActivity(detailsIntent);
+                    RatingBar rating = new RatingBar(getApplicationContext(),null, android.R.attr.ratingBarStyleSmall);
+                    rating.setRating(new Float(3.5));
                 }
             });
 

@@ -86,6 +86,8 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         queryDescription = new ArrayList<String>();
         queryImage = new ArrayList<byte[]>();
 
+        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
+        startActivity(uploadIntent);
 
         title = (TextView) findViewById(R.id.title);
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
