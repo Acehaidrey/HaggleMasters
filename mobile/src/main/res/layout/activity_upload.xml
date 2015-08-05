@@ -22,7 +22,7 @@
             android:textSize="30sp"
             android:paddingLeft="40dp"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/off_white"
+            android:textColor="@color/offwhite"
             android:paddingTop="18dp"
             android:paddingBottom="20dp"
             />
@@ -118,9 +118,9 @@
             android:background="@drawable/rounded_edittext"
             android:layout_gravity="center_horizontal"
             android:onClick="DBUpload"
-            android:layout_below="@+id/description_text"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="41dp" />
+            android:layout_marginBottom="25dp" />
 
         <Button
             android:id="@+id/imagebtn"
@@ -146,7 +146,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Price"
             android:id="@+id/textView"
-            android:textColor="@color/off_white"
+            android:textColor="@color/offwhite"
             android:layout_above="@+id/price_text"
             android:layout_alignEnd="@+id/uploadbtn"
             android:paddingStart="10dp" />
@@ -157,7 +157,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Name"
             android:id="@+id/textView2"
-            android:textColor="@color/off_white"
+            android:textColor="@color/offwhite"
             android:layout_above="@+id/title_text"
             android:layout_alignStart="@+id/price_text" />
 
@@ -169,7 +169,7 @@
             android:id="@+id/textView3"
             android:layout_marginTop="5dp"
             android:paddingStart="15dp"
-            android:textColor="@color/off_white"
+            android:textColor="@color/offwhite"
             android:layout_above="@+id/address_text"
             android:layout_alignParentStart="true" />
 
@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Description"
-            android:textColor="@color/off_white"
+            android:textColor="@color/offwhite"
             android:paddingStart="15dp"
             android:paddingTop="10dp"
             android:id="@+id/textView4"
@@ -213,7 +213,31 @@
             android:layout_alignEnd="@+id/imagebtn"
             android:layout_alignBottom="@+id/imagebtn"
             android:layout_marginBottom="1dp" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            android:gravity="center"
+            android:layout_toEndOf="@+id/textView5"
+            android:layout_below="@+id/description_text"
+            android:layout_above="@+id/uploadbtn"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="-20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/offwhite"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/item_rating"
+            android:id="@+id/textView5"
+            android:paddingStart="15dp"
+            android:layout_below="@+id/description_text"
+            android:layout_above="@+id/uploadbtn"
+            android:layout_alignParentStart="true"
+            android:layout_alignEnd="@+id/textView3" />
     </RelativeLayout>
 
 </RelativeLayout>
-

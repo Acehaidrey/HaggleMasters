@@ -31,7 +31,7 @@
                 android:text="name"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold"
-                android:textColor="@color/off_white"
+                android:textColor="@color/offwhite"
                 android:layout_alignStart="@+id/time"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="5dp" />
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="purchase made 5 days ago"
                 android:textStyle="italic"
-                android:textColor="@color/off_white"
+                android:textColor="@color/offwhite"
                 android:layout_above="@+id/title"
                 android:layout_alignEnd="@+id/important" />
 
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="final price: "
-                android:textColor="@color/off_white"
+                android:textColor="@color/offwhite"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:layout_below="@+id/avgprice"
@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="average price: "
-                android:textColor="@color/off_white"
+                android:textColor="@color/offwhite"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:layout_below="@+id/timestamp"
@@ -95,7 +95,7 @@
             android:orientation="vertical"
             android:layout_width="150dp"
             android:layout_height="125dp"
-            android:background="@color/off_white"
+            android:background="@color/offwhite"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_alignTop="@+id/important"
@@ -120,7 +120,7 @@
                 android:id="@+id/description_text"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:textColor="@color/off_white"
+                android:textColor="@color/offwhite"
                 android:text="the birds and the bees are singing in the trees and grapes are tasty but so is boba and is this text long enough yet omg"
                 android:textStyle="italic"
                 android:layout_marginLeft="10dp"
@@ -143,21 +143,27 @@
             android:paddingRight="7dp"
             android:background="@drawable/rounded_edittext"/>
 
-        <ImageView
-            android:id="@+id/map_img"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:background="@drawable/map"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentEnd="false" />
+        <!--<ImageView-->
+            <!--android:id="@+id/map_img"-->
+            <!--android:layout_width="300dp"-->
+            <!--android:layout_height="150dp"-->
+            <!--android:background="@drawable/map"-->
+            <!--android:scaleType="fitCenter"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_alignParentStart="false"-->
+            <!--android:layout_alignParentEnd="false" />-->
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools" android:layout_width="200dp"
+            android:layout_height="200dp" android:id="@+id/map"
+            tools:context="app.com.example.android.hagglemaster.MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
 
         <TextView
             android:id="@+id/description_title"
@@ -165,7 +171,7 @@
             android:layout_height="wrap_content"
             android:text="Description:"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/off_white"
+            android:textColor="@color/offwhite"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_below="@+id/map_img"
