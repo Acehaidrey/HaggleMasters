@@ -48,7 +48,7 @@ public class UploadActivity extends Activity {
     private static final String KEY_IMG = "image";
     private static final String KEY_PRICE = "price";
     private static final String[] COLUMNS = {KEY_TITLE, KEY_PRICE, KEY_ADDR, KEY_DESC, KEY_IMG};
-    private static final String TAG = "UploadActivityTAG";
+    private static final String TAG = UploadActivity.class.getSimpleName();
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private HaggleDB mHaggleDB;

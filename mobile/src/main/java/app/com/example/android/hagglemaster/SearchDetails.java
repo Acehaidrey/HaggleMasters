@@ -7,6 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +21,13 @@ import android.widget.Button;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
@@ -24,15 +35,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
-public class SearchDetails extends Activity {
-   // private static final String TAG = "detailsTAG";
+public class SearchDetails extends FragmentActivity {
 
     private String title, desc, loc;
     private double avgprice = 0.0 , finprice = 0.0;
     private byte[] img;
+    private GoogleMap googleMap;
 
-    private static final String TAG = "SearchDetailActivity";
+    private static final String TAG = SearchDetails.class.getSimpleName();
     private GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +63,73 @@ public class SearchDetails extends Activity {
                 SearchDetails.this.startService(wear);
             }
         });
+
+        // =============================== Google Map ==============================================
+//        locationStr = extras.getString("ENCOUNTER_LOCATION");
+//        String[] locationArray = extras.getString("ENCOUNTER_LOCATION").split(",");
+//        double encounterLatitude = Double.parseDouble(locationArray[0]);
+//        double encounterLongitude = Double.parseDouble(locationArray[1]);
+
+        LatLng animalPosition = new LatLng(0,0);
+
+        SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+
+        // Getting GoogleMap object from the fragment
+        googleMap = fm.getMap();
+
+        // Enabling MyLocation Layer of Google Map
+        googleMap.setMyLocationEnabled(true);
+
+        // Getting LocationManager object from System Service LOCATION_SERVICE
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        // Creating a criteria object to retrieve provider
+        Criteria criteria = new Criteria();
+
+        // Getting the name of the best provider
+        String provider = locationManager.getBestProvider(criteria, true);
+
+        // Getting Current Location
+        Location location = locationManager.getLastKnownLocation(provider);
+
+        if (location != null) {
+            // Getting latitude of the current location
+            double latitude = location.getLatitude();
+
+            // Getting longitude of the current location
+            double longitude = location.getLongitude();
+
+            // Creating a LatLng object for the current location
+            LatLng latLng = new LatLng(latitude, longitude);
+
+            //myPosition = new LatLng(latitude, longitude);
+
+            //MarkerOptions currentMarker = new MarkerOptions().position(myPosition).title("You");
+            MarkerOptions animalMarker = new MarkerOptions().position(animalPosition).title("Name");
+
+            ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
+            //markers.add(currentMarker);
+            markers.add(animalMarker);
+
+            googleMap.addMarker(animalMarker);
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (MarkerOptions marker : markers) {
+                builder.include(marker.getPosition());
+            }
+            LatLngBounds bounds = builder.build();
+
+            int padding = 100; // offset from edges of the map in pixels
+            final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+
+
+            googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    googleMap.moveCamera(cu); } });
+        } else {
+            Log.v("Detailed View!!!", "cant find location detailed");
+        }
+        // =============================== Google Map ==============================================
 
     }
 

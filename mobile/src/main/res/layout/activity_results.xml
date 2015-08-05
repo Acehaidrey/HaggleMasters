@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/title"
         android:text="@string/result_title"
-        android:textColor="@color/off_white"
+        android:textColor="@color/offwhite"
         android:textSize="20sp"
         android:padding="10dp"
         />

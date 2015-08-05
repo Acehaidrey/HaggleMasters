@@ -24,7 +24,7 @@ import java.util.Collections;
 
 
 public class ResultsActivity extends Activity {
-    private static final String TAG = "resultsTAG";
+    private static final String TAG = ResultsActivity.class.getSimpleName();
     private String querySearch;
     private ArrayList<String> addressResults, titleResults, descriptionResults;
     private ArrayList<Double> priceResults;
@@ -92,7 +92,7 @@ public class ResultsActivity extends Activity {
 //            tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setLineSpacing(2.5f, 1);
             tv.setText(Html.fromHtml(show));
-            tv.setTextColor(getResources().getColor(R.color.off_white));
+            tv.setTextColor(getResources().getColor(R.color.offwhite));
             linright.addView(tv);
 
             newll.addView(linleft);

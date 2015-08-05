@@ -1,25 +1,19 @@
 package app.com.example.android.hagglemaster;
 
-
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.graphics.Typeface;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
+import android.location.Location;
+import android.location.LocationListener;
 import android.support.v4.content.LocalBroadcastManager;
 
 import android.support.v7.app.ActionBarActivity;
@@ -32,34 +26,37 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 
 
-public class HandheldActivity extends Activity implements Animation.AnimationListener {
+public class HandheldActivity extends Activity implements Animation.AnimationListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        com.google.android.gms.location.LocationListener {
 
-    private static final String DATABASE_NAME = "item";
     private static final String KEY_TITLE = "title";
     private static final String KEY_ADDR = "address";
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
     private static final String KEY_PRICE = "price";
-    private static final String[] COLUMNS = {KEY_TITLE, KEY_PRICE, KEY_ADDR, KEY_DESC, KEY_IMG};
 
-    private static final String TAG = "handheldMainTAG";
+    private static final String TAG = HandheldActivity.class.getSimpleName();
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     TextView title;
     Animation animFadein;
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
+    private LocationRequest mLocationRequest;
+    private double currentLatitude;
+    private double currentLongitude;
 
     private HaggleDB mHaggleDB;
     private SQLiteDatabase db;
@@ -69,11 +66,9 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     private ArrayList<String> queryDescription;
     private ArrayList<byte[]> queryImage;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_handheld);
 
         TextView t = (TextView) findViewById(R.id.title);
@@ -96,6 +91,75 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter("upload!!!"));
+
+//        Intent i = new Intent(this, MapsActivity.class);
+//        startActivity(i);
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.i(TAG, "Location services connected.");
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
+        else {
+            handleNewLocation(location);
+        };
+    }
+
+    private void handleNewLocation(Location location) {
+        Log.d(TAG, location.toString());
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        // nada
+        Log.e(TAG, "connectionSuspended, shiza");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.i(TAG, "Location services connection failed with code " + connectionResult.getErrorCode());
+        }
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -120,7 +184,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     }
 
     /** on click for search icon */
-    // TODO: if item doesn't exist in our DB or if pass in nothing don't break!
     public void startSearch(View view) {
 
         EditText searchText = (EditText) findViewById(R.id.search_query);
@@ -165,7 +228,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putExtra("imageAL", queryImage);
             startActivity(resultsIntent);
         } else {
-            // TODO: make exception for wrong input or blank input
             Toast.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT).show();
             searchText.setText("");
         }
@@ -204,6 +266,11 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     public void onAnimationStart(Animation animation) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        handleNewLocation(location);
     }
 }
 
