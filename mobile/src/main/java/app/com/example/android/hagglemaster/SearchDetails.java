@@ -32,16 +32,23 @@ import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class SearchDetails extends FragmentActivity {
 
-    private String title, desc, loc;
-    private double avgprice = 0.0 , finprice = 0.0;
+    private String title, desc, loc, date;
+    private double avgprice = 0.0 , finprice = 0.0 , latit, longit;
     private byte[] img;
+    private float rating;
     private GoogleMap googleMap;
 
     private static final String TAG = SearchDetails.class.getSimpleName();
@@ -52,6 +59,7 @@ public class SearchDetails extends FragmentActivity {
         setContentView(R.layout.activity_search_details);
         getIntentVals();
         display();
+        timeStamp();
 
         Button b = (Button) findViewById(R.id.hagglehelper);
         b.setOnClickListener(new View.OnClickListener() {
@@ -64,13 +72,16 @@ public class SearchDetails extends FragmentActivity {
             }
         });
 
+
+
         // =============================== Google Map ==============================================
 //        locationStr = extras.getString("ENCOUNTER_LOCATION");
 //        String[] locationArray = extras.getString("ENCOUNTER_LOCATION").split(",");
 //        double encounterLatitude = Double.parseDouble(locationArray[0]);
 //        double encounterLongitude = Double.parseDouble(locationArray[1]);
 
-        LatLng animalPosition = new LatLng(0,0);
+//        LatLng itemLocation = new LatLng(longit,latit);
+        LatLng itemLocation = new LatLng(0,0);
 
         SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
@@ -105,7 +116,7 @@ public class SearchDetails extends FragmentActivity {
             //myPosition = new LatLng(latitude, longitude);
 
             //MarkerOptions currentMarker = new MarkerOptions().position(myPosition).title("You");
-            MarkerOptions animalMarker = new MarkerOptions().position(animalPosition).title("Name");
+            MarkerOptions animalMarker = new MarkerOptions().position(itemLocation).title("Name");
 
             ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
             //markers.add(currentMarker);
@@ -139,6 +150,11 @@ public class SearchDetails extends FragmentActivity {
         loc = detailsIntent.getStringExtra("address");
         desc = detailsIntent.getStringExtra("description");
         img = detailsIntent.getByteArrayExtra("image");
+//        date = detailsIntent.getStringExtra("date"); //TODO: implement live
+//        latit = (double) detailsIntent.getSerializableExtra("latitude");
+//        longit = (double) detailsIntent.getSerializableExtra("longitude");
+//        rating = (float) detailsIntent.getSerializableExtra("rating");
+
         avgprice = (double) detailsIntent.getSerializableExtra("avgprice");
         finprice = (double) detailsIntent.getSerializableExtra("price");
         Log.v(TAG, title + " " + loc + " " + desc + " " + avgprice + " " + finprice);
@@ -147,7 +163,8 @@ public class SearchDetails extends FragmentActivity {
 
     private void display() {
         TextView nameTV = (TextView) findViewById(R.id.name);
-        nameTV.setText(title);
+        String cap = title.substring(0, 1).toUpperCase() + title.substring(1);
+        nameTV.setText(cap);
 
         TextView des = (TextView) findViewById(R.id.description_text);
         des.setText(desc);
@@ -162,6 +179,40 @@ public class SearchDetails extends FragmentActivity {
         ImageView iv = (ImageView) findViewById(R.id.imageView);
         Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
         iv.setImageBitmap(bm);
+
+//        RatingBar rb = (RatingBar) findViewById(R.id.ratingBar); //TODO: implement live
+//        rb.setRating(rating);
+
+
+    }
+
+    /** get the timestamp. */
+    private void timeStamp() {
+        DateFormat df = DateFormat.getDateInstance();
+        TextView timeStamp = (TextView) findViewById(R.id.timestamp);
+        try {
+            Date date2 = new Date();
+//            Date date1 = df.parse(date); // TODO: implement this
+            Date date1 = df.parse("August 3, 2015");
+            Log.v(TAG, "date today: " + df.format(date1) + " date2 set: " + df.format(date2));
+            long diff = getDateDiff(date1, date2, TimeUnit.DAYS);
+            Log.v(TAG, "difference: " + String.valueOf(diff));
+
+            if (diff < 1) {
+                timeStamp.setText("last purchase made today");
+            } else {
+                timeStamp.setText("last purchase made " + String.valueOf(diff) + " days ago");
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** get difference between dates Make sure date2 is larger than date1 */
+    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
 
     @Override

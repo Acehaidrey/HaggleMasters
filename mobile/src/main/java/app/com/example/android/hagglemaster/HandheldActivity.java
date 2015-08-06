@@ -35,9 +35,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 
 public class HandheldActivity extends Activity implements Animation.AnimationListener,
@@ -49,6 +48,11 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
     private static final String KEY_PRICE = "price";
+
+    private static final String KEY_DATE = "date";
+    private static final String KEY_LAT = "latitude";
+    private static final String KEY_LONG = "longitude";
+    private static final String KEY_RATING = "rating";
 
     private static final String TAG = HandheldActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -69,13 +73,15 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     private ArrayList<String> queryDescription;
     private ArrayList<byte[]> queryImage;
 
+    private ArrayList<String> queryDate;
+    private ArrayList<Float> queryRating;
+    private ArrayList<Double> queryLatitude;
+    private ArrayList<Double> queryLongitude;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handheld);
-
-        String date = DateFormat.getDateTimeInstance().format(new Date());
-        Log.v(TAG, "date is: " + date);
 
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
@@ -87,8 +93,11 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         queryDescription = new ArrayList<String>();
         queryImage = new ArrayList<byte[]>();
 
-        Intent uploadIntent = new Intent(getApplicationContext(), UploadActivity.class);
-        startActivity(uploadIntent);
+        queryDate = new ArrayList<String>();
+        queryRating = new ArrayList<Float>();
+        queryLatitude = new ArrayList<Double>();
+        queryLongitude = new ArrayList<Double>();
+
 
         title = (TextView) findViewById(R.id.title);
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
@@ -98,8 +107,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter("upload!!!"));
 
-//        Intent i = new Intent(this, UploadActivity.class);
-//        startActivity(i);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -197,7 +204,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         String query = searchText.getText().toString().toLowerCase();
 
         db = mHaggleDB.getReadableDatabase();
-        String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE, KEY_IMG};
+        String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE, KEY_IMG, KEY_LAT, KEY_LONG, KEY_DATE, KEY_RATING};
         String predicate = "title = ?";
         String[] predicate_values = {query};
         String orderBy = "price ASC";
@@ -206,9 +213,10 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         if (c.getCount() > 0) {
             c.moveToFirst();
-            String titlel, addr, desc;
-            double prc;
+            String titlel, addr, desc, dateStr;
+            double prc, lat, lon;
             byte[] pic;
+            float rating;
 
             do {
                 titlel = c.getString(c.getColumnIndex(KEY_TITLE));
@@ -216,12 +224,23 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 desc = c.getString(c.getColumnIndex(KEY_DESC));
                 prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
                 pic = c.getBlob(c.getColumnIndex(KEY_IMG));
+//                TODO: implement live
+//                dateStr = c.getString(c.getColumnIndex(KEY_DATE));
+//                rating = c.getFloat(c.getColumnIndex(KEY_RATING));
+//                lat = c.getDouble(c.getColumnIndex(KEY_LAT));
+//                lon = c.getDouble(c.getColumnIndex(KEY_LONG));
+
 
                 queryTitle.add(titlel);
                 queryAddress.add(addr);
                 queryDescription.add(desc);
                 queryPrice.add(prc);
                 queryImage.add(pic);
+//                TODO: implement live
+//                queryRating.add(rating);
+//                queryLatitude.add(lat);
+//                queryLongitude.add(lon);
+//                queryDate.add(dateStr);
 
             } while (c.moveToNext());
 
@@ -232,6 +251,13 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putStringArrayListExtra("descriptionAL", queryDescription);
             resultsIntent.putExtra("priceAL", queryPrice);
             resultsIntent.putExtra("imageAL", queryImage);
+
+//            TODO: implement live
+//            resultsIntent.putStringArrayListExtra("dateAL", queryDate);
+//            resultsIntent.putExtra("ratingAL", queryRating);
+//            resultsIntent.putExtra("latAL", queryLatitude);
+//            resultsIntent.putExtra("longAL", queryLongitude);
+
             startActivity(resultsIntent);
         } else {
 //            Toast.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT).show();

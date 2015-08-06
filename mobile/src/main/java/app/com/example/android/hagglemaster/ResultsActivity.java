@@ -28,9 +28,10 @@ import java.util.Collections;
 public class ResultsActivity extends Activity {
     private static final String TAG = ResultsActivity.class.getSimpleName();
     private String querySearch;
-    private ArrayList<String> addressResults, titleResults, descriptionResults;
-    private ArrayList<Double> priceResults;
+    private ArrayList<String> addressResults, titleResults, descriptionResults, dateResults;
+    private ArrayList<Double> priceResults, latResults, longResults;
     private ArrayList<byte[]> imageResults;
+    private ArrayList<Float> ratingResults;
 
     private double avgVal;
 
@@ -41,9 +42,8 @@ public class ResultsActivity extends Activity {
         recoverIntentData();
         // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
-//        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
-//        titleView.setTypeface(type);
-        titleView.setText("Search Results for: " + querySearch);
+        String cap = querySearch.substring(0, 1).toUpperCase() + querySearch.substring(1);
+        titleView.setText("Search Results for: " + cap);
         dynamicDisplay();
     }
 
@@ -104,6 +104,7 @@ public class ResultsActivity extends Activity {
             tv.setTextColor(getResources().getColor(R.color.offwhite));
             linTop.addView(tv);
             RatingBar rating = new RatingBar(getApplicationContext(), null, android.R.attr.ratingBarStyleSmall);
+//            rating.setRating(ratingResults.get(i)); TODO: implement this
             rating.setRating(3.5f); // add actual rating from db here
             rating.setNumStars(5);
             linBot.addView(rating);
@@ -122,7 +123,11 @@ public class ResultsActivity extends Activity {
                     detailsIntent.putExtra("image", imageResults.get(j));
                     detailsIntent.putExtra("price", priceResults.get(j));
                     detailsIntent.putExtra("avgprice", avgVal);
+                    //TODO: implement this
                     // detailsIntent.putExtra("rating", ratingResults.get(j));
+//                    detailsIntent.putExtra("latitude", latResults.get(j));
+//                    detailsIntent.putExtra("longitude", longResults.get(j));
+//                    detailsIntent.putExtra("date", dateResults.get(j));
                     startActivity(detailsIntent);
                 }
             });
@@ -149,7 +154,13 @@ public class ResultsActivity extends Activity {
         descriptionResults = resultsIntent.getStringArrayListExtra("descriptionAL");
         priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
         imageResults = (ArrayList<byte[]>) resultsIntent.getSerializableExtra("imageAL");
-        // ratingResults = get rating data from db
+        // TODO: implement live
+//        dateResults = resultsIntent.getStringArrayListExtra("dateAL");
+//        latResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("latAL");
+//        longResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("longAL");
+//        ratingResults = (ArrayList<Float>) resultsIntent.getSerializableExtra("ratingAL");
+
+
     }
 
     /** Retrieves the minimum price of the list */
