@@ -25,10 +25,10 @@
     <string name="title_activity_search_details">SearchDetails</string>
     <string name="title_activity_maps">Map</string>
     <string name="item_rating">Rate:</string>
+    <string name="ready_to_upload">Need to upload\nan item?\nClick Here!</string>
 
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>
     <color name="darkgray">#a3a3a3</color>
     <color name="blu">#122C4B</color>
-    <!--<color name="off_white">#FEFBF7</color>-->
 </resources>

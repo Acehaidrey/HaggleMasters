@@ -19,6 +19,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class HandheldActivity extends Activity implements Animation.AnimationListener,
@@ -71,6 +74,9 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handheld);
 
+        String date = DateFormat.getDateTimeInstance().format(new Date());
+        Log.v(TAG, "date is: " + date);
+
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
@@ -90,7 +96,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter("upload!!!"));
 
-//        Intent i = new Intent(this, MapsActivity.class);
+//        Intent i = new Intent(this, UploadActivity.class);
 //        startActivity(i);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -177,6 +183,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         if (animation == animFadein) {
             Toast.makeText(getApplicationContext(), "Animation Stopped",
                     Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -194,7 +201,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         String orderBy = "price ASC";
 
         Cursor c = db.query("item", columns, predicate, predicate_values, null, null, orderBy);
-
 
         if (c.getCount() > 0) {
             c.moveToFirst();
@@ -226,8 +232,11 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putExtra("imageAL", queryImage);
             startActivity(resultsIntent);
         } else {
-            Toast.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT).show();
-            searchText.setText("");
+//            Toast.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT).show();
+            Toast t = new Toast(getApplicationContext());
+            t.setGravity(Gravity.LEFT, 100, 100); //TODO: get this to work
+
+            t.makeText(this, "Sorry, item not found :(\nPlease search for another item", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -269,6 +278,12 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     @Override
     public void onLocationChanged(Location location) {
         handleNewLocation(location);
+    }
+
+    /** upload now clicked */
+    public void uploadNow(View view) {
+        Intent uploadIntent = new Intent(this, UploadActivity.class);
+        startActivity(uploadIntent);
     }
 }
 
