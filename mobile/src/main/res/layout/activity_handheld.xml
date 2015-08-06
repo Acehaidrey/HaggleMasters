@@ -95,9 +95,9 @@
             android:onClick="uploadNow"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingTop="22dp"
-            android:paddingBottom="22dp"
-            android:background="@drawable/round_button"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/rounded_edittext"
             android:layout_marginBottom="5dp" />
     </LinearLayout>
 </LinearLayout>

@@ -204,7 +204,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         String query = searchText.getText().toString().toLowerCase();
 
         db = mHaggleDB.getReadableDatabase();
-        String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE, KEY_IMG, KEY_LAT, KEY_LONG, KEY_DATE, KEY_RATING};
+        String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE, KEY_IMG};
         String predicate = "title = ?";
         String[] predicate_values = {query};
         String orderBy = "price ASC";
