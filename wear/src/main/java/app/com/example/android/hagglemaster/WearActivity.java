@@ -18,12 +18,13 @@ public class WearActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wear);
+        setContentView(R.layout.staring_activity_wear);
 
 
-//        mTextView = (TextView) findViewById(R.id.logotext);
-//        Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
-//        mTextView.setTypeface(typeFace);
+        TextView mTextView = (TextView) findViewById(R.id.logotext);
+        Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        mTextView.setTypeface(typeFace);
+
 
 
         // start messaging through GoogleApiClient

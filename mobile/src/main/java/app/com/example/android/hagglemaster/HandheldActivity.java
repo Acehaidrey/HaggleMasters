@@ -79,6 +79,9 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
+        EditText t1 = (EditText) findViewById(R.id.search_query);
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t1.setTypeface(type1);
         mHaggleDB = new HaggleDB(getApplicationContext());
         queryTitle = new ArrayList<String>();
         queryPrice = new ArrayList<Double>();
@@ -94,6 +97,9 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter("upload!!!"));
+
+//        Intent i = new Intent(this, UploadActivity.class);
+//        startActivity(i);
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
