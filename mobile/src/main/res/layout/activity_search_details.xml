@@ -5,176 +5,161 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:visibility="visible"
+    android:background="@color/blu"
     tools:context="app.com.example.android.hagglemaster.SearchDetails">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/blu"
-        android:orientation="horizontal">
-
+        android:layout_alignParentStart="true"
+        android:id="@+id/scrollView">
         <LinearLayout
-            android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_alignStart="@+id/scrollView1">
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="name"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textStyle="bold"
-                android:textColor="@color/off_white"
-                android:layout_alignStart="@+id/time"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="5dp" />
-
-            <TextView
-                android:id="@+id/timestamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="purchase made 5 days ago"
-                android:textStyle="italic"
-                android:textColor="@color/off_white"
-                android:layout_above="@+id/title"
-                android:layout_alignEnd="@+id/important" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/important"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_below="@+id/title"
-            android:layout_alignEnd="@+id/map_img"
-            android:weightSum="1"
-            android:layout_toEndOf="@+id/image"
-            android:layout_alignParentEnd="true"
-            android:layout_above="@+id/map_img">
-
-            <TextView
-                android:id="@+id/finalprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="final price: "
-                android:textColor="@color/off_white"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:layout_below="@+id/avgprice"
-                android:layout_alignStart="@+id/avgprice"
-                android:layout_marginTop="15dp" />
-
-            <TextView
-                android:id="@+id/averageprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="average price: "
-                android:textColor="@color/off_white"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:layout_below="@+id/timestamp"
-                android:layout_alignStart="@+id/timestamp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/image"
-            android:orientation="vertical"
-            android:layout_width="150dp"
-            android:layout_height="125dp"
-            android:background="@color/off_white"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_alignTop="@+id/important"
-            android:layout_alignParentStart="true">
-
-            <ImageView
-                android:id="@+id/imageView"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY" />
-        </LinearLayout>
-
-        <ScrollView
-            android:id="@+id/scrollView1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignStart="@+id/description"
-            android:layout_below="@+id/description_title">
-
-            <TextView
-                android:id="@+id/description_text"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:textColor="@color/off_white"
-                android:text="the birds and the bees are singing in the trees and grapes are tasty but so is boba and is this text long enough yet omg"
-                android:textStyle="italic"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_above="@+id/scrollView1"
-                android:layout_alignStart="@+id/description_title"
-                android:layout_alignParentStart="true" />
-        </ScrollView>
+                android:layout_marginBottom="10dp" >
 
-        <Button
-            android:id="@+id/hagglehelper"
-            android:text="Start HaggleHelper"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:paddingLeft="7dp"
-            android:paddingRight="7dp"
-            android:background="@drawable/rounded_edittext"/>
+                <TextView
+                    android:id="@+id/timestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="purchase made 5 days ago"
+                    android:textStyle="italic"
+                    android:textColor="@color/offwhite" />
+            </LinearLayout>
 
-        <ImageView
-            android:id="@+id/map_img"
-            android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:background="@drawable/map"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentEnd="false" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/image"
+                    android:orientation="vertical"
+                    android:layout_width="150dp"
+                    android:layout_height="125dp"
+                    android:background="@color/offwhite"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/description_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description:"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/off_white"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/map_img"
-            android:layout_alignStart="@+id/map_img"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/important"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_name"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"
+                        android:textColor="@color/offwhite" />
+
+                    <TextView
+                        android:id="@+id/finalprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price2"
+                        android:textColor="@color/offwhite"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="15dp" />
+
+                    <TextView
+                        android:id="@+id/averageprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/avgprice"
+                        android:textColor="@color/offwhite"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ratingBar"
+                        android:numStars="5"
+                        android:rating="3.5"
+                        style="?android:attr/ratingBarStyleSmall"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+                    android:layout_height="200dp" android:id="@+id/map"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    tools:context="app.com.example.android.hagglemaster.MapsActivity"
+                    android:name="com.google.android.gms.maps.SupportMapFragment" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/description_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Description"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/offwhite"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/description_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:textColor="@color/offwhite"
+                    android:text="the birds and the bees are singing in the trees and grapes are tasty but so is boba"
+                    android:textStyle="italic"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
-    </RelativeLayout>
+    <Button
+        android:id="@+id/hagglehelper"
+        android:text="@string/starthagglebuddy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:background="@drawable/round_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp" />
+
 
 </RelativeLayout>
 

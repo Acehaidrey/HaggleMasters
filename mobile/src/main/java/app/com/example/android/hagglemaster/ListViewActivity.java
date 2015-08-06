@@ -48,12 +48,6 @@ public class ListViewActivity extends Activity {
     ListView listView;
     private GoogleApiClient mGoogleApiClient;
     private static final String TAG = "PhoneActivity";
-//    String[] values = new String[]{"Send Price   ",
-//            "Bargain Lower",
-//            "To Leave     ",
-//            "Take it      "
-//    };
-//    String[] valuesTemp;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

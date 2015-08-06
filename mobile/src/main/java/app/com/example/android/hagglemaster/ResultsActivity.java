@@ -1,5 +1,6 @@
 package app.com.example.android.hagglemaster;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -23,11 +26,12 @@ import java.util.Collections;
 
 
 public class ResultsActivity extends Activity {
-    private static final String TAG = "resultsTAG";
+    private static final String TAG = ResultsActivity.class.getSimpleName();
     private String querySearch;
-    private ArrayList<String> addressResults, titleResults, descriptionResults;
-    private ArrayList<Double> priceResults;
+    private ArrayList<String> addressResults, titleResults, descriptionResults, dateResults;
+    private ArrayList<Double> priceResults, latResults, longResults;
     private ArrayList<byte[]> imageResults;
+    private ArrayList<Float> ratingResults;
 
     private double avgVal;
 
@@ -38,9 +42,13 @@ public class ResultsActivity extends Activity {
         recoverIntentData();
         // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
+
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         titleView.setTypeface(type);
         titleView.setText("Search Results for: " + querySearch);
+
+        String cap = querySearch.substring(0, 1).toUpperCase() + querySearch.substring(1);
+        titleView.setText("Search Results for: " + cap);
 
         dynamicDisplay();
     }
@@ -69,12 +77,13 @@ public class ResultsActivity extends Activity {
             linleft.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 2.0f));
             LinearLayout linright = new LinearLayout(this);
             linright.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 3.0f));
+            linright.setOrientation(LinearLayout.VERTICAL);
 
             ImageView iv = new ImageView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             iv.setLayoutParams(params);
-            iv.setMaxHeight(dptopx(40));
-            iv.setMinimumHeight(dptopx(40));
+            iv.setMaxHeight(dptopx(30));
+            iv.setMinimumHeight(dptopx(30));
             iv.setMaxWidth(dptopx(800));
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
@@ -87,14 +96,26 @@ public class ResultsActivity extends Activity {
                     "<br>" + "<strong>Last Price: </strong>$" + new DecimalFormat("#.00").format(priceResults.get(i));
 
             linleft.addView(iv);
+            LinearLayout linTop = new LinearLayout(this);
+            linTop.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            linTop.setGravity(Gravity.CENTER);
+            linTop.setPadding(0, dptopx(30), 0, 0);
+            LinearLayout linBot = new LinearLayout(this);
+            linBot.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            linBot.setGravity(Gravity.CENTER);
+            linBot.setPadding(0, dptopx(10), 0, 0);
             TextView tv = new TextView(this);
-            tv.setPadding(dptopx(35), dptopx(45), 0, 0); // hard code. fix for final to center
-//            tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setLineSpacing(2.5f, 1);
             tv.setText(Html.fromHtml(show));
-            tv.setTextColor(getResources().getColor(R.color.off_white));
-            linright.addView(tv);
-
+            tv.setTextColor(getResources().getColor(R.color.offwhite));
+            linTop.addView(tv);
+            RatingBar rating = new RatingBar(getApplicationContext(), null, android.R.attr.ratingBarStyleSmall);
+//            rating.setRating(ratingResults.get(i)); TODO: implement this
+            rating.setRating(3.5f); // add actual rating from db here
+            rating.setNumStars(5);
+            linBot.addView(rating);
+            linright.addView(linTop);
+            linright.addView(linBot);
             newll.addView(linleft);
             newll.addView(linright);
             newll.setClickable(true);
@@ -108,6 +129,11 @@ public class ResultsActivity extends Activity {
                     detailsIntent.putExtra("image", imageResults.get(j));
                     detailsIntent.putExtra("price", priceResults.get(j));
                     detailsIntent.putExtra("avgprice", avgVal);
+                    //TODO: implement this
+                    // detailsIntent.putExtra("rating", ratingResults.get(j));
+//                    detailsIntent.putExtra("latitude", latResults.get(j));
+//                    detailsIntent.putExtra("longitude", longResults.get(j));
+//                    detailsIntent.putExtra("date", dateResults.get(j));
                     startActivity(detailsIntent);
                 }
             });
@@ -134,6 +160,13 @@ public class ResultsActivity extends Activity {
         descriptionResults = resultsIntent.getStringArrayListExtra("descriptionAL");
         priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
         imageResults = (ArrayList<byte[]>) resultsIntent.getSerializableExtra("imageAL");
+        // TODO: implement live
+//        dateResults = resultsIntent.getStringArrayListExtra("dateAL");
+//        latResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("latAL");
+//        longResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("longAL");
+//        ratingResults = (ArrayList<Float>) resultsIntent.getSerializableExtra("ratingAL");
+
+
     }
 
     /** Retrieves the minimum price of the list */

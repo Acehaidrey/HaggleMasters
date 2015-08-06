@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">HaggleMaster</string>
+    <string name="app_name">HaggleBuddy</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
     <string name="purchase">Purchase</string>
+    <string name="waiting">waiting for friend\'s input</string>
 </resources>

@@ -25,6 +25,7 @@ import android.widget.EditText;
 
 import android.widget.ImageView;
 
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Handler;
@@ -47,8 +49,13 @@ public class UploadActivity extends Activity {
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
     private static final String KEY_PRICE = "price";
-    private static final String[] COLUMNS = {KEY_TITLE, KEY_PRICE, KEY_ADDR, KEY_DESC, KEY_IMG};
-    private static final String TAG = "UploadActivityTAG";
+    private static final String KEY_DATE = "date";
+    private static final String KEY_LAT = "latitude";
+    private static final String KEY_LONG = "longitude";
+    private static final String KEY_RATING = "rating";
+
+
+    private static final String TAG = UploadActivity.class.getSimpleName();
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private HaggleDB mHaggleDB;
@@ -70,6 +77,7 @@ public class UploadActivity extends Activity {
 
     }
 
+
     /** submit button clicked. need to upload shiza to the db */
     public void DBUpload(View view) {
 
@@ -79,6 +87,8 @@ public class UploadActivity extends Activity {
         EditText price = (EditText) findViewById(R.id.price_text);
         ImageView imgView = (ImageView) findViewById(R.id.imageView1);
         Button imgbut = (Button) findViewById(R.id.imagebtn);
+        RatingBar rate = (RatingBar) findViewById(R.id.ratingBar);
+
 
         // bitmap stuff to put image in db
         try
@@ -98,6 +108,9 @@ public class UploadActivity extends Activity {
         String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
         double priceVal = Double.valueOf(price.getText().toString());
+        // added this stuff 8/6/2015
+        float NumStars = rate.getRating();
+        String todayDate = DateFormat.getDateTimeInstance().format(new Date());
 
         db = mHaggleDB.getWritableDatabase();
         ContentValues vals = new ContentValues();
@@ -106,7 +119,9 @@ public class UploadActivity extends Activity {
         vals.put(KEY_ADDR, addressText);
         vals.put(KEY_DESC, descriptionText);
         vals.put(KEY_IMG, img);
-        db.insert("item", null, vals);
+        vals.put(KEY_RATING, NumStars);
+        vals.put(KEY_DATE, todayDate);
+        db.insert(DATABASE_NAME, null, vals);
 
         // message sent to let user know updated
         Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
@@ -121,7 +136,6 @@ public class UploadActivity extends Activity {
 
         Intent i = new Intent(UploadActivity.this, HandheldActivity.class);
         startActivity(i);
-
 
     }
 

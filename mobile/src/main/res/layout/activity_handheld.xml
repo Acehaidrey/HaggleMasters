@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/offwhite"
-            android:text="@string/HaggleMaster"
+            android:text="@string/app_name"
             android:id="@+id/title"
             android:textSize="50sp"
             android:gravity="center"
@@ -71,5 +71,34 @@
                 />
 
         </LinearLayout>
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/rounded_edittext"-->
+            <!--android:textColor="@color/blu"-->
+            <!--android:text="@string/ready_to_upload"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:paddingLeft="5dp"-->
+            <!--android:paddingRight="5dp"-->
+            <!--android:layout_marginTop="80dp"-->
+            <!--android:onClick="uploadNow"-->
+            <!--/>-->
+
+        <Button
+            android:id="@+id/hagglehelper"
+            android:text="@string/ready_to_upload"
+            android:textColor="@color/blu"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="uploadNow"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="22dp"
+            android:paddingBottom="22dp"
+            android:background="@drawable/round_button"
+            android:layout_marginBottom="5dp" />
     </LinearLayout>
 </LinearLayout>
