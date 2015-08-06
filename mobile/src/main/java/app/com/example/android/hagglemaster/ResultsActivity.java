@@ -1,5 +1,6 @@
 package app.com.example.android.hagglemaster;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -69,12 +71,13 @@ public class ResultsActivity extends Activity {
             linleft.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 2.0f));
             LinearLayout linright = new LinearLayout(this);
             linright.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 3.0f));
+            linright.setOrientation(LinearLayout.VERTICAL);
 
             ImageView iv = new ImageView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             iv.setLayoutParams(params);
-            iv.setMaxHeight(dptopx(40));
-            iv.setMinimumHeight(dptopx(40));
+            iv.setMaxHeight(dptopx(30));
+            iv.setMinimumHeight(dptopx(30));
             iv.setMaxWidth(dptopx(800));
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
@@ -87,14 +90,25 @@ public class ResultsActivity extends Activity {
                     "<br>" + "<strong>Last Price: </strong>$" + new DecimalFormat("#.00").format(priceResults.get(i));
 
             linleft.addView(iv);
+            LinearLayout linTop = new LinearLayout(this);
+            linTop.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            linTop.setGravity(Gravity.CENTER);
+            linTop.setPadding(0, dptopx(30), 0, 0);
+            LinearLayout linBot = new LinearLayout(this);
+            linBot.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            linBot.setGravity(Gravity.CENTER);
+            linBot.setPadding(0, dptopx(10), 0, 0);
             TextView tv = new TextView(this);
-            tv.setPadding(dptopx(35), dptopx(45), 0, 0); // hard code. fix for final to center
-//            tv.setGravity(Gravity.CENTER_VERTICAL);
             tv.setLineSpacing(2.5f, 1);
             tv.setText(Html.fromHtml(show));
             tv.setTextColor(getResources().getColor(R.color.offwhite));
-            linright.addView(tv);
-
+            linTop.addView(tv);
+            RatingBar rating = new RatingBar(getApplicationContext(), null, android.R.attr.ratingBarStyleSmall);
+            rating.setRating(3.5f); // add actual rating from db here
+            rating.setNumStars(5);
+            linBot.addView(rating);
+            linright.addView(linTop);
+            linright.addView(linBot);
             newll.addView(linleft);
             newll.addView(linright);
             newll.setClickable(true);
@@ -108,9 +122,8 @@ public class ResultsActivity extends Activity {
                     detailsIntent.putExtra("image", imageResults.get(j));
                     detailsIntent.putExtra("price", priceResults.get(j));
                     detailsIntent.putExtra("avgprice", avgVal);
+                    // detailsIntent.putExtra("rating", ratingResults.get(j));
                     startActivity(detailsIntent);
-                    RatingBar rating = new RatingBar(getApplicationContext(),null, android.R.attr.ratingBarStyleSmall);
-                    rating.setRating(new Float(3.5));
                 }
             });
 
@@ -136,6 +149,7 @@ public class ResultsActivity extends Activity {
         descriptionResults = resultsIntent.getStringArrayListExtra("descriptionAL");
         priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
         imageResults = (ArrayList<byte[]>) resultsIntent.getSerializableExtra("imageAL");
+        // ratingResults = get rating data from db
     }
 
     /** Retrieves the minimum price of the list */

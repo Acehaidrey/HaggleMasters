@@ -24,7 +24,10 @@
     <string name="title_activity_results">ResultsActivity</string>
     <string name="title_activity_search_details">SearchDetails</string>
     <string name="title_activity_maps">Map</string>
-    <string name="item_rating">Rate:</string>
+    <string name="item_rating">Rating:</string>
+    <string name="starthagglebuddy">Start\nHaggle\nBuddy</string>
+    <string name="avgprice">Avg. Price: </string>
+    <string name="price2">Price: </string>
 
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>
