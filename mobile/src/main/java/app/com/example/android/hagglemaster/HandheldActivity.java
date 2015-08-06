@@ -86,6 +86,9 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
+        EditText t1 = (EditText) findViewById(R.id.search_query);
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t1.setTypeface(type1);
         mHaggleDB = new HaggleDB(getApplicationContext());
         queryTitle = new ArrayList<String>();
         queryPrice = new ArrayList<Double>();
@@ -173,6 +176,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         } else {
             Log.i(TAG, "Location services connection failed with code " + connectionResult.getErrorCode());
         }
+
     }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {

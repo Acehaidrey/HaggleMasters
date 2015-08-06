@@ -42,8 +42,14 @@ public class ResultsActivity extends Activity {
         recoverIntentData();
         // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
+
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        titleView.setTypeface(type);
+        titleView.setText("Search Results for: " + querySearch);
+
         String cap = querySearch.substring(0, 1).toUpperCase() + querySearch.substring(1);
         titleView.setText("Search Results for: " + cap);
+
         dynamicDisplay();
     }
 

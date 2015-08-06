@@ -52,7 +52,8 @@
             android:hint="@string/title"
             android:layout_above="@+id/textView"
             android:layout_marginLeft="10dp"
-            android:layout_alignStart="@+id/textView" />
+            android:layout_alignStart="@+id/textView"
+            android:textCursorDrawable="@drawable/color_cursor" />
 
 
         <EditText
@@ -70,7 +71,8 @@
             android:hint="@string/price"
             android:layout_alignBottom="@+id/imagebtn"
             android:layout_marginLeft="10dp"
-            android:layout_alignStart="@+id/textView" />
+            android:layout_alignStart="@+id/textView"
+            android:textCursorDrawable="@drawable/color_cursor" />
 
 
         <EditText
@@ -86,7 +88,8 @@
             android:background="@drawable/rounded_edittext"
             android:hint="@string/address"
             android:layout_centerVertical="true"
-            android:layout_alignEnd="@+id/price_text" />
+            android:layout_alignEnd="@+id/price_text"
+            android:textCursorDrawable="@drawable/color_cursor" />
 
 
         <EditText
@@ -106,7 +109,8 @@
             android:maxLines="2"
             android:layout_below="@+id/address_text"
             android:layout_alignEnd="@+id/price_text"
-            android:layout_marginTop="41dp" />
+            android:layout_marginTop="41dp"
+            android:textCursorDrawable="@drawable/color_cursor" />
 
 
         <Button

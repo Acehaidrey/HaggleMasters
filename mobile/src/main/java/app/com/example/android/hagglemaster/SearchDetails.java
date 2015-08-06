@@ -55,11 +55,18 @@ public class SearchDetails extends FragmentActivity {
     private GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_details);
         getIntentVals();
         display();
+
+        TextView t = (TextView) findViewById(R.id.name);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        t.setTypeface(type);
+
         timeStamp();
+
 
         Button b = (Button) findViewById(R.id.hagglehelper);
         b.setOnClickListener(new View.OnClickListener() {
