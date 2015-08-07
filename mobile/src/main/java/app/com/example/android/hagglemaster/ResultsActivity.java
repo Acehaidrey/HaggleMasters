@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,8 +89,20 @@ public class ResultsActivity extends Activity {
             iv.setMaxWidth(dptopx(800));
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            Bitmap bm = BitmapFactory.decodeByteArray(imageResults.get(i), 0, imageResults.get(i).length);
-            iv.setImageBitmap(bm);
+            // if no image
+            Bitmap noImage = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            noImage.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            final byte[] img = bos.toByteArray();
+
+            if (imageResults.get(i) != null) {
+                Bitmap bm = BitmapFactory.decodeByteArray(imageResults.get(i), 0, imageResults.get(i).length);
+                iv.setImageBitmap(bm);
+            } else {
+                Bitmap noImageBM = BitmapFactory.decodeByteArray(img, 0, img.length);
+                iv.setImageBitmap(noImageBM);
+//                iv.setImageResource(R.drawable.noimage);
+            }
 
             String show = "<strong>Item Name: </strong>" + titleResults.get(i) + "<br>" +
                     "<strong>Date: </strong>" + dateResults.get(i) + "<br>" +
@@ -114,8 +127,6 @@ public class ResultsActivity extends Activity {
             RatingBar rating = new RatingBar(getApplicationContext(), null, android.R.attr.ratingBarStyleSmall);
             rating.setRating(ratingResults.get(i));
             rating.setNumStars(5);
-//            rating.setMinimumWidth(100);
-//            rating.setMinimumHeight(100);
             linBot.addView(rating);
             linright.addView(linTop);
             linright.addView(linBot);
@@ -128,7 +139,11 @@ public class ResultsActivity extends Activity {
                     Intent detailsIntent = new Intent(ResultsActivity.this, SearchDetails.class);
                     detailsIntent.putExtra("title", titleResults.get(j));
                     detailsIntent.putExtra("description", descriptionResults.get(j));
-                    detailsIntent.putExtra("image", imageResults.get(j));
+                    if (imageResults.get(j) != null) {
+                        detailsIntent.putExtra("image", imageResults.get(j));
+                    } else {
+                        detailsIntent.putExtra("image", img);
+                    }
                     detailsIntent.putExtra("price", priceResults.get(j));
                     detailsIntent.putExtra("avgprice", avgVal);
 
