@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -77,6 +78,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
     private double currentLatitude;
     private double currentLongitude;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
+        addListenerOnRatingBar();
         //
 //        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 //        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
@@ -108,9 +111,12 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
+
+
     }
 
-
+    float numStars = 0;
     /** submit button clicked. need to upload shiza to the db */
     public void DBUpload(View view) {
 
@@ -137,7 +143,10 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
 
         String titleText = title.getText().toString().toLowerCase();
         String descriptionText = description.getText().toString();
-        float numStars = rate.getRating();
+//        final float numStars = 0;
+
+
+        //float numStars = rate.getRating();
 
         if (titleText.matches("") || descriptionText.matches("") || price.getText().toString().matches("")) {
             Toast t = new Toast(getApplicationContext());
@@ -175,6 +184,23 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
             startActivity(i);
         }
     }
+    //rating bar
+    public void addListenerOnRatingBar() {
+
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+
+        //if rating value is changed,
+        //display the current rating value in the result (textview) automatically
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                Log.d("RATINGSTAR","Y R SOOO STUPID");
+                numStars = ratingBar.getRating();
+
+            }
+        });
+    }
+
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
