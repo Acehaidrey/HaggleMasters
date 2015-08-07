@@ -5,13 +5,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.IntentSender;
 import android.graphics.Typeface;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import android.location.Location;
 import android.support.v4.content.LocalBroadcastManager;
 
 import android.os.Bundle;
@@ -29,18 +27,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
 import java.util.ArrayList;
 
 
 
-public class HandheldActivity extends Activity implements Animation.AnimationListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        com.google.android.gms.location.LocationListener {
+public class HandheldActivity extends Activity implements Animation.AnimationListener {
 
     private boolean visible = true;
     public static final String DATABASE_NAME = "Haggle.db";
@@ -59,10 +50,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     TextView title;
     Animation animFadein;
-    GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
-    private double currentLatitude;
-    private double currentLongitude;
 
     private HaggleDB mHaggleDB;
     private SQLiteDatabase db;
@@ -100,17 +87,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter("upload!!!"));
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-
-        // Create the LocationRequest object
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
 
         final EditText searchQuery = (EditText) findViewById(R.id.search_query);
@@ -133,53 +109,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         });
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        Log.i(TAG, "Location services connected.");
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (location == null) {
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-        }
-        else {
-            onLocationChanged(location);
-        };
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mGoogleApiClient.isConnected()) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-            mGoogleApiClient.disconnect();
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        Log.e(TAG, "connectionSuspended, shiza");
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        if (connectionResult.hasResolution()) {
-            try {
-                // Start an Activity that tries to resolve the error
-                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
-            } catch (IntentSender.SendIntentException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Log.i(TAG, "Location services connection failed with code " + connectionResult.getErrorCode());
-        }
-
-    }
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -211,6 +140,15 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         queryDescription = new ArrayList<String>();
         queryImage = new ArrayList<byte[]>();
 
+        queryDate = new ArrayList<String>();
+        queryRating = new ArrayList<Float>();
+        queryLatitude = new ArrayList<Double>();
+        queryLongitude = new ArrayList<Double>();
+
+        queryTitle = new ArrayList<String>();
+        queryPrice = new ArrayList<Double>();
+        queryDescription = new ArrayList<String>();
+        queryImage = new ArrayList<byte[]>();
         queryDate = new ArrayList<String>();
         queryRating = new ArrayList<Float>();
         queryLatitude = new ArrayList<Double>();
@@ -270,9 +208,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putExtra("latAL", queryLatitude);
             resultsIntent.putExtra("longAL", queryLongitude);
 
-            Log.d(TAG, "longitude: " + String.valueOf(currentLongitude));
-            Log.d(TAG, "latitude" + String.valueOf(currentLatitude));
-
             startActivity(resultsIntent);
 
         } else {
@@ -317,17 +252,12 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        currentLatitude = location.getLatitude();
-        currentLongitude = location.getLongitude();
-    }
-
     /** upload now clicked */
     public void uploadNow(View view) {
         Intent uploadIntent = new Intent(this, UploadActivity.class);
         startActivity(uploadIntent);
     }
+
 }
 
 

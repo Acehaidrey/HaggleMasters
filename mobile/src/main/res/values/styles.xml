@@ -9,8 +9,13 @@
     </style>
     <style name="RatingBarNew" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/start_rating_bar_full</item>
-        <item name="android:minHeight">48dip</item>
-        <item name="android:maxHeight">48dip</item>
+        <item name="android:minHeight">45dip</item>
+        <item name="android:maxHeight">45dip</item>
+    </style>
+    <style name="RatingBarNewMid" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/star_rating_bar_full_mid</item>
+        <item name="android:minHeight">45dip</item>
+        <item name="android:maxHeight">45dip</item>
     </style>
 
 
