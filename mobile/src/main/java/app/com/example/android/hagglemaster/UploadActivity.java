@@ -126,11 +126,13 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         }
 
         String titleText = title.getText().toString().toLowerCase();
+        SimpleDateFormat sf = new SimpleDateFormat("MMM d, yyyy");
+        String todayDate = sf.format(new Date());
 
         String descriptionText = description.getText().toString();
         double priceVal = Double.valueOf(price.getText().toString());
         float numStars = rate.getRating();
-        String todayDate = DateFormat.getDateTimeInstance().format(new Date());
+
 
 
         db = mHaggleDB.getWritableDatabase();

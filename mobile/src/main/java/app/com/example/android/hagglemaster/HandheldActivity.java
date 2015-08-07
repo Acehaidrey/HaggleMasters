@@ -47,6 +47,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         com.google.android.gms.location.LocationListener {
 
     private boolean visible = true;
+    public static final String DATABASE_NAME = "Haggle.db";
     private static final String KEY_TITLE = "title";
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
@@ -79,10 +80,13 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     private ArrayList<Double> queryLatitude;
     private ArrayList<Double> queryLongitude;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handheld);
+
+//        getApplicationContext().deleteDatabase(DATABASE_NAME);
 
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");

@@ -1,15 +1,12 @@
 package app.com.example.android.hagglemaster;
 
-import android.app.Activity;
+
 import android.content.Intent;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,18 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.android.gms.common.ConnectionResult;
+
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.wearable.PutDataMapRequest;
-import com.google.android.gms.wearable.PutDataRequest;
-import com.google.android.gms.wearable.Wearable;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -39,7 +31,6 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -110,6 +101,7 @@ public class SearchDetails extends FragmentActivity {
         desc = detailsIntent.getStringExtra("description");
         img = detailsIntent.getByteArrayExtra("image");
         date = detailsIntent.getStringExtra("date");
+        Log.d(TAG, "date: " + date);
         latit = (double) detailsIntent.getSerializableExtra("latitude");
         longit = (double) detailsIntent.getSerializableExtra("longitude");
         rating = (float) detailsIntent.getSerializableExtra("rating");
@@ -148,13 +140,13 @@ public class SearchDetails extends FragmentActivity {
     /** get the timestamp. */
     private void timeStamp() {
         DateFormat df = DateFormat.getDateInstance();
+
+
         TextView timeStamp = (TextView) findViewById(R.id.timestamp);
         try {
             Date date2 = new Date();
             Date date1 = df.parse(date); // TODO: implement this
-            Log.v(TAG, "date today: " + df.format(date1) + " date2 set: " + df.format(date2));
             long diff = getDateDiff(date1, date2, TimeUnit.DAYS);
-            Log.v(TAG, "difference: " + String.valueOf(diff));
 
             if (diff < 1) {
                 timeStamp.setText("last purchase made today");
