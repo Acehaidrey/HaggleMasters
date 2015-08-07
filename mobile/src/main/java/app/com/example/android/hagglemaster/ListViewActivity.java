@@ -63,6 +63,8 @@ public class ListViewActivity extends Activity {
 //        String Date= DateFormat.getDateTimeInstance().format(new Date());
 //        textView.setText(Date);
 
+
+
         mGoogleApiClient = new GoogleApiClient.Builder(ListViewActivity.this)
                 .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                     @Override
@@ -83,52 +85,63 @@ public class ListViewActivity extends Activity {
                 })
                 .addApi(Wearable.API)
                 .build();
+        //new thread
+        new Thread(new Runnable() {
+            public void run() {
 
 
 
-        Button buttonHigher = (Button) findViewById(R.id.higher);
-        buttonHigher.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sendNotification("Higher Price", "");
-                Log.d("does it call", "highr");
-            }
-        });
 
-        Button buttonLower = (Button) findViewById(R.id.lower);
-        buttonLower.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sendNotification("Lower Price","");
-            }
-        });
 
-        Button buttonTake = (Button) findViewById(R.id.take);
-        buttonTake.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sendNotification("Take it","");
-            }
-        });
-
-        Button buttonLeave = (Button) findViewById(R.id.leave);
-        buttonLeave.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sendNotification("Leave it ","");
-            }
-        });
-        Button mButton = (Button)findViewById(R.id.send);
-        mButton.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        EditText edt = (EditText)findViewById(R.id.editPrice);
-                        EditText edt2 = (EditText)findViewById(R.id.editMessage);
-                        String price = edt.getText().toString();
-                        String message = edt2.getText().toString();
-                        Log.d("Price", price);
-                        Log.d("Message", message);
-                        String msgTog = price + message;
-                        sendNotification(price, message);
-                        Log.d("Tog", msgTog);
+                Button buttonHigher = (Button) findViewById(R.id.higher);
+                buttonHigher.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        sendNotification("Higher Price", "");
+                        Log.d("does it call", "higher");
                     }
                 });
+
+                Button buttonLower = (Button) findViewById(R.id.lower);
+                buttonLower.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        sendNotification("Lower Price","");
+                    }
+                });
+
+                Button buttonTake = (Button) findViewById(R.id.take);
+                buttonTake.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        sendNotification("Take it","");
+                    }
+                });
+
+                Button buttonLeave = (Button) findViewById(R.id.leave);
+                buttonLeave.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        sendNotification("Leave it ","");
+                    }
+                });
+                Button mButton = (Button)findViewById(R.id.send);
+                mButton.setOnClickListener(
+                        new View.OnClickListener() {
+                            public void onClick(View view) {
+                                EditText edt = (EditText)findViewById(R.id.editPrice);
+                                EditText edt2 = (EditText)findViewById(R.id.editMessage);
+                                String price = edt.getText().toString();
+                                String message = edt2.getText().toString();
+                                Log.d("Price", price);
+                                Log.d("Message", message);
+                                String msgTog = price + message;
+                                sendNotification(price, message);
+                                Log.d("Tog", msgTog);
+                            }
+                        });
+
+
+            }
+        }).start();
+
+
 
     }
 

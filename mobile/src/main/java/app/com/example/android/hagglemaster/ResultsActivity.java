@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,9 +46,8 @@ public class ResultsActivity extends Activity {
         // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
 
-//        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
-//        titleView.setTypeface(type);
-        titleView.setText("Search Results for: " + querySearch);
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        titleView.setTypeface(type1);
 
         String cap = querySearch.substring(0, 1).toUpperCase() + querySearch.substring(1);
         titleView.setText("Search Results for: " + cap);
@@ -88,8 +89,21 @@ public class ResultsActivity extends Activity {
             iv.setMaxWidth(dptopx(800));
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            Bitmap bm = BitmapFactory.decodeByteArray(imageResults.get(i), 0, imageResults.get(i).length);
-            iv.setImageBitmap(bm);
+            // if no image
+            Bitmap noImage = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            noImage.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            final byte[] img = bos.toByteArray();
+
+            if (imageResults.get(i) != null) {
+                Bitmap bm = BitmapFactory.decodeByteArray(imageResults.get(i), 0, imageResults.get(i).length);
+                iv.setImageBitmap(bm);
+            } else {
+                Bitmap noImageBM = BitmapFactory.decodeByteArray(img, 0, img.length);
+                iv.setImageBitmap(noImageBM);
+//                iv.setImageResource(R.drawable.noimage);
+            }
+
 
             String show = "<strong>Item Name: </strong>" + titleResults.get(i) + "<br>" +
                     "<strong>Date: </strong>" + dateResults.get(i) + "<br>" +
@@ -106,6 +120,10 @@ public class ResultsActivity extends Activity {
             linBot.setGravity(Gravity.CENTER);
             linBot.setPadding(0, dptopx(10), 0, 0);
             TextView tv = new TextView(this);
+            //added for font
+            Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+            tv.setTypeface(type1);
+            //end
             tv.setLineSpacing(2.5f, 1);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsize)); //TODO: see works
             tv.setText(Html.fromHtml(show));
@@ -114,8 +132,6 @@ public class ResultsActivity extends Activity {
             RatingBar rating = new RatingBar(getApplicationContext(), null, android.R.attr.ratingBarStyleSmall);
             rating.setRating(ratingResults.get(i));
             rating.setNumStars(5);
-//            rating.setMinimumWidth(100);
-//            rating.setMinimumHeight(100);
             linBot.addView(rating);
             linright.addView(linTop);
             linright.addView(linBot);
@@ -128,7 +144,11 @@ public class ResultsActivity extends Activity {
                     Intent detailsIntent = new Intent(ResultsActivity.this, SearchDetails.class);
                     detailsIntent.putExtra("title", titleResults.get(j));
                     detailsIntent.putExtra("description", descriptionResults.get(j));
-                    detailsIntent.putExtra("image", imageResults.get(j));
+                    if (imageResults.get(j) != null) {
+                        detailsIntent.putExtra("image", imageResults.get(j));
+                    } else {
+                        detailsIntent.putExtra("image", img);
+                    }
                     detailsIntent.putExtra("price", priceResults.get(j));
                     detailsIntent.putExtra("avgprice", avgVal);
 
@@ -144,14 +164,12 @@ public class ResultsActivity extends Activity {
         }
     }
 
-
     /** converts dp to pixels */
     private int dptopx(int px) {
         final float scale = getResources().getDisplayMetrics().density;
         int padding_in_px = (int) (px * scale + 0.5f);
         return padding_in_px;
     }
-
 
     /** Get intent data */
     private void recoverIntentData() {
@@ -161,12 +179,10 @@ public class ResultsActivity extends Activity {
         descriptionResults = resultsIntent.getStringArrayListExtra("descriptionAL");
         priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
         imageResults = (ArrayList<byte[]>) resultsIntent.getSerializableExtra("imageAL");
-        // TODO: implement live
         dateResults = resultsIntent.getStringArrayListExtra("dateAL");
         latResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("latAL");
         longResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("longAL");
         ratingResults = (ArrayList<Float>) resultsIntent.getSerializableExtra("ratingAL");
-
 
     }
 

@@ -99,7 +99,7 @@
                         android:id="@+id/ratingBar"
                         android:numStars="5"
                         android:rating="3.5"
-                        style="?android:attr/ratingBarStyleSmall"/>
+                        style="@style/RatingBarNew"/>
 
                 </LinearLayout>
             </LinearLayout>

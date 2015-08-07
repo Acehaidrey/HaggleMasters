@@ -1,10 +1,8 @@
 package app.com.example.android.hagglemaster;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
@@ -16,7 +14,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.support.v4.content.LocalBroadcastManager;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -27,7 +24,6 @@ import android.view.View;
 
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,6 +43,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         com.google.android.gms.location.LocationListener {
 
     private boolean visible = true;
+    public static final String DATABASE_NAME = "Haggle.db";
     private static final String KEY_TITLE = "title";
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
@@ -79,10 +76,13 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     private ArrayList<Double> queryLatitude;
     private ArrayList<Double> queryLongitude;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handheld);
+
+//        getApplicationContext().deleteDatabase(DATABASE_NAME);
 
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
@@ -122,6 +122,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
 
         final EditText searchQuery = (EditText) findViewById(R.id.search_query);
         final Button shareButton = (Button) findViewById(R.id.hagglehelper);
@@ -221,6 +222,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         db = mHaggleDB.getReadableDatabase();
         String[] columns = {KEY_TITLE, KEY_DESC, KEY_PRICE, KEY_IMG, KEY_DATE, KEY_RATING, KEY_LAT, KEY_LONG};
+
         String predicate = "title = ?";
         String[] predicate_values = {query};
         String orderBy = "price ASC";
@@ -269,13 +271,15 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putExtra("latAL", queryLatitude);
             resultsIntent.putExtra("longAL", queryLongitude);
 
+            Log.d(TAG, "longitude: " + String.valueOf(currentLongitude));
+            Log.d(TAG, "latitude" + String.valueOf(currentLatitude));
+
             startActivity(resultsIntent);
 
         } else {
-            Toast t = new Toast(getApplicationContext());
-            t.setGravity(Gravity.LEFT, 100, 100); //TODO: get this to work
-
-            t.makeText(this, "Sorry, item not found :(\nPlease search for another item", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(this, "Sorry, item not found :(\nPlease search for another item!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, -100);
+            toast.show();
         }
     }
 
@@ -316,7 +320,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d(TAG, location.toString());
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
     }

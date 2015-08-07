@@ -1,15 +1,13 @@
 package app.com.example.android.hagglemaster;
 
-import android.app.Activity;
+
 import android.content.Intent;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
+import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,33 +17,41 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.android.gms.common.ConnectionResult;
+
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
+
+import android.widget.EditText;
+
+
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.List;
+import android.location.Address;
+
 
 public class SearchDetails extends FragmentActivity {
 
-    private String title, desc, date;
+    private String title, desc, date, address = " Marker ";
     private double avgprice, finprice, latit, longit;
     private byte[] img;
     private float rating;
@@ -61,7 +67,21 @@ public class SearchDetails extends FragmentActivity {
         setContentView(R.layout.activity_search_details);
         getIntentVals();
         display();
+
+
+        TextView t = (TextView) findViewById(R.id.name);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t.setTypeface(type);
+        TextView t1 = (TextView) findViewById(R.id.finalprice);
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t1.setTypeface(type1);
+        TextView t2 = (TextView) findViewById(R.id.averageprice);
+        Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t2.setTypeface(type2);
+
+
         timeStamp();
+//        getMyLocationAddress();
         setUpMapIfNeeded();
 
         Button b = (Button) findViewById(R.id.hagglehelper);
@@ -93,9 +113,36 @@ public class SearchDetails extends FragmentActivity {
     }
 
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(longit, latit)).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(longit, latit)).title(address));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(longit, latit)));
     }
+
+    public void getMyLocationAddress() {
+        Geocoder geocoder= new Geocoder(this, Locale.ENGLISH);
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(longit,latit, 1);
+            if(addresses != null) {
+                Address fetchedAddress = addresses.get(0);
+                StringBuilder strAddress = new StringBuilder();
+
+                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
+                    strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
+                }
+
+                address = strAddress.toString();
+                Log.d(TAG, "addy: " + address);
+            }
+            else
+                address = "Haggle here!";
+
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -110,6 +157,7 @@ public class SearchDetails extends FragmentActivity {
         desc = detailsIntent.getStringExtra("description");
         img = detailsIntent.getByteArrayExtra("image");
         date = detailsIntent.getStringExtra("date");
+        Log.d(TAG, "date: " + date);
         latit = (double) detailsIntent.getSerializableExtra("latitude");
         longit = (double) detailsIntent.getSerializableExtra("longitude");
         rating = (float) detailsIntent.getSerializableExtra("rating");
@@ -148,13 +196,13 @@ public class SearchDetails extends FragmentActivity {
     /** get the timestamp. */
     private void timeStamp() {
         DateFormat df = DateFormat.getDateInstance();
+
+
         TextView timeStamp = (TextView) findViewById(R.id.timestamp);
         try {
             Date date2 = new Date();
-            Date date1 = df.parse(date); // TODO: implement this
-            Log.v(TAG, "date today: " + df.format(date1) + " date2 set: " + df.format(date2));
+            Date date1 = df.parse(date);
             long diff = getDateDiff(date1, date2, TimeUnit.DAYS);
-            Log.v(TAG, "difference: " + String.valueOf(diff));
 
             if (diff < 1) {
                 timeStamp.setText("last purchase made today");

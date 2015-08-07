@@ -126,45 +126,52 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         }
 
         String titleText = title.getText().toString().toLowerCase();
-
         String descriptionText = description.getText().toString();
-        double priceVal = Double.valueOf(price.getText().toString());
         float numStars = rate.getRating();
-        String todayDate = DateFormat.getDateTimeInstance().format(new Date());
 
+        if (titleText.matches("") || descriptionText.matches("") || price.getText().toString().matches("")) {
+            Toast t = new Toast(getApplicationContext());
+            t.setGravity(Gravity.START, 100, 100); //TODO: get this to work
+            t.makeText(this, "Please fill in\nall text fields!", Toast.LENGTH_SHORT).show();
+        } else {
+            double priceVal = Double.valueOf(price.getText().toString());
+            ContentValues vals = new ContentValues();
+            SimpleDateFormat sf = new SimpleDateFormat("MMM d, yyyy");
+            String todayDate = sf.format(new Date());
 
-        db = mHaggleDB.getWritableDatabase();
-        ContentValues vals = new ContentValues();
-        vals.put(KEY_TITLE, titleText);
-        vals.put(KEY_PRICE, priceVal);
-        vals.put(KEY_DESC, descriptionText);
-        vals.put(KEY_IMG, img);
-        vals.put(KEY_RATING, numStars);
-        vals.put(KEY_DATE, todayDate);
-        vals.put(KEY_LAT, currentLatitude);
-        vals.put(KEY_LONG, currentLongitude);
-        db.insert(DATABASE_NAME, null, vals);
+            db = mHaggleDB.getWritableDatabase();
+            vals.put(KEY_TITLE, titleText);
+            vals.put(KEY_PRICE, priceVal);
+            vals.put(KEY_DESC, descriptionText);
+            vals.put(KEY_IMG, img);
+            vals.put(KEY_RATING, numStars);
+            vals.put(KEY_DATE, todayDate);
+            vals.put(KEY_LAT, currentLatitude);
+            vals.put(KEY_LONG, currentLongitude);
+            db.insert(DATABASE_NAME, null, vals);
 
-        // message sent to let user know updated
-        Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
+            // message sent to let user know updated
+            Toast.makeText(this, "Upload Successful", Toast.LENGTH_SHORT).show();
 
-        // clear all text and remove image
-        title.setText("");
-        price.setText("");
-        description.setText("");
-        rate.setRating(0);
-        imgView.setVisibility(View.INVISIBLE);
-        imgbut.setVisibility(View.VISIBLE);
+            // clear all text and remove image
+            title.setText("");
+            price.setText("");
+            description.setText("");
+            rate.setRating(0);
+            imgView.setVisibility(View.INVISIBLE);
+            imgbut.setVisibility(View.VISIBLE);
 
-        // originally was "HandHeldActivity.class" I changed it to the redirect page
-        Intent i = new Intent(UploadActivity.this, Redirect.class);
-        startActivity(i);
-
+            Intent i = new Intent(UploadActivity.this, Redirect.class);
+            startActivity(i);
+        }
     }
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
+        new Thread(new Runnable() {
+            public void run() {
         dispatchTakePictureIntent();
+    }}).start();
     }
 
     private void dispatchTakePictureIntent() {
@@ -232,6 +239,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onConnected(Bundle bundle) {
