@@ -88,7 +88,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 mMessageReceiver, new IntentFilter("upload!!!"));
 
 
-
         final EditText searchQuery = (EditText) findViewById(R.id.search_query);
         final Button shareButton = (Button) findViewById(R.id.hagglehelper);
         searchQuery.setOnKeyListener(new View.OnKeyListener() {
@@ -216,7 +215,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             toast.show();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
