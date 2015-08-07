@@ -1,97 +1,168 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
     android:orientation="vertical"
     tools:context="app.com.example.android.hagglemaster.UploadActivity"
-    android:visibility="visible">
+    android:visibility="visible"
+    android:background="@color/blu">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/blu"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TextView android:text="@string/upload_title"
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
-            android:paddingLeft="40dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="0dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/offwhite"
             android:paddingTop="18dp"
             android:paddingBottom="20dp"
             />
-        <!--<Button-->
-        <!--android:id="@+id/imagebtn"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:textColor="@color/blu"-->
-        <!--android:background="@android:color/white"-->
-        <!--android:text="@string/imgbtn"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:onClick="cameraOpen"-->
-        <!--/>-->
-
-        <EditText
-            android:textColor="@color/blu"
-            android:id="@+id/title_text"
-            android:layout_width="match_parent"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:paddingStart="5dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/rounded_edittext"
-            android:layout_marginEnd="10dp"
-            android:hint="@string/title"
-            android:layout_marginLeft="10dp"
-            android:layout_alignStart="@+id/textView"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:layout_below="@+id/textView2" />
+            android:layout_weight=".45" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="176dp">
 
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:visibility="invisible"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:maxHeight="50dp"
+                    android:maxWidth="800dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp" />
 
-        <EditText
-            android:id="@+id/price_text"
-            android:textColor="@color/blu"
-            android:singleLine="true"
-            android:layout_marginEnd="10dp"
-            android:paddingStart="5dp"
-            android:inputType="numberDecimal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/imageframe"
+                    android:src="@drawable/frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp" />
+
+                <Button
+                    android:id="@+id/imagebtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/blu"
+                    android:background="@color/offwhite"
+                    android:text="@string/imgbtn"
+                    android:onClick="cameraOpen"
+                    android:maxHeight="128dp"
+                    android:minHeight="128dp"
+                    android:maxWidth="150dp"
+                    android:minWidth="150dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".55"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/Name"
+                android:id="@+id/textView2"
+                android:textColor="@color/offwhite"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:textColor="@color/blu"
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:paddingStart="5dp"
+                android:paddingEnd="0dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/title"
+                android:layout_marginStart="10dp"
+                android:textCursorDrawable="@drawable/color_cursor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/Price"
+                android:id="@+id/textView"
+                android:textColor="@color/offwhite"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/price_text"
+                android:textColor="@color/blu"
+                android:singleLine="true"
+                android:layout_marginEnd="10dp"
+                android:paddingStart="5dp"
+                android:inputType="numberDecimal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:hint="@string/price"
+                android:layout_marginStart="10dp"
+                android:textCursorDrawable="@drawable/color_cursor" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_edittext"
-            android:hint="@string/price"
-            android:layout_alignBottom="@+id/imagebtn"
-            android:layout_marginLeft="10dp"
-            android:layout_alignStart="@+id/textView"
-            android:textCursorDrawable="@drawable/color_cursor" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/Description"
+            android:textColor="@color/offwhite"
+            android:paddingStart="15dp"
+            android:id="@+id/textView4"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp" />
 
-
-        <!--<EditText-->
-            <!--android:textColor="@color/blu"-->
-            <!--android:id="@+id/address_text"-->
-            <!--android:singleLine="true"-->
-            <!--android:paddingTop="10dp"-->
-            <!--android:paddingStart="5dp"-->
-            <!--android:paddingBottom="10dp"-->
-            <!--android:layout_marginStart="10dp"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@drawable/rounded_edittext"-->
-            <!--android:hint="@string/address"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_alignEnd="@+id/price_text"-->
-            <!--android:textCursorDrawable="@drawable/color_cursor" />-->
-
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <EditText
             android:id="@+id/description_text"
             android:textColor="@color/blu"
@@ -107,11 +178,51 @@
             android:minHeight="30dp"
             android:maxLines="3"
             android:textCursorDrawable="@drawable/color_cursor"
-            android:layout_below="@+id/textView4"
-            android:layout_alignParentStart="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5" >
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/offwhite"
+                android:gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/item_rating"
+                android:id="@+id/textView5"
+                android:layout_marginStart="15dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginTop="10dp">
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingBar"
+                android:isIndicator="false"
+                style="@style/RatingBarNew"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <Button
             android:id="@+id/uploadbtn"
@@ -120,137 +231,7 @@
             android:layout_height="wrap_content"
             android:text="@string/upload_submit"
             android:background="@drawable/rounded_edittext"
-            android:layout_gravity="center_horizontal"
-            android:onClick="DBUpload"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp" />
+            android:onClick="DBUpload" />
 
-        <Button
-            android:id="@+id/imagebtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/blu"
-            android:background="@color/offwhite"
-            android:text="@string/imgbtn"
-            android:onClick="cameraOpen"
-            android:maxHeight="128dp"
-            android:minHeight="128dp"
-            android:maxWidth="150dp"
-            android:minWidth="150dp"
-            android:layout_marginStart="15dp"
-            android:layout_toStartOf="@+id/uploadbtn"
-            android:layout_below="@+id/title"
-            android:layout_above="@+id/textView4" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/Price"
-            android:id="@+id/textView"
-            android:textColor="@color/offwhite"
-            android:layout_above="@+id/price_text"
-            android:layout_alignEnd="@+id/uploadbtn"
-            android:paddingStart="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/Name"
-            android:id="@+id/textView2"
-            android:textColor="@color/offwhite"
-            android:layout_below="@+id/title"
-            android:layout_alignStart="@+id/title_text" />
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-            <!--android:text="@string/Location"-->
-            <!--android:id="@+id/textView3"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:paddingStart="15dp"-->
-            <!--android:textColor="@color/offwhite"-->
-            <!--android:layout_above="@+id/address_text"-->
-            <!--android:layout_alignParentStart="true" />-->
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/Description"
-            android:textColor="@color/offwhite"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp"
-            android:id="@+id/textView4"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp" />
-
-        <ImageView
-            android:id="@+id/imageframe"
-            android:src="@drawable/frame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:layout_alignParentStart="false"
-            android:layout_toStartOf="@+id/uploadbtn"
-            android:layout_alignBottom="@+id/imagebtn"
-            android:layout_alignLeft="@+id/imagebtn"
-            android:layout_toRightOf="@+id/imagebtn"
-            android:layout_marginLeft="-5dp"
-            android:layout_marginTop="-5dp"
-            android:layout_marginRight="-5dp"
-            android:layout_marginBottom="-5dp" />
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:visibility="invisible"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:maxHeight="50dp"
-            android:maxWidth="800dp"
-            android:minHeight="50dp"
-            android:layout_alignStart="@+id/imagebtn"
-            android:layout_toStartOf="@+id/uploadbtn"
-            android:layout_alignEnd="@+id/imagebtn"
-            android:layout_alignBottom="@+id/imagebtn"
-            android:layout_below="@+id/title" />
-
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ratingBar"
-            android:gravity="center"
-            android:isIndicator="false"
-
-            style="@style/RatingBarNew"
-            android:layout_alignBottom="@+id/textView5"
-            android:layout_alignEnd="@+id/title"
-            android:layout_marginBottom="25dp"
-            android:layout_marginEnd="10dp"
-            android:layout_below="@+id/description_text"
-            android:layout_toEndOf="@+id/textView4"
-            android:layout_marginTop="35dp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/offwhite"
-            android:gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/item_rating"
-            android:id="@+id/textView5"
-            android:layout_below="@+id/description_text"
-            android:layout_above="@+id/uploadbtn"
-            android:layout_alignParentStart="true"
-            android:layout_alignEnd="@+id/description_title"
-            android:layout_marginStart="15dp" />
-    </RelativeLayout>
-
-</RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

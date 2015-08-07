@@ -95,11 +95,15 @@
 
                     <RatingBar
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="20dp"
                         android:id="@+id/ratingBar"
                         android:numStars="5"
-                        android:rating="3.5"
-                        style="@style/RatingBarNew"/>
+                        android:max="5"
+                        android:gravity="center"
+                        android:isIndicator="true"
+                        style="@style/RatingBarNewMid"
+                        android:layout_marginTop="15dp" />
+                    <!--android:rating="3.5"-->
 
                 </LinearLayout>
             </LinearLayout>
