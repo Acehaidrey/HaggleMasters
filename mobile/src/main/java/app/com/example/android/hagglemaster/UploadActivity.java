@@ -50,7 +50,6 @@ import java.util.logging.Handler;
 import java.util.logging.Handler.*;
 import java.util.logging.LogRecord;
 
-
 public class UploadActivity extends Activity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
@@ -64,7 +63,6 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
     private static final String KEY_LONG = "longitude";
     private static final String KEY_RATING = "rating";
 
-
     private static final String TAG = UploadActivity.class.getSimpleName();
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -75,12 +73,10 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
     private byte[] img = null;
 
     GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +98,6 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
-
     }
 
 
@@ -137,17 +132,14 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         float numStars = rate.getRating();
         String todayDate = DateFormat.getDateTimeInstance().format(new Date());
 
-        Log.d(TAG, "date: " + todayDate + " stars: " + numStars);
 
         db = mHaggleDB.getWritableDatabase();
         ContentValues vals = new ContentValues();
         vals.put(KEY_TITLE, titleText);
         vals.put(KEY_PRICE, priceVal);
-
         vals.put(KEY_DESC, descriptionText);
         vals.put(KEY_IMG, img);
-
-        vals.put(KEY_RATING, numStars); //TODO implement
+        vals.put(KEY_RATING, numStars);
         vals.put(KEY_DATE, todayDate);
         vals.put(KEY_LAT, currentLatitude);
         vals.put(KEY_LONG, currentLongitude);

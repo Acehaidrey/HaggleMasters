@@ -49,7 +49,7 @@ public class SearchDetails extends FragmentActivity {
     private double avgprice, finprice, latit, longit;
     private byte[] img;
     private float rating;
-    private GoogleMap googleMap;
+    private GoogleMap mMap;
 
     private static final String TAG = SearchDetails.class.getSimpleName();
     private GoogleApiClient mGoogleApiClient;
@@ -62,13 +62,15 @@ public class SearchDetails extends FragmentActivity {
         getIntentVals();
         display();
         timeStamp();
-        initGoogleMaps();
+        setUpMapIfNeeded();
 
         Button b = (Button) findViewById(R.id.hagglehelper);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Do something in response to button click
                 Intent intentList = new Intent(SearchDetails.this, ListViewActivity.class);
+                intentList.putExtra("avgprice", avgprice);
+                intentList.putExtra("lastprice", finprice);
                 startActivity(intentList);
                 Intent wear = new Intent(SearchDetails.this, SendingService.class);
                 SearchDetails.this.startService(wear);
@@ -77,76 +79,28 @@ public class SearchDetails extends FragmentActivity {
 
     }
 
-    /** initiate google maps API with correct location */
-    private void initGoogleMaps() {
-        // =============================== Google Map ==============================================
-//        locationStr = extras.getString("ENCOUNTER_LOCATION");
-//        String[] locationArray = extras.getString("ENCOUNTER_LOCATION").split(",");
-//        double encounterLatitude = Double.parseDouble(locationArray[0]);
-//        double encounterLongitude = Double.parseDouble(locationArray[1]);
-
-//        LatLng itemLocation = new LatLng(longit,latit);
-        LatLng itemLocation = new LatLng(0,0);
-
-        SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
-        // Getting GoogleMap object from the fragment
-        googleMap = fm.getMap();
-
-        // Enabling MyLocation Layer of Google Map
-        googleMap.setMyLocationEnabled(true);
-
-        // Getting LocationManager object from System Service LOCATION_SERVICE
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        // Creating a criteria object to retrieve provider
-        Criteria criteria = new Criteria();
-
-        // Getting the name of the best provider
-        String provider = locationManager.getBestProvider(criteria, true);
-
-        // Getting Current Location
-        Location location = locationManager.getLastKnownLocation(provider);
-
-        if (location != null) {
-            // Getting latitude of the current location
-            double latitude = location.getLatitude();
-
-            // Getting longitude of the current location
-            double longitude = location.getLongitude();
-
-            // Creating a LatLng object for the current location
-            LatLng latLng = new LatLng(latitude, longitude);
-
-            //myPosition = new LatLng(latitude, longitude);
-
-            //MarkerOptions currentMarker = new MarkerOptions().position(myPosition).title("You");
-            MarkerOptions animalMarker = new MarkerOptions().position(itemLocation).title("Name");
-
-            ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
-            //markers.add(currentMarker);
-            markers.add(animalMarker);
-
-            googleMap.addMarker(animalMarker);
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (MarkerOptions marker : markers) {
-                builder.include(marker.getPosition());
+    private void setUpMapIfNeeded() {
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+                setUpMap();
             }
-            LatLngBounds bounds = builder.build();
-
-            int padding = 100; // offset from edges of the map in pixels
-            final CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-
-
-            googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-                @Override
-                public void onMapLoaded() {
-                    googleMap.moveCamera(cu); } });
-        } else {
-            Log.v("Detailed View!!!", "cant find location detailed");
         }
-        // =============================== Google Map ==============================================
+    }
 
+    private void setUpMap() {
+        mMap.addMarker(new MarkerOptions().position(new LatLng(longit, latit)).title("Marker"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(longit, latit)));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpMapIfNeeded();
     }
 
     /** get all the intent values */
@@ -155,16 +109,13 @@ public class SearchDetails extends FragmentActivity {
         title = detailsIntent.getStringExtra("title");
         desc = detailsIntent.getStringExtra("description");
         img = detailsIntent.getByteArrayExtra("image");
-
-        date = detailsIntent.getStringExtra("date"); //TODO: implement live
+        date = detailsIntent.getStringExtra("date");
         latit = (double) detailsIntent.getSerializableExtra("latitude");
         longit = (double) detailsIntent.getSerializableExtra("longitude");
         rating = (float) detailsIntent.getSerializableExtra("rating");
 
         avgprice = (double) detailsIntent.getSerializableExtra("avgprice");
         finprice = (double) detailsIntent.getSerializableExtra("price");
-
-        Log.d(TAG, "lat: " + latit + " longit: " + longit + " rating: " + rating);
 
     }
 
@@ -179,10 +130,10 @@ public class SearchDetails extends FragmentActivity {
 
         TextView fin = (TextView) findViewById(R.id.finalprice);
 
-        fin.append("$" + String.valueOf(new DecimalFormat("#.00").format(finprice)));
+        fin.append(" $" + String.valueOf(new DecimalFormat("#.00").format(finprice)));
 
         TextView prc = (TextView) findViewById(R.id.averageprice);
-        prc.append("$" + String.valueOf(new DecimalFormat("#.00").format(avgprice)));
+        prc.append(" $" + String.valueOf(new DecimalFormat("#.00").format(avgprice)));
 
         ImageView iv = (ImageView) findViewById(R.id.imageView);
         Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);

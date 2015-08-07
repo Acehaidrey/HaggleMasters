@@ -89,6 +89,7 @@
         android:layout_marginTop="40dp" />
 
     <TextView
+        android:id="@+id/lastprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/offwhite"
@@ -143,7 +144,7 @@
         android:inputType="textMultiLine"
         android:background="@drawable/rounded_edittext"
         android:minLines="1"
-        android:hint="Speak confidently"
+        android:hint="Speak confidently!"
         android:layout_alignEnd="@+id/editPrice"
         android:layout_alignStart="@+id/title"
         android:layout_alignTop="@+id/message"

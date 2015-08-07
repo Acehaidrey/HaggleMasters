@@ -241,16 +241,14 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putStringArrayListExtra("descriptionAL", queryDescription);
             resultsIntent.putExtra("priceAL", queryPrice);
             resultsIntent.putExtra("imageAL", queryImage);
-
-
             resultsIntent.putStringArrayListExtra("dateAL", queryDate);
             resultsIntent.putExtra("ratingAL", queryRating);
             resultsIntent.putExtra("latAL", queryLatitude);
             resultsIntent.putExtra("longAL", queryLongitude);
 
             startActivity(resultsIntent);
+
         } else {
-//            Toast.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT).show();
             Toast t = new Toast(getApplicationContext());
             t.setGravity(Gravity.LEFT, 100, 100); //TODO: get this to work
 

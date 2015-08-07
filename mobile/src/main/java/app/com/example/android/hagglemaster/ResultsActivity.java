@@ -92,7 +92,7 @@ public class ResultsActivity extends Activity {
             iv.setImageBitmap(bm);
 
             String show = "<strong>Item Name: </strong>" + titleResults.get(i) + "<br>" +
-                    "<strong>Date: </strong>" + dateResults.get(i) + "<br>" + "<br>" +
+                    "<strong>Date: </strong>" + dateResults.get(i) + "<br>" +
                     "<strong>Avg. Price: </strong>$" + new DecimalFormat("#.00").format(avgVal) +
                     "<br>" + "<strong>Last Price: </strong>$" + new DecimalFormat("#.00").format(priceResults.get(i));
 
