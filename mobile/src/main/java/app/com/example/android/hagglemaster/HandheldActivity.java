@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
@@ -19,12 +20,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +46,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         com.google.android.gms.location.LocationListener {
 
+    private boolean visible = true;
     private static final String KEY_TITLE = "title";
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
@@ -118,6 +123,24 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
+        final EditText searchQuery = (EditText) findViewById(R.id.search_query);
+        final Button shareButton = (Button) findViewById(R.id.hagglehelper);
+        searchQuery.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int i, KeyEvent event) {
+                String text = searchQuery.getText().toString();
+                if (text.matches("")) {
+                    if (!visible) {
+                        shareButton.setVisibility(View.VISIBLE);
+                        visible = true;
+                    }
+                } else {
+                    shareButton.setVisibility(View.INVISIBLE);
+                    visible = false;
+                }
+            return false;
+            }
+        });
     }
 
     @Override
