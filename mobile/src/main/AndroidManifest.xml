@@ -56,6 +56,7 @@
         </activity>
         <activity
             android:name=".UploadActivity"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
             android:label="@string/title_activity_upload" >
         </activity>
         <activity

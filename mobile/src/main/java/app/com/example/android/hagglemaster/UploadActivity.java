@@ -73,6 +73,16 @@ public class UploadActivity extends Activity {
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
+        //
+//        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+//        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+//            @Override
+//            public void onRatingChanged(RatingBar ratingBar, float rating,
+//                                        boolean fromUser) {
+//                // TODO Auto-generated method stub
+//                text.setText("Rating: "+String.valueOf(rating));
+//            }});
+
 
 
     }
@@ -142,7 +152,10 @@ public class UploadActivity extends Activity {
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
+        new Thread(new Runnable() {
+            public void run() {
         dispatchTakePictureIntent();
+    }}).start();
     }
 
     private void dispatchTakePictureIntent() {
@@ -210,4 +223,17 @@ public class UploadActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        ImageView imgView = (ImageView) findViewById(R.id.imageView1);
+//        BitmapDrawable drawable = (BitmapDrawable) imgView.g();
+//        Uri bitmap = drawable.getBitmap();
+//        outState.putParcelable("image", bitmap);
+//        super.onSaveInstanceState(outState);
+//    }
+
+
+
 }

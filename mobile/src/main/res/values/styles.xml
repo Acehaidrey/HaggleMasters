@@ -7,5 +7,11 @@
         <item name="colorControlHighlight">@color/offwhite</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="RatingBarNew" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/start_rating_bar_full</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:maxHeight">48dip</item>
+    </style>
+
 
 </resources>

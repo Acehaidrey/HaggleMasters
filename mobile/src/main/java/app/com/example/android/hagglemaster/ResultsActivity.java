@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -42,11 +43,8 @@ public class ResultsActivity extends Activity {
         recoverIntentData();
         // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
-
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
-        titleView.setTypeface(type);
-        titleView.setText("Search Results for: " + querySearch);
-
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        titleView.setTypeface(type1);
         String cap = querySearch.substring(0, 1).toUpperCase() + querySearch.substring(1);
         titleView.setText("Search Results for: " + cap);
 
@@ -105,6 +103,10 @@ public class ResultsActivity extends Activity {
             linBot.setGravity(Gravity.CENTER);
             linBot.setPadding(0, dptopx(10), 0, 0);
             TextView tv = new TextView(this);
+            //added for font
+            Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+            tv.setTypeface(type1);
+            //end
             tv.setLineSpacing(2.5f, 1);
             tv.setText(Html.fromHtml(show));
             tv.setTextColor(getResources().getColor(R.color.offwhite));

@@ -11,7 +11,7 @@
         android:id="@+id/title"
         android:text="@string/result_title"
         android:textColor="@color/offwhite"
-        android:textSize="20sp"
+        android:textSize="23sp"
         android:padding="10dp"
         />
 

@@ -31,6 +31,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
+
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -62,8 +64,16 @@ public class SearchDetails extends FragmentActivity {
         display();
 
         TextView t = (TextView) findViewById(R.id.name);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
         t.setTypeface(type);
+        TextView t1 = (TextView) findViewById(R.id.finalprice);
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t1.setTypeface(type1);
+        TextView t2 = (TextView) findViewById(R.id.averageprice);
+        Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t2.setTypeface(type2);
+
+
 
         timeStamp();
 
