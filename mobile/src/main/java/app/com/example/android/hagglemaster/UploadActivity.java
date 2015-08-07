@@ -88,17 +88,8 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
-        addListenerOnRatingBar();
-        //
-//        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-//        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
-//            @Override
-//            public void onRatingChanged(RatingBar ratingBar, float rating,
-//                                        boolean fromUser) {
-//                // TODO Auto-generated method stub
-//                text.setText("Rating: "+String.valueOf(rating));
-//            }});
 
+        addListenerOnRatingBar();
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -180,7 +171,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
             imgView.setVisibility(View.INVISIBLE);
             imgbut.setVisibility(View.VISIBLE);
 
-            Intent i = new Intent(UploadActivity.this, HandheldActivity.class);
+            Intent i = new Intent(UploadActivity.this, Redirect.class);
             startActivity(i);
         }
     }
