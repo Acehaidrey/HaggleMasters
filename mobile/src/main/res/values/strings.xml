@@ -35,4 +35,7 @@
     <color name="offwhite">#FEFBF7</color>
     <color name="darkgray">#a3a3a3</color>
     <color name="blu">#122C4B</color>
+    <string name="title_activity_redirect">Redirect</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

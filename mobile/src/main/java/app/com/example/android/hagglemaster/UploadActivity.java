@@ -156,7 +156,8 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         imgView.setVisibility(View.INVISIBLE);
         imgbut.setVisibility(View.VISIBLE);
 
-        Intent i = new Intent(UploadActivity.this, HandheldActivity.class);
+        // originally was "HandHeldActivity.class" I changed it to the redirect page
+        Intent i = new Intent(UploadActivity.this, Redirect.class);
         startActivity(i);
 
     }

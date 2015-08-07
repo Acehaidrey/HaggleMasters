@@ -1,0 +1,64 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="visible"
+    android:background="@color/blu"
+    tools:context="app.com.example.android.hagglemaster.Redirect">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/thanks"
+            android:text="Thanks for sharing your purchase with HaggleBuddy!"
+            android:textColor="@color/offwhite"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center_horizontal"/>
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thanks"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="100dp">
+
+            <Button
+                android:id="@+id/search"
+                android:text="Make another search?"
+                android:textSize="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:layout_margin="10dp" />
+
+            <Button
+                android:id="@+id/upload"
+                android:text="Share another find!"
+                android:textSize="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_edittext"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:layout_margin="10dp" />
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+</RelativeLayout>
+
