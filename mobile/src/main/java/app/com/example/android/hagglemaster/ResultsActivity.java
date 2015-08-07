@@ -104,6 +104,7 @@ public class ResultsActivity extends Activity {
 //                iv.setImageResource(R.drawable.noimage);
             }
 
+
             String show = "<strong>Item Name: </strong>" + titleResults.get(i) + "<br>" +
                     "<strong>Date: </strong>" + dateResults.get(i) + "<br>" +
                     "<strong>Avg. Price: </strong>$" + new DecimalFormat("#.00").format(avgVal) +

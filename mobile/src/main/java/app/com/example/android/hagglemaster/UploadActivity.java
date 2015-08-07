@@ -135,10 +135,11 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
             t.makeText(this, "Please fill in\nall text fields!", Toast.LENGTH_SHORT).show();
         } else {
             double priceVal = Double.valueOf(price.getText().toString());
-            String todayDate = DateFormat.getDateTimeInstance().format(new Date());
+            ContentValues vals = new ContentValues();
+            SimpleDateFormat sf = new SimpleDateFormat("MMM d, yyyy");
+            String todayDate = sf.format(new Date());
 
             db = mHaggleDB.getWritableDatabase();
-            ContentValues vals = new ContentValues();
             vals.put(KEY_TITLE, titleText);
             vals.put(KEY_PRICE, priceVal);
             vals.put(KEY_DESC, descriptionText);

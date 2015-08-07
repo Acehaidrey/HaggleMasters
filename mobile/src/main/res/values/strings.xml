@@ -4,7 +4,7 @@
     <string name="search_query">Search for an item</string>
     <string name="search">Search</string>
     <string name="title_activity_upload">UploadActivity</string>
-    <string name="upload_title">Upload Your Product!</string>
+    <string name="upload_title">Upload Your Purchase!</string>
     <string name="imgbtn">Add Image</string>
     <string name="title">Item Name</string>
     <string name="address">Purchase Location</string>
