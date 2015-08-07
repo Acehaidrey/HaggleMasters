@@ -45,14 +45,15 @@ import java.util.concurrent.TimeUnit;
 
 public class SearchDetails extends FragmentActivity {
 
-    private String title, desc, loc, date;
-    private double avgprice = 0.0 , finprice = 0.0 , latit, longit;
+    private String title, desc, date;
+    private double avgprice, finprice, latit, longit;
     private byte[] img;
     private float rating;
     private GoogleMap googleMap;
 
     private static final String TAG = SearchDetails.class.getSimpleName();
     private GoogleApiClient mGoogleApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -60,13 +61,8 @@ public class SearchDetails extends FragmentActivity {
         setContentView(R.layout.activity_search_details);
         getIntentVals();
         display();
-
-        TextView t = (TextView) findViewById(R.id.name);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
-        t.setTypeface(type);
-
         timeStamp();
-
+        initGoogleMaps();
 
         Button b = (Button) findViewById(R.id.hagglehelper);
         b.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +75,10 @@ public class SearchDetails extends FragmentActivity {
             }
         });
 
+    }
 
-
+    /** initiate google maps API with correct location */
+    private void initGoogleMaps() {
         // =============================== Google Map ==============================================
 //        locationStr = extras.getString("ENCOUNTER_LOCATION");
 //        String[] locationArray = extras.getString("ENCOUNTER_LOCATION").split(",");
@@ -151,23 +149,26 @@ public class SearchDetails extends FragmentActivity {
 
     }
 
+    /** get all the intent values */
     private void getIntentVals() {
         Intent detailsIntent = getIntent();
         title = detailsIntent.getStringExtra("title");
-        loc = detailsIntent.getStringExtra("address");
         desc = detailsIntent.getStringExtra("description");
         img = detailsIntent.getByteArrayExtra("image");
-//        date = detailsIntent.getStringExtra("date"); //TODO: implement live
-//        latit = (double) detailsIntent.getSerializableExtra("latitude");
-//        longit = (double) detailsIntent.getSerializableExtra("longitude");
-//        rating = (float) detailsIntent.getSerializableExtra("rating");
+
+        date = detailsIntent.getStringExtra("date"); //TODO: implement live
+        latit = (double) detailsIntent.getSerializableExtra("latitude");
+        longit = (double) detailsIntent.getSerializableExtra("longitude");
+        rating = (float) detailsIntent.getSerializableExtra("rating");
 
         avgprice = (double) detailsIntent.getSerializableExtra("avgprice");
         finprice = (double) detailsIntent.getSerializableExtra("price");
-        Log.v(TAG, title + " " + loc + " " + desc + " " + avgprice + " " + finprice);
+
+        Log.d(TAG, "lat: " + latit + " longit: " + longit + " rating: " + rating);
 
     }
 
+    /** show all the values on the UI screen */
     private void display() {
         TextView nameTV = (TextView) findViewById(R.id.name);
         String cap = title.substring(0, 1).toUpperCase() + title.substring(1);
@@ -187,8 +188,8 @@ public class SearchDetails extends FragmentActivity {
         Bitmap bm = BitmapFactory.decodeByteArray(img, 0, img.length);
         iv.setImageBitmap(bm);
 
-//        RatingBar rb = (RatingBar) findViewById(R.id.ratingBar); //TODO: implement live
-//        rb.setRating(rating);
+        RatingBar rb = (RatingBar) findViewById(R.id.ratingBar); //TODO: implement live
+        rb.setRating(rating);
 
 
     }
@@ -199,8 +200,7 @@ public class SearchDetails extends FragmentActivity {
         TextView timeStamp = (TextView) findViewById(R.id.timestamp);
         try {
             Date date2 = new Date();
-//            Date date1 = df.parse(date); // TODO: implement this
-            Date date1 = df.parse("August 3, 2015");
+            Date date1 = df.parse(date); // TODO: implement this
             Log.v(TAG, "date today: " + df.format(date1) + " date2 set: " + df.format(date2));
             long diff = getDateDiff(date1, date2, TimeUnit.DAYS);
             Log.v(TAG, "difference: " + String.valueOf(diff));

@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +29,7 @@ import java.util.Collections;
 public class ResultsActivity extends Activity {
     private static final String TAG = ResultsActivity.class.getSimpleName();
     private String querySearch;
-    private ArrayList<String> addressResults, titleResults, descriptionResults, dateResults;
+    private ArrayList<String> titleResults, descriptionResults, dateResults;
     private ArrayList<Double> priceResults, latResults, longResults;
     private ArrayList<byte[]> imageResults;
     private ArrayList<Float> ratingResults;
@@ -43,8 +44,8 @@ public class ResultsActivity extends Activity {
         // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
 
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
-        titleView.setTypeface(type);
+//        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+//        titleView.setTypeface(type);
         titleView.setText("Search Results for: " + querySearch);
 
         String cap = querySearch.substring(0, 1).toUpperCase() + querySearch.substring(1);
@@ -91,7 +92,7 @@ public class ResultsActivity extends Activity {
             iv.setImageBitmap(bm);
 
             String show = "<strong>Item Name: </strong>" + titleResults.get(i) + "<br>" +
-                    "<strong>Address: </strong>" + addressResults.get(i) + "<br>" +
+                    "<strong>Date: </strong>" + dateResults.get(i) + "<br>" + "<br>" +
                     "<strong>Avg. Price: </strong>$" + new DecimalFormat("#.00").format(avgVal) +
                     "<br>" + "<strong>Last Price: </strong>$" + new DecimalFormat("#.00").format(priceResults.get(i));
 
@@ -106,12 +107,12 @@ public class ResultsActivity extends Activity {
             linBot.setPadding(0, dptopx(10), 0, 0);
             TextView tv = new TextView(this);
             tv.setLineSpacing(2.5f, 1);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsize)); //TODO: see works
             tv.setText(Html.fromHtml(show));
             tv.setTextColor(getResources().getColor(R.color.offwhite));
             linTop.addView(tv);
             RatingBar rating = new RatingBar(getApplicationContext(), null, android.R.attr.ratingBarStyleSmall);
-//            rating.setRating(ratingResults.get(i)); TODO: implement this
-            rating.setRating(3.5f); // add actual rating from db here
+            rating.setRating(ratingResults.get(i));
             rating.setNumStars(5);
             linBot.addView(rating);
             linright.addView(linTop);
@@ -124,16 +125,15 @@ public class ResultsActivity extends Activity {
                 public void onClick(View v) {
                     Intent detailsIntent = new Intent(ResultsActivity.this, SearchDetails.class);
                     detailsIntent.putExtra("title", titleResults.get(j));
-                    detailsIntent.putExtra("address", addressResults.get(j));
                     detailsIntent.putExtra("description", descriptionResults.get(j));
                     detailsIntent.putExtra("image", imageResults.get(j));
                     detailsIntent.putExtra("price", priceResults.get(j));
                     detailsIntent.putExtra("avgprice", avgVal);
-                    //TODO: implement this
-                    // detailsIntent.putExtra("rating", ratingResults.get(j));
-//                    detailsIntent.putExtra("latitude", latResults.get(j));
-//                    detailsIntent.putExtra("longitude", longResults.get(j));
-//                    detailsIntent.putExtra("date", dateResults.get(j));
+
+                    detailsIntent.putExtra("rating", ratingResults.get(j));
+                    detailsIntent.putExtra("latitude", latResults.get(j));
+                    detailsIntent.putExtra("longitude", longResults.get(j));
+                    detailsIntent.putExtra("date", dateResults.get(j));
                     startActivity(detailsIntent);
                 }
             });
@@ -155,16 +155,15 @@ public class ResultsActivity extends Activity {
     private void recoverIntentData() {
         Intent resultsIntent = getIntent();
         querySearch = resultsIntent.getStringExtra("queryItem");
-        addressResults = resultsIntent.getStringArrayListExtra("addressAL");
         titleResults = resultsIntent.getStringArrayListExtra("titleAL");
         descriptionResults = resultsIntent.getStringArrayListExtra("descriptionAL");
         priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
         imageResults = (ArrayList<byte[]>) resultsIntent.getSerializableExtra("imageAL");
         // TODO: implement live
-//        dateResults = resultsIntent.getStringArrayListExtra("dateAL");
-//        latResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("latAL");
-//        longResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("longAL");
-//        ratingResults = (ArrayList<Float>) resultsIntent.getSerializableExtra("ratingAL");
+        dateResults = resultsIntent.getStringArrayListExtra("dateAL");
+        latResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("latAL");
+        longResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("longAL");
+        ratingResults = (ArrayList<Float>) resultsIntent.getSerializableExtra("ratingAL");
 
 
     }

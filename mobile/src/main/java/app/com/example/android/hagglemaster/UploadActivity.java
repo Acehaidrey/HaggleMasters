@@ -1,14 +1,18 @@
 package app.com.example.android.hagglemaster;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -20,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -29,6 +34,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -41,11 +51,11 @@ import java.util.logging.Handler.*;
 import java.util.logging.LogRecord;
 
 
-public class UploadActivity extends Activity {
+public class UploadActivity extends Activity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
     private static final String DATABASE_NAME = "item";
     private static final String KEY_TITLE = "title";
-    private static final String KEY_ADDR = "address";
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
     private static final String KEY_PRICE = "price";
@@ -64,6 +74,13 @@ public class UploadActivity extends Activity {
     private Uri realPhoto = null;
     private byte[] img = null;
 
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
+    private LocationRequest mLocationRequest;
+    private double currentLatitude;
+    private double currentLongitude;
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +91,17 @@ public class UploadActivity extends Activity {
         t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
 
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
     }
 
@@ -82,13 +110,11 @@ public class UploadActivity extends Activity {
     public void DBUpload(View view) {
 
         EditText title = (EditText) findViewById(R.id.title_text);
-        EditText address = (EditText) findViewById(R.id.address_text);
         EditText description = (EditText) findViewById(R.id.description_text);
         EditText price = (EditText) findViewById(R.id.price_text);
         ImageView imgView = (ImageView) findViewById(R.id.imageView1);
         Button imgbut = (Button) findViewById(R.id.imagebtn);
         RatingBar rate = (RatingBar) findViewById(R.id.ratingBar);
-
 
         // bitmap stuff to put image in db
         try
@@ -105,22 +131,25 @@ public class UploadActivity extends Activity {
         }
 
         String titleText = title.getText().toString().toLowerCase();
-        String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
         double priceVal = Double.valueOf(price.getText().toString());
-        // added this stuff 8/6/2015
-        float NumStars = rate.getRating();
+        // added this stuff 8/6/2015 //TODO: implement live
+        float numStars = rate.getRating();
         String todayDate = DateFormat.getDateTimeInstance().format(new Date());
+
+        Log.d(TAG, "date: " + todayDate + " stars: " + numStars);
 
         db = mHaggleDB.getWritableDatabase();
         ContentValues vals = new ContentValues();
         vals.put(KEY_TITLE, titleText);
         vals.put(KEY_PRICE, priceVal);
-        vals.put(KEY_ADDR, addressText);
         vals.put(KEY_DESC, descriptionText);
         vals.put(KEY_IMG, img);
-        vals.put(KEY_RATING, NumStars);
+
+        vals.put(KEY_RATING, numStars); //TODO implement
         vals.put(KEY_DATE, todayDate);
+        vals.put(KEY_LAT, currentLatitude);
+        vals.put(KEY_LONG, currentLongitude);
         db.insert(DATABASE_NAME, null, vals);
 
         // message sent to let user know updated
@@ -128,9 +157,9 @@ public class UploadActivity extends Activity {
 
         // clear all text and remove image
         title.setText("");
-        address.setText("");
         price.setText("");
         description.setText("");
+        rate.setRating(0);
         imgView.setVisibility(View.INVISIBLE);
         imgbut.setVisibility(View.VISIBLE);
 
@@ -138,7 +167,6 @@ public class UploadActivity extends Activity {
         startActivity(i);
 
     }
-
 
     /** click to upload an image. need a camera intent and keep photo in this spot */
     public void cameraOpen(View view) {
@@ -210,4 +238,60 @@ public class UploadActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.i(TAG, "Location services connected. upload activity");
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        }
+        else {
+            onLocationChanged(location);
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        // nada
+        Log.e(TAG, "connectionSuspended, shiza");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.i(TAG, "Location services connection failed with code " + connectionResult.getErrorCode());
+        }
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+        Log.d(TAG, "curlat: " + currentLatitude + " curlong: " + currentLongitude);
+    }
+
 }
