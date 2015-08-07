@@ -145,14 +145,12 @@ public class ResultsActivity extends Activity {
         }
     }
 
-
     /** converts dp to pixels */
     private int dptopx(int px) {
         final float scale = getResources().getDisplayMetrics().density;
         int padding_in_px = (int) (px * scale + 0.5f);
         return padding_in_px;
     }
-
 
     /** Get intent data */
     private void recoverIntentData() {
@@ -162,12 +160,10 @@ public class ResultsActivity extends Activity {
         descriptionResults = resultsIntent.getStringArrayListExtra("descriptionAL");
         priceResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("priceAL");
         imageResults = (ArrayList<byte[]>) resultsIntent.getSerializableExtra("imageAL");
-        // TODO: implement live
         dateResults = resultsIntent.getStringArrayListExtra("dateAL");
         latResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("latAL");
         longResults = (ArrayList<Double>) resultsIntent.getSerializableExtra("longAL");
         ratingResults = (ArrayList<Float>) resultsIntent.getSerializableExtra("ratingAL");
-
 
     }
 

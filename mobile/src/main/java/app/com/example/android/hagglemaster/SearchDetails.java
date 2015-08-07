@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 
+import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,17 +27,23 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.List;
+import android.location.Address;
+
 
 public class SearchDetails extends FragmentActivity {
 
-    private String title, desc, date;
+    private String title, desc, date, address = " Marker ";
     private double avgprice, finprice, latit, longit;
     private byte[] img;
     private float rating;
@@ -53,6 +60,7 @@ public class SearchDetails extends FragmentActivity {
         getIntentVals();
         display();
         timeStamp();
+//        getMyLocationAddress();
         setUpMapIfNeeded();
 
         Button b = (Button) findViewById(R.id.hagglehelper);
@@ -84,9 +92,36 @@ public class SearchDetails extends FragmentActivity {
     }
 
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(longit, latit)).title("Marker"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(longit, latit)).title(address));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(longit, latit)));
     }
+
+    public void getMyLocationAddress() {
+        Geocoder geocoder= new Geocoder(this, Locale.ENGLISH);
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(longit,latit, 1);
+            if(addresses != null) {
+                Address fetchedAddress = addresses.get(0);
+                StringBuilder strAddress = new StringBuilder();
+
+                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
+                    strAddress.append(fetchedAddress.getAddressLine(i)).append("\n");
+                }
+
+                address = strAddress.toString();
+                Log.d(TAG, "addy: " + address);
+            }
+            else
+                address = "Haggle here!";
+
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -145,7 +180,7 @@ public class SearchDetails extends FragmentActivity {
         TextView timeStamp = (TextView) findViewById(R.id.timestamp);
         try {
             Date date2 = new Date();
-            Date date1 = df.parse(date); // TODO: implement this
+            Date date1 = df.parse(date);
             long diff = getDateDiff(date1, date2, TimeUnit.DAYS);
 
             if (diff < 1) {

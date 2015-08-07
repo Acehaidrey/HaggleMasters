@@ -12,6 +12,7 @@
          Google Maps Android API v2, but are recommended.
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <permission android:name="com.example.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
 
 
     <application
@@ -56,7 +57,10 @@
         </activity>
         <activity
             android:name=".UploadActivity"
-            android:label="@string/title_activity_upload" >
+            android:label="@string/title_activity_upload"
+            android:screenOrientation="portrait"
+            android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
+            >
         </activity>
         <activity
             android:name=".ResultsActivity"
