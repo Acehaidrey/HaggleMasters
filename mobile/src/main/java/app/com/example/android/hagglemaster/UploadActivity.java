@@ -82,7 +82,7 @@ public class UploadActivity extends Activity {
     public void DBUpload(View view) {
 
         EditText title = (EditText) findViewById(R.id.title_text);
-        EditText address = (EditText) findViewById(R.id.address_text);
+//        EditText address = (EditText) findViewById(R.id.address_text);
         EditText description = (EditText) findViewById(R.id.description_text);
         EditText price = (EditText) findViewById(R.id.price_text);
         ImageView imgView = (ImageView) findViewById(R.id.imageView1);
@@ -105,7 +105,7 @@ public class UploadActivity extends Activity {
         }
 
         String titleText = title.getText().toString().toLowerCase();
-        String addressText = address.getText().toString();
+//        String addressText = address.getText().toString();
         String descriptionText = description.getText().toString();
         double priceVal = Double.valueOf(price.getText().toString());
         // added this stuff 8/6/2015
@@ -116,7 +116,7 @@ public class UploadActivity extends Activity {
         ContentValues vals = new ContentValues();
         vals.put(KEY_TITLE, titleText);
         vals.put(KEY_PRICE, priceVal);
-        vals.put(KEY_ADDR, addressText);
+//        vals.put(KEY_ADDR, addressText);
         vals.put(KEY_DESC, descriptionText);
         vals.put(KEY_IMG, img);
         vals.put(KEY_RATING, NumStars);
@@ -128,7 +128,7 @@ public class UploadActivity extends Activity {
 
         // clear all text and remove image
         title.setText("");
-        address.setText("");
+//        address.setText("");
         price.setText("");
         description.setText("");
         imgView.setVisibility(View.INVISIBLE);

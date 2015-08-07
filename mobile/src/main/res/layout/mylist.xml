@@ -79,6 +79,24 @@
         android:layout_marginRight="0dp"
         android:layout_alignStart="@+id/take" />
 
+    <TextView android:id="@+id/averageprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/offwhite"
+        android:text="@string/average_price"
+        android:layout_below="@+id/lower"
+        android:layout_alignStart="@+id/lower"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/offwhite"
+        android:text="@string/lastprice"
+        android:layout_below="@+id/lower"
+        android:layout_alignStart="@+id/leave"
+        android:layout_marginTop="40dp" />
+
     <TextView android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
