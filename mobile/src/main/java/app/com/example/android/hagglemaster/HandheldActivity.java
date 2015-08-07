@@ -79,9 +79,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
         t1.setTypeface(type1);
 
-        mHaggleDB = new HaggleDB(getApplicationContext());
-
-
         title = (TextView) findViewById(R.id.title);
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         animFadein.setDuration(3500);
@@ -137,6 +134,16 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     /** on click for search icon */
     public void startSearch(View view) {
+        mHaggleDB = new HaggleDB(getApplicationContext());
+        queryTitle = new ArrayList<String>();
+        queryPrice = new ArrayList<Double>();
+        queryDescription = new ArrayList<String>();
+        queryImage = new ArrayList<byte[]>();
+
+        queryDate = new ArrayList<String>();
+        queryRating = new ArrayList<Float>();
+        queryLatitude = new ArrayList<Double>();
+        queryLongitude = new ArrayList<Double>();
 
         queryTitle = new ArrayList<String>();
         queryPrice = new ArrayList<Double>();
