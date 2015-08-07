@@ -110,6 +110,10 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
     public void DBUpload(View view) {
 
         EditText title = (EditText) findViewById(R.id.title_text);
+<<<<<<< HEAD
+=======
+//        EditText address = (EditText) findViewById(R.id.address_text);
+>>>>>>> 6f0afb5f8e9581f26b5976fee1dbc094c0c578b5
         EditText description = (EditText) findViewById(R.id.description_text);
         EditText price = (EditText) findViewById(R.id.price_text);
         ImageView imgView = (ImageView) findViewById(R.id.imageView1);
@@ -131,6 +135,10 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         }
 
         String titleText = title.getText().toString().toLowerCase();
+<<<<<<< HEAD
+=======
+//        String addressText = address.getText().toString();
+>>>>>>> 6f0afb5f8e9581f26b5976fee1dbc094c0c578b5
         String descriptionText = description.getText().toString();
         double priceVal = Double.valueOf(price.getText().toString());
         // added this stuff 8/6/2015 //TODO: implement live
@@ -143,6 +151,10 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         ContentValues vals = new ContentValues();
         vals.put(KEY_TITLE, titleText);
         vals.put(KEY_PRICE, priceVal);
+<<<<<<< HEAD
+=======
+//        vals.put(KEY_ADDR, addressText);
+>>>>>>> 6f0afb5f8e9581f26b5976fee1dbc094c0c578b5
         vals.put(KEY_DESC, descriptionText);
         vals.put(KEY_IMG, img);
 

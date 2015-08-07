@@ -100,6 +100,7 @@
                         android:numStars="5"
                         android:rating="3.5"
                         style="?android:attr/ratingBarStyleSmall"/>
+
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

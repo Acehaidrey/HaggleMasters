@@ -117,6 +117,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
     }
 
     @Override
@@ -216,7 +217,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 desc = c.getString(c.getColumnIndex(KEY_DESC));
                 prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
                 pic = c.getBlob(c.getColumnIndex(KEY_IMG));
-//                TODO: implement live
+
                 dateStr = c.getString(c.getColumnIndex(KEY_DATE));
                 rating = c.getFloat(c.getColumnIndex(KEY_RATING));
                 lat = c.getDouble(c.getColumnIndex(KEY_LAT));
@@ -226,7 +227,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 queryDescription.add(desc);
                 queryPrice.add(prc);
                 queryImage.add(pic);
-//                TODO: implement live
+
                 queryRating.add(rating);
                 queryLatitude.add(lat);
                 queryLongitude.add(lon);
@@ -241,7 +242,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             resultsIntent.putExtra("priceAL", queryPrice);
             resultsIntent.putExtra("imageAL", queryImage);
 
-//            TODO: implement live
+
             resultsIntent.putStringArrayListExtra("dateAL", queryDate);
             resultsIntent.putExtra("ratingAL", queryRating);
             resultsIntent.putExtra("latAL", queryLatitude);

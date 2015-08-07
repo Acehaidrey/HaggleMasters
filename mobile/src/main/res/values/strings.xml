@@ -29,6 +29,7 @@
     <string name="starthagglebuddy">Start\nHaggle\nBuddy</string>
     <string name="avgprice">Avg. Price: </string>
     <string name="price2">Price: </string>
+    <string name="lastprice">Last Price: </string>
 
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>

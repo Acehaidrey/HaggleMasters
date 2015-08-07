@@ -72,7 +72,7 @@ public class ResultsActivity extends Activity {
             p.setMargins(0, 0, 0, dptopx(2));
             newll.setLayoutParams(p);
             newll.setOrientation(LinearLayout.HORIZONTAL);
-            newll.setBackgroundColor(getResources().getColor(R.color.blu));
+            newll.setBackgroundColor(getResources().getColor(R.color.offwhite));
 
             LinearLayout linleft = new LinearLayout(this);
             linleft.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 2.0f));
@@ -109,11 +109,13 @@ public class ResultsActivity extends Activity {
             tv.setLineSpacing(2.5f, 1);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsize)); //TODO: see works
             tv.setText(Html.fromHtml(show));
-            tv.setTextColor(getResources().getColor(R.color.offwhite));
+            tv.setTextColor(getResources().getColor(android.R.color.black));
             linTop.addView(tv);
             RatingBar rating = new RatingBar(getApplicationContext(), null, android.R.attr.ratingBarStyleSmall);
             rating.setRating(ratingResults.get(i));
             rating.setNumStars(5);
+//            rating.setMinimumWidth(100);
+//            rating.setMinimumHeight(100);
             linBot.addView(rating);
             linright.addView(linTop);
             linright.addView(linBot);
