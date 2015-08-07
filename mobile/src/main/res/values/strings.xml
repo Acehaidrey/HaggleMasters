@@ -4,7 +4,7 @@
     <string name="search_query">Search for an item</string>
     <string name="search">Search</string>
     <string name="title_activity_upload">UploadActivity</string>
-    <string name="upload_title">Upload Your Product!</string>
+    <string name="upload_title">Upload Your Purchase!</string>
     <string name="imgbtn">Add Image</string>
     <string name="title">Item Name</string>
     <string name="address">Purchase Location</string>
@@ -24,11 +24,12 @@
     <string name="title_activity_results">ResultsActivity</string>
     <string name="title_activity_search_details">SearchDetails</string>
     <string name="title_activity_maps">Map</string>
-    <string name="ready_to_upload">Ready to\nupload?</string>
-    <string name="item_rating">Rating:</string>
+    <string name="ready_to_upload">Share a\npurchase</string>
+    <string name="item_rating">Rating:</string>git
     <string name="starthagglebuddy">Start\nHaggle\nBuddy</string>
     <string name="avgprice">Avg. Price: </string>
     <string name="price2">Price: </string>
+    <string name="lastprice">Last Price: </string>
 
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>

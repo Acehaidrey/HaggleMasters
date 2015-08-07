@@ -57,6 +57,8 @@ public class ListViewActivity extends Activity {
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
 
+        showPrices();
+
 //        TextView textView = (TextView) findViewById(R.id.date);
 //        String Date= DateFormat.getDateTimeInstance().format(new Date());
 //        textView.setText(Date);
@@ -141,6 +143,19 @@ public class ListViewActivity extends Activity {
 
 
 
+    }
+
+    /** display prices from details intent */
+    private void showPrices() {
+        TextView avg = (TextView) findViewById(R.id.averageprice);
+        TextView last = (TextView) findViewById(R.id.lastprice);
+
+        Intent priceInfo = getIntent();
+        double avgprc = (double) priceInfo.getSerializableExtra("avgprice");
+        double lastprc = (double) priceInfo.getSerializableExtra("lastprice");
+
+        avg.append(" $" + avgprc);
+        last.append(" $" + lastprc);
     }
 
     @Override

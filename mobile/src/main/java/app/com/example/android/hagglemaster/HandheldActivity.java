@@ -1,6 +1,5 @@
 package app.com.example.android.hagglemaster;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,19 +12,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import android.location.Location;
-import android.location.LocationListener;
 import android.support.v4.content.LocalBroadcastManager;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,8 +42,9 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         com.google.android.gms.location.LocationListener {
 
+    private boolean visible = true;
+    public static final String DATABASE_NAME = "Haggle.db";
     private static final String KEY_TITLE = "title";
-    private static final String KEY_ADDR = "address";
     private static final String KEY_DESC = "description";
     private static final String KEY_IMG = "image";
     private static final String KEY_PRICE = "price";
@@ -60,7 +60,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     TextView title;
     Animation animFadein;
     GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
@@ -69,7 +68,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     private SQLiteDatabase db;
     private ArrayList<String> queryTitle;
     private ArrayList<Double> queryPrice;
-    private ArrayList<String> queryAddress;
     private ArrayList<String> queryDescription;
     private ArrayList<byte[]> queryImage;
 
@@ -78,21 +76,25 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
     private ArrayList<Double> queryLatitude;
     private ArrayList<Double> queryLongitude;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handheld);
 
+//        getApplicationContext().deleteDatabase(DATABASE_NAME);
+
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
+
         EditText t1 = (EditText) findViewById(R.id.search_query);
         Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
         t1.setTypeface(type1);
+
         mHaggleDB = new HaggleDB(getApplicationContext());
         queryTitle = new ArrayList<String>();
         queryPrice = new ArrayList<Double>();
-        queryAddress = new ArrayList<String>();
         queryDescription = new ArrayList<String>();
         queryImage = new ArrayList<byte[]>();
 
@@ -101,7 +103,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         queryLatitude = new ArrayList<Double>();
         queryLongitude = new ArrayList<Double>();
 
-
         title = (TextView) findViewById(R.id.title);
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         animFadein.setDuration(3500);
@@ -109,7 +110,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter("upload!!!"));
-
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -123,6 +123,25 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 
+
+        final EditText searchQuery = (EditText) findViewById(R.id.search_query);
+        final Button shareButton = (Button) findViewById(R.id.hagglehelper);
+        searchQuery.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int i, KeyEvent event) {
+                String text = searchQuery.getText().toString();
+                if (text.matches("")) {
+                    if (!visible) {
+                        shareButton.setVisibility(View.VISIBLE);
+                        visible = true;
+                    }
+                } else {
+                    shareButton.setVisibility(View.INVISIBLE);
+                    visible = false;
+                }
+            return false;
+            }
+        });
     }
 
     @Override
@@ -133,15 +152,10 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
         else {
-            handleNewLocation(location);
+            onLocationChanged(location);
         };
     }
 
-    private void handleNewLocation(Location location) {
-        Log.d(TAG, location.toString());
-        currentLatitude = location.getLatitude();
-        currentLongitude = location.getLongitude();
-    }
 
     @Override
     protected void onResume() {
@@ -160,7 +174,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     @Override
     public void onConnectionSuspended(int cause) {
-        // nada
         Log.e(TAG, "connectionSuspended, shiza");
     }
 
@@ -208,7 +221,8 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         String query = searchText.getText().toString().toLowerCase();
 
         db = mHaggleDB.getReadableDatabase();
-        String[] columns = {KEY_TITLE, KEY_ADDR, KEY_DESC, KEY_PRICE, KEY_IMG};//KEY_LAT, KEY_LONG, KEY_DATE, KEY_RATING
+        String[] columns = {KEY_TITLE, KEY_DESC, KEY_PRICE, KEY_IMG, KEY_DATE, KEY_RATING, KEY_LAT, KEY_LONG};
+
         String predicate = "title = ?";
         String[] predicate_values = {query};
         String orderBy = "price ASC";
@@ -217,58 +231,55 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
         if (c.getCount() > 0) {
             c.moveToFirst();
-            String titlel, addr, desc, dateStr;
+            String titlel, desc, dateStr, cap;
             double prc, lat, lon;
             byte[] pic;
             float rating;
 
             do {
                 titlel = c.getString(c.getColumnIndex(KEY_TITLE));
-                addr = c.getString(c.getColumnIndex(KEY_ADDR));
+                cap = titlel.substring(0, 1).toUpperCase() + titlel.substring(1);
                 desc = c.getString(c.getColumnIndex(KEY_DESC));
                 prc = c.getDouble(c.getColumnIndex(KEY_PRICE));
                 pic = c.getBlob(c.getColumnIndex(KEY_IMG));
-//                TODO: implement live
-//                dateStr = c.getString(c.getColumnIndex(KEY_DATE));
-//                rating = c.getFloat(c.getColumnIndex(KEY_RATING));
-//                lat = c.getDouble(c.getColumnIndex(KEY_LAT));
-//                lon = c.getDouble(c.getColumnIndex(KEY_LONG));
 
+                dateStr = c.getString(c.getColumnIndex(KEY_DATE));
+                rating = c.getFloat(c.getColumnIndex(KEY_RATING));
+                lat = c.getDouble(c.getColumnIndex(KEY_LAT));
+                lon = c.getDouble(c.getColumnIndex(KEY_LONG));
 
-                queryTitle.add(titlel);
-                queryAddress.add(addr);
+                queryTitle.add(cap);
                 queryDescription.add(desc);
                 queryPrice.add(prc);
                 queryImage.add(pic);
-//                TODO: implement live
-//                queryRating.add(rating);
-//                queryLatitude.add(lat);
-//                queryLongitude.add(lon);
-//                queryDate.add(dateStr);
+
+                queryRating.add(rating);
+                queryLatitude.add(lat);
+                queryLongitude.add(lon);
+                queryDate.add(dateStr);
 
             } while (c.moveToNext());
 
             Intent resultsIntent = new Intent(this, ResultsActivity.class);
             resultsIntent.putExtra("queryItem", query);
-            resultsIntent.putStringArrayListExtra("addressAL", queryAddress);
             resultsIntent.putStringArrayListExtra("titleAL", queryTitle);
             resultsIntent.putStringArrayListExtra("descriptionAL", queryDescription);
             resultsIntent.putExtra("priceAL", queryPrice);
             resultsIntent.putExtra("imageAL", queryImage);
+            resultsIntent.putStringArrayListExtra("dateAL", queryDate);
+            resultsIntent.putExtra("ratingAL", queryRating);
+            resultsIntent.putExtra("latAL", queryLatitude);
+            resultsIntent.putExtra("longAL", queryLongitude);
 
-//            TODO: implement live
-//            resultsIntent.putStringArrayListExtra("dateAL", queryDate);
-//            resultsIntent.putExtra("ratingAL", queryRating);
-//            resultsIntent.putExtra("latAL", queryLatitude);
-//            resultsIntent.putExtra("longAL", queryLongitude);
+            Log.d(TAG, "longitude: " + String.valueOf(currentLongitude));
+            Log.d(TAG, "latitude" + String.valueOf(currentLatitude));
 
             startActivity(resultsIntent);
-        } else {
-//            Toast.makeText(this, "Sorry, item not found :( \nPlease search for another item", Toast.LENGTH_SHORT).show();
-            Toast t = new Toast(getApplicationContext());
-            t.setGravity(Gravity.LEFT, 100, 100); //TODO: get this to work
 
-            t.makeText(this, "Sorry, item not found :(\nPlease search for another item", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast toast = Toast.makeText(this, "Sorry, item not found :(\nPlease search for another item!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, -100);
+            toast.show();
         }
     }
 
@@ -309,7 +320,8 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     @Override
     public void onLocationChanged(Location location) {
-        handleNewLocation(location);
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
     }
 
     /** upload now clicked */

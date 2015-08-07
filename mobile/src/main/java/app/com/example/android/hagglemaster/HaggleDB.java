@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class HaggleDB extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Haggle.db";
-//    public static final String table = "(address TEXT, bed INT, bath DECIMAL(10,5), price DECIMAL(10,5), date DATETIME)";
 
     public HaggleDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -18,7 +17,7 @@ public class HaggleDB extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         String CREATE_ITEM_TABLE = "CREATE TABLE item ( " + "title TEXT, " + "price DECIMAL(10,5), " +
-                "address TEXT, " + "description TEXT, " + "image BLOB, " + "latitude DECIMAL(10,5), " +
+                "description TEXT, " + "image BLOB, " + "latitude DECIMAL(10,5), " +
                 "longitude DECIMAL(10,5), " + " date STRING, " + "rating REAL )";
         db.execSQL(CREATE_ITEM_TABLE);
     }
