@@ -34,47 +34,46 @@
         <!--android:layout_toEndOf="@+id/title" />-->
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:text="higher"
         android:id="@+id/higher"
-        android:drawableBottom="@drawable/up2"
-        android:layout_marginLeft="50dp"
+        android:drawableBottom="@drawable/up"
+        android:layout_marginLeft="30dp"
         android:layout_alignParentStart="false"
         android:layout_marginBottom="59dp"
         android:layout_marginTop="75dp"
         android:background="@drawable/button"/>
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:text="lower"
         android:id="@+id/lower"
-        android:drawableBottom="@drawable/down2"
+        android:drawableBottom="@drawable/down"
         android:layout_marginRight="5dp"
         android:background="@drawable/button"
         android:layout_alignBaseline="@+id/leave"
         android:layout_alignBottom="@+id/leave"
         android:layout_alignStart="@+id/higher" />
     <Button
-        android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:id="@+id/take"
-        android:drawableBottom="@drawable/check4"
+        android:drawableBottom="@drawable/check"
         android:layout_marginLeft="20dp"
         android:background="@drawable/button"
         android:text="take it"
         android:layout_alignTop="@+id/higher"
         android:layout_toEndOf="@+id/lower" />
     <Button
-        android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:layout_width="120dp"
+        android:layout_height="90dp"
         android:text="leave it"
         android:id="@+id/leave"
-        android:drawableBottom="@drawable/leave5"
+        android:drawableBottom="@drawable/x"
         android:background="@drawable/button"
         android:layout_below="@+id/take"
-        android:layout_toEndOf="@+id/send"
         android:layout_marginTop="20dp"
         android:layout_marginRight="0dp"
         android:layout_alignStart="@+id/take" />
@@ -84,9 +83,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/offwhite"
         android:text="@string/average_price"
-        android:layout_below="@+id/lower"
-        android:layout_alignStart="@+id/lower"
-        android:layout_marginTop="40dp" />
+        android:layout_alignTop="@+id/lastprice"
+        android:layout_alignStart="@+id/lower" />
 
     <TextView
         android:id="@+id/lastprice"
@@ -94,47 +92,48 @@
         android:layout_height="wrap_content"
         android:textColor="@color/offwhite"
         android:text="@string/lastprice"
-        android:layout_below="@+id/lower"
+        android:layout_above="@+id/sendPrice"
         android:layout_alignStart="@+id/leave"
-        android:layout_marginTop="40dp" />
+        android:layout_marginBottom="20dp" />
 
     <TextView android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="@color/offwhite"
         android:text="Suggest Price: "
-        android:layout_marginTop="150dp"
-        android:layout_below="@+id/take"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/message"
+        android:layout_marginBottom="20dp">
     </TextView>
 
     <EditText
         android:id="@+id/editPrice"
         android:hint="$10"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignTop="@+id/price"
         android:layout_toEndOf="@+id/price"
         android:background="@drawable/rounded_edittext"
         android:singleLine="true"
-        android:layout_marginTop="10dp"
         android:inputType="numberDecimal"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:textCursorDrawable="@drawable/color_cursor" >
+        android:textCursorDrawable="@drawable/color_cursor"
+        android:layout_marginRight="80dp"
+        android:layout_alignBottom="@+id/price">
     </EditText>
 
     <TextView android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="@color/offwhite"
         android:text="Message: "
-        android:layout_below="@+id/price"
-        android:layout_toStartOf="@+id/title">
+        android:layout_alignTop="@+id/editMessage"
+        android:layout_alignParentStart="true">
     </TextView>
 
     <EditText
@@ -143,26 +142,39 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:background="@drawable/rounded_edittext"
-        android:minLines="1"
+        android:minLines="2"
         android:hint="Speak confidently!"
         android:layout_alignEnd="@+id/editPrice"
-        android:layout_alignStart="@+id/title"
-        android:layout_alignTop="@+id/message"
-        android:layout_marginTop="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:textCursorDrawable="@drawable/color_cursor" >
+        android:layout_alignParentBottom="true"
+        android:textCursorDrawable="@drawable/color_cursor"
+        android:layout_marginBottom="55dp"
+        android:maxLines="2"
+        android:layout_toEndOf="@+id/message">
     </EditText>
 
-    <Button
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/sendMessage"
+        android:layout_width="40dp"
         android:layout_height="40dp"
-        android:text="send"
-        android:id="@+id/send"
-        android:background="@drawable/button"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="128dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="20dp" />
+        android:background="@drawable/roundcorner"
+        android:padding="1dp"
+        android:src="@drawable/speech"
+        android:layout_marginRight="20dp"
+        android:layout_alignBottom="@+id/editMessage"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="0dp" />
+
+    <ImageButton
+        android:id="@+id/sendPrice"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/roundcorner"
+        android:padding="1dp"
+        android:src="@drawable/money"
+        android:layout_alignBottom="@+id/editPrice"
+        android:layout_alignStart="@+id/sendMessage"
+        android:layout_marginBottom="2dp" />
 
 </RelativeLayout>

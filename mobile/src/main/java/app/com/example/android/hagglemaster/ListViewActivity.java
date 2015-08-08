@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.wearable.PutDataRequest;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -104,39 +106,43 @@ public class ListViewActivity extends Activity {
                 Button buttonLower = (Button) findViewById(R.id.lower);
                 buttonLower.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        sendNotification("Lower Price","");
+                        sendNotification("Lower Price", "");
                     }
                 });
 
                 Button buttonTake = (Button) findViewById(R.id.take);
                 buttonTake.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        sendNotification("Take it","");
+                        sendNotification("Take it", "");
                     }
                 });
 
                 Button buttonLeave = (Button) findViewById(R.id.leave);
                 buttonLeave.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        sendNotification("Leave it ","");
+                        sendNotification("Leave it ", "");
                     }
                 });
-                Button mButton = (Button)findViewById(R.id.send);
-                mButton.setOnClickListener(
+                ImageButton priceButton = (ImageButton) findViewById(R.id.sendPrice);
+                priceButton.setOnClickListener(
                         new View.OnClickListener() {
                             public void onClick(View view) {
                                 EditText edt = (EditText)findViewById(R.id.editPrice);
-                                EditText edt2 = (EditText)findViewById(R.id.editMessage);
                                 String price = edt.getText().toString();
-                                String message = edt2.getText().toString();
                                 Log.d("Price", price);
-                                Log.d("Message", message);
-                                String msgTog = price + message;
-                                sendNotification(price, message);
-                                Log.d("Tog", msgTog);
+                                sendNotification("Haggle for: ", price);
                             }
                         });
-
+                ImageButton messageButton = (ImageButton) findViewById(R.id.sendMessage);
+                messageButton.setOnClickListener(
+                        new View.OnClickListener() {
+                            public void onClick(View view) {
+                                EditText edt = (EditText)findViewById(R.id.editMessage);
+                                String message = edt.getText().toString();
+                                Log.d("Message", message);
+                                sendNotification("Message: ", message);
+                            }
+                        });
 
             }
         }).start();
@@ -154,8 +160,8 @@ public class ListViewActivity extends Activity {
         double avgprc = (double) priceInfo.getSerializableExtra("avgprice");
         double lastprc = (double) priceInfo.getSerializableExtra("lastprice");
 
-        avg.append(" $" + avgprc);
-        last.append(" $" + lastprc);
+        avg.append(" $" + new DecimalFormat("#.00").format(avgprc));
+        last.append(" $" + new DecimalFormat("#.00").format(lastprc));
     }
 
     @Override
@@ -188,6 +194,7 @@ public class ListViewActivity extends Activity {
             dataMapRequest.getDataMap().putString("TEXT", s2);
             PutDataRequest putDataRequest = dataMapRequest.asPutDataRequest();
             Wearable.DataApi.putDataItem(mGoogleApiClient, putDataRequest);
+            Toast.makeText(getApplicationContext(), "Message Sent!", Toast.LENGTH_SHORT).show();
             Log.d("HAHHAHHHA", "WORK HERE");
         } else {
             Log.e(TAG, "No connection to wearable available!");
