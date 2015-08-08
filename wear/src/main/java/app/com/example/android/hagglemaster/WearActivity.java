@@ -31,6 +31,7 @@ public class WearActivity extends Activity {
         Intent serviceIntent = new Intent(getApplicationContext(), GoogleApiClientService.class);
         startService(serviceIntent);
 
+
         /*
         mTextView = (TextView)findViewById(R.id.text);
 

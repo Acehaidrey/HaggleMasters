@@ -43,6 +43,7 @@ public class ReceiveClass extends WearableListenerService{
     //private static final String START_ACTIVITY_PATH = "/start-activity";
     private int notificationId = 001;
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 //        if (null != intent) {
@@ -51,6 +52,7 @@ public class ReceiveClass extends WearableListenerService{
 //                dismissNotification();
 //            }
 //        }
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -83,6 +85,7 @@ public class ReceiveClass extends WearableListenerService{
                     String title = dataMapItem.getDataMap().getString("TITLE");
                     String content = dataMapItem.getDataMap().getString("TEXT");
                     Log.d("gotttttt", "stringgggg");
+                    //WearActivity.getApplicationContext().finish();
                     sendNotification(title, content);
                 }
             }
@@ -104,13 +107,13 @@ public class ReceiveClass extends WearableListenerService{
 //        Intent dismissIntent = new Intent(Constants.ACTION_DISMISS);
 //        PendingIntent pendingDeleteIntent = PendingIntent.getService(this, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         //Intent purchaseIntent = new Intent(this, UploadActivity.class);
+        CharSequence chars = "Take it";
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setContentIntent(pendingViewIntent)
-                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .addAction(R.mipmap.pic1,
                         getString(R.string.purchase), clickPendingIntent);
         if (title == "Lower Price"){
