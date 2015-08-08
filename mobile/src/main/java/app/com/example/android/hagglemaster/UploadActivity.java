@@ -267,7 +267,6 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public void onConnected(Bundle bundle) {
         Log.i(TAG, "Location services connected. upload activity");

@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -58,7 +59,6 @@ public class SearchDetails extends FragmentActivity {
     private GoogleMap mMap;
 
     private static final String TAG = SearchDetails.class.getSimpleName();
-    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,6 @@ public class SearchDetails extends FragmentActivity {
         setContentView(R.layout.activity_search_details);
         getIntentVals();
         display();
-
 
         TextView t = (TextView) findViewById(R.id.name);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
@@ -81,7 +80,7 @@ public class SearchDetails extends FragmentActivity {
 
 
         timeStamp();
-//        getMyLocationAddress();
+        getMyLocationAddress();
         setUpMapIfNeeded();
 
         Button b = (Button) findViewById(R.id.hagglehelper);
@@ -113,15 +112,18 @@ public class SearchDetails extends FragmentActivity {
     }
 
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(longit, latit)).title(address));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(longit, latit)));
+        LatLng myLoc = new LatLng(latit, longit);
+        mMap.addMarker(new MarkerOptions().position(myLoc).title(address).
+                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLoc, 15.0f));
     }
 
-    public void getMyLocationAddress() {
+    /** reverse geocoder that finds address for a latlng pair */
+    private void getMyLocationAddress() {
         Geocoder geocoder= new Geocoder(this, Locale.ENGLISH);
 
         try {
-            List<Address> addresses = geocoder.getFromLocation(longit,latit, 1);
+            List<Address> addresses = geocoder.getFromLocation(latit,longit, 1);
             if(addresses != null) {
                 Address fetchedAddress = addresses.get(0);
                 StringBuilder strAddress = new StringBuilder();
@@ -135,12 +137,12 @@ public class SearchDetails extends FragmentActivity {
             }
             else
                 address = "Haggle here!";
-
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
 

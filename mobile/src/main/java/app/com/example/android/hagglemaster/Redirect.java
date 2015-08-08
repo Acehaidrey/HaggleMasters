@@ -18,7 +18,7 @@ public class Redirect extends Activity {
         setContentView(R.layout.activity_redirect);
 
         TextView t = (TextView) findViewById(R.id.thanks);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
         t.setTypeface(type);
 
         Button search = (Button) findViewById(R.id.search);
