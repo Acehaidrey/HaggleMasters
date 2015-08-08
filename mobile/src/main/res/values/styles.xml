@@ -17,6 +17,11 @@
         <item name="android:minHeight">45dip</item>
         <item name="android:maxHeight">45dip</item>
     </style>
+    <style name="RatingBarNewSmall" parent="@android:style/Widget.RatingBar">
+    <item name="android:progressDrawable">@drawable/star_rating_bar_full_small</item>
+    <item name="android:minHeight">45dip</item>
+    <item name="android:maxHeight">45dip</item>
+</style>
 
 
 </resources>
