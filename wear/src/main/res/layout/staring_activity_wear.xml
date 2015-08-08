@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,26 +8,48 @@
     tools:deviceIds="wear_round"
     android:background="@drawable/marketplace">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#CC122C4B"
-        android:orientation="vertical"
-        android:gravity="center">
-        <TextView
-            android:id="@+id/logotext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/app_name"
-            android:textSize="30dp"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
-            android:shadowColor="#454545"
-            android:shadowDx="-2"
-            android:shadowDy="-2"
-            android:shadowRadius="2"/>
+        android:orientation="vertical">
 
-    </RelativeLayout>
-</RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".6"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/logotext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HaggleBuddy"
+                android:textSize="30dp"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="bold"
+                android:shadowColor="#454545"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:shadowRadius="2"
+                android:layout_gravity="bottom"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".4"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/catchphrase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="your world, your buddy, your bargain"
+                android:textSize="10sp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="top"
+                android:textStyle="italic"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

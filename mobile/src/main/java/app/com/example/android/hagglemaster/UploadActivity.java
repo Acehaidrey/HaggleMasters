@@ -88,6 +88,23 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
         mHaggleDB = new HaggleDB(getApplicationContext());
+        TextView t1 = (TextView)findViewById(R.id.textView2);
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t1.setTypeface(type1);
+        TextView t2 = (TextView)findViewById(R.id.textView);
+        t2.setTypeface(type1);
+        EditText t3 = (EditText)findViewById(R.id.title_text);
+        t3.setTypeface(type1);
+        EditText t4 = (EditText)findViewById(R.id.price_text);
+        t4.setTypeface(type1);
+        TextView t5 = (TextView)findViewById(R.id.textView4);
+        t5.setTypeface(type1);
+        TextView t6 = (TextView)findViewById(R.id.textView5);
+        t6.setTypeface(type1);
+        EditText t7 = (EditText)findViewById(R.id.description_text);
+        t7.setTypeface(type1);
+
+
 
         addListenerOnRatingBar();
 
@@ -124,7 +141,8 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver() , realPhoto);
 //            Bitmap bitmap = Bitmap.createScaledBitmap(bm, dptopx(120), dptopx(120), true);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bos);
+
             img = bos.toByteArray();
         }
         catch (Exception e)
