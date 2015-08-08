@@ -130,7 +130,11 @@ public class ListViewActivity extends Activity {
                                 EditText edt = (EditText)findViewById(R.id.editPrice);
                                 String price = edt.getText().toString();
                                 Log.d("Price", price);
-                                sendNotification("Haggle for: ", price);
+                                if (price.matches("")) {
+                                    Toast.makeText(getApplicationContext(), "Please enter a number!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    sendNotification("Haggle for: ", price);
+                                }
                             }
                         });
                 ImageButton messageButton = (ImageButton) findViewById(R.id.sendMessage);
@@ -140,7 +144,11 @@ public class ListViewActivity extends Activity {
                                 EditText edt = (EditText)findViewById(R.id.editMessage);
                                 String message = edt.getText().toString();
                                 Log.d("Message", message);
-                                sendNotification("Message: ", message);
+                                if (message.matches("")) {
+                                    Toast.makeText(getApplicationContext(), "Please enter a message!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    sendNotification("Message: ", message);
+                                }
                             }
                         });
 
