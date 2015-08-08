@@ -124,7 +124,7 @@ public class SearchDetails extends FragmentActivity {
 
         try {
             List<Address> addresses = geocoder.getFromLocation(latit,longit, 1);
-            if(addresses != null) {
+            if(!addresses.isEmpty()) {
                 Address fetchedAddress = addresses.get(0);
                 StringBuilder strAddress = new StringBuilder();
 
