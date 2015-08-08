@@ -76,9 +76,10 @@ public class ResultsActivity extends Activity {
             newll.setLayoutParams(p);
             newll.setOrientation(LinearLayout.HORIZONTAL);
             newll.setBackgroundColor(getResources().getColor(R.color.offwhite));
+            newll.getLayoutParams().height = dptopx(160);
 
             LinearLayout linleft = new LinearLayout(this);
-            linleft.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 2.0f));
+            linleft.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2.0f));
             LinearLayout linright = new LinearLayout(this);
             linright.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 3.0f));
             linright.setOrientation(LinearLayout.VERTICAL);
@@ -86,15 +87,15 @@ public class ResultsActivity extends Activity {
             ImageView iv = new ImageView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             iv.setLayoutParams(params);
-            iv.setMaxHeight(dptopx(30));
-            iv.setMinimumHeight(dptopx(30));
+//            iv.setMaxHeight(dptopx(40));
+//            iv.setMinimumHeight(dptopx(40));
             iv.setMaxWidth(dptopx(800));
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
             // if no image
             Bitmap noImage = BitmapFactory.decodeResource(getResources(), R.drawable.noimage);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            noImage.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            noImage.compress(Bitmap.CompressFormat.JPEG, 80, bos);
             final byte[] img = bos.toByteArray();
 
             if (imageResults.get(i) != null) {

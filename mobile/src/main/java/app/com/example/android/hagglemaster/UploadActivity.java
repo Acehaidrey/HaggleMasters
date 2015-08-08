@@ -121,10 +121,10 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         // bitmap stuff to put image in db
         try
         {
-            Bitmap bm = MediaStore.Images.Media.getBitmap(this.getContentResolver() , realPhoto);
-            Bitmap bitmap = Bitmap.createScaledBitmap(bm, dptopx(120), dptopx(120), true);
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver() , realPhoto);
+//            Bitmap bitmap = Bitmap.createScaledBitmap(bm, dptopx(120), dptopx(120), true);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
             img = bos.toByteArray();
         }
         catch (Exception e)
@@ -133,7 +133,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
             Log.e(TAG, "error handling bitmap");
         }
 
-        String titleText = title.getText().toString().toLowerCase();
+        String titleText = title.getText().toString().toLowerCase().trim();
         String descriptionText = description.getText().toString();
 //        final float numStars = 0;
 
@@ -186,9 +186,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                Log.d("RATINGSTAR","Y R SOOO STUPID");
                 numStars = ratingBar.getRating();
-
             }
         });
     }
