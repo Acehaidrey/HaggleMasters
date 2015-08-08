@@ -121,7 +121,8 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         // bitmap stuff to put image in db
         try
         {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver() , realPhoto);
+            Bitmap bm = MediaStore.Images.Media.getBitmap(this.getContentResolver() , realPhoto);
+            Bitmap bitmap = Bitmap.createScaledBitmap(bm, dptopx(120), dptopx(120), true);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
             img = bos.toByteArray();
@@ -320,6 +321,13 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         currentLatitude = location.getLatitude();
         currentLongitude = location.getLongitude();
         Log.d(TAG, "curlat: " + currentLatitude + " curlong: " + currentLongitude);
+    }
+
+    /** converts dp to pixels */
+    private int dptopx(int px) {
+        final float scale = getResources().getDisplayMetrics().density;
+        int padding_in_px = (int) (px * scale + 0.5f);
+        return padding_in_px;
     }
 
 }

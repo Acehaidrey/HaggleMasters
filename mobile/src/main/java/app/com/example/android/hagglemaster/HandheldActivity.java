@@ -70,6 +70,7 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         setContentView(R.layout.activity_handheld);
 
 //        getApplicationContext().deleteDatabase(DATABASE_NAME);
+        mHaggleDB = new HaggleDB(getApplicationContext());
 
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
@@ -133,16 +134,6 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
 
     /** on click for search icon */
     public void startSearch(View view) {
-        mHaggleDB = new HaggleDB(getApplicationContext());
-        queryTitle = new ArrayList<String>();
-        queryPrice = new ArrayList<Double>();
-        queryDescription = new ArrayList<String>();
-        queryImage = new ArrayList<byte[]>();
-
-        queryDate = new ArrayList<String>();
-        queryRating = new ArrayList<Float>();
-        queryLatitude = new ArrayList<Double>();
-        queryLongitude = new ArrayList<Double>();
 
         queryTitle = new ArrayList<String>();
         queryPrice = new ArrayList<Double>();
@@ -154,19 +145,20 @@ public class HandheldActivity extends Activity implements Animation.AnimationLis
         queryLongitude = new ArrayList<Double>();
 
         EditText searchText = (EditText) findViewById(R.id.search_query);
-        String query = searchText.getText().toString().toLowerCase();
+        String query = searchText.getText().toString().toLowerCase().trim();
 
-        db = mHaggleDB.getReadableDatabase();
+        db = mHaggleDB.getWritableDatabase();
         String[] columns = {KEY_TITLE, KEY_DESC, KEY_PRICE, KEY_IMG, KEY_DATE, KEY_RATING, KEY_LAT, KEY_LONG};
-
         String predicate = "title = ?";
         String[] predicate_values = {query};
         String orderBy = "price ASC";
 
-        Cursor c = db.query("item", columns, predicate, predicate_values, null, null, orderBy);
+        Cursor c;
+        c = db.query("item", columns, predicate, predicate_values, null, null, orderBy);
 
         if (c.getCount() > 0) {
             c.moveToFirst();
+//            Log.d(TAG, " does it recognize " + c.getString(c.getColumnIndex(KEY_TITLE)));
             String titlel, desc, dateStr, cap;
             double prc, lat, lon;
             byte[] pic;
