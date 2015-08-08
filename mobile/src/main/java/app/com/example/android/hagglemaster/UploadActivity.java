@@ -1,31 +1,25 @@
 package app.com.example.android.hagglemaster;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -44,12 +38,9 @@ import com.google.android.gms.location.LocationServices;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Handler;
-import java.util.logging.Handler.*;
-import java.util.logging.LogRecord;
 
 public class UploadActivity extends Activity implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -240,11 +231,38 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         super.onActivityResult(requestCode, resultCode, data);
         ImageView image = (ImageView) findViewById(R.id.imageView1);
         Button btn = (Button) findViewById(R.id.imagebtn);
+        try {
+            ExifInterface exif = new ExifInterface(realPhoto.getPath());
+            int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            int rotationInDegrees = exifToDegrees(rotation);
+            Matrix matrix = new Matrix();
+            if (rotation != 0f) {matrix.preRotate(rotationInDegrees);}
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), realPhoto);
+            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            OutputStream os = getContentResolver().openOutputStream(realPhoto);
+            realPhoto = getImageUri(getApplicationContext(), bitmap, os);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         image.setImageURI(realPhoto);
-        image.getLayoutParams().width = 1000;
-        image.getLayoutParams().height = 500;
+        image.getLayoutParams().width = dptopx(300);
+        image.getLayoutParams().height = dptopx(500);
         btn.setVisibility(View.INVISIBLE);
         image.setVisibility(View.VISIBLE);
+    }
+
+    private static int exifToDegrees(int exifOrientation) {
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) { return 90; }
+        else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {  return 180; }
+        else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {  return 270; }
+        return 0;
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage, OutputStream os) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, os);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     private File createImageFile() throws IOException {
