@@ -18,7 +18,7 @@ public class StartMianActivity extends Activity {
         TextView mTextView = (TextView) findViewById(R.id.logotext);
         Typeface typeFace = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         mTextView.setTypeface(typeFace);
-        finish();
+//        finish();
 
     }
 }

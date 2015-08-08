@@ -44,8 +44,8 @@
                 android:id="@+id/catchphrase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="your world, your buddy, your bargain"
-                android:textSize="10sp"
+                android:text="your world. your buddy. your bargain"
+                android:textSize="11sp"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="top"
                 android:textStyle="italic"/>

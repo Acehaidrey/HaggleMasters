@@ -120,7 +120,7 @@ public class ListViewActivity extends Activity {
                 Button buttonLeave = (Button) findViewById(R.id.leave);
                 buttonLeave.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        sendNotification("Leave it ", "");
+                        sendNotification("Leave it", "");
                     }
                 });
                 ImageButton priceButton = (ImageButton) findViewById(R.id.sendPrice);

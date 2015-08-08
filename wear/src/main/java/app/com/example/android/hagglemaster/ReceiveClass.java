@@ -116,20 +116,20 @@ public class ReceiveClass extends WearableListenerService{
                 .setContentIntent(pendingViewIntent)
                 .addAction(R.mipmap.pic1,
                         getString(R.string.purchase), clickPendingIntent);
-        if (title == "Lower Price"){
-            builder.setVibrate(new long[]{1000, 1000, 1000});
+        if (title.equals("Lower Price")){
+            builder.setVibrate(new long[]{0, 500, 500, 500});
         }
-        else if (title == "Leave it"){
-            builder.setVibrate(new long[]{1000, 1000});
+        else if (title.equals("Leave it")){
+            builder.setVibrate(new long[]{0, 200});
         }
-        else if (title=="Take it"){
-            builder.setVibrate(new long[]{1000, 1000, 1000, 1000});
+        else if (title.equals("Take it")){
+            builder.setVibrate(new long[]{0, 2000});
         }
-        else if (title == "Higher Price"){
-            builder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+        else if (title.equals("Higher Price")){
+            builder.setVibrate(new long[]{0, 500, 500, 500, 500, 500});
         }
         else {
-            builder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000, 1000});
+            builder.setVibrate(new long[]{0, 200, 200, 200, 200, 200});
         }
 
         Notification notification = builder.build();
