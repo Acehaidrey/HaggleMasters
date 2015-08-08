@@ -72,7 +72,7 @@ public class ResultsActivity extends Activity {
             final int j = i;
             LinearLayout newll = new LinearLayout(this);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            p.setMargins(0, 0, 0, dptopx(2));
+            p.setMargins(0, 0, 0, dptopx(4));
             newll.setLayoutParams(p);
             newll.setOrientation(LinearLayout.HORIZONTAL);
             newll.setBackgroundColor(getResources().getColor(R.color.offwhite));
