@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="HaggleMaster"
+            android:text="HaggleBuddy"
             android:textSize="30dp"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="bold"
