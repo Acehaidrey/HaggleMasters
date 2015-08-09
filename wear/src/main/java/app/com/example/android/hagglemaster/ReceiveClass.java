@@ -121,17 +121,19 @@ public class ReceiveClass extends WearableListenerService{
                         getString(R.string.purchase), clickPendingIntent);
         if (title.equals("Lower Price")){
             builder.setVibrate(new long[]{0, 500, 500, 500});
-            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.arrow_down);
+            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.arrowdown);
             builder.extend(new NotificationCompat.WearableExtender().setBackground(bm));
         } else if (title.equals("Leave it")){
             builder.setVibrate(new long[]{0, 200});
-            builder.setColor(Color.parseColor("#F44336"));
+            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.redcheck);
+            builder.extend(new NotificationCompat.WearableExtender().setBackground(bm));
         } else if (title.equals("Take it")){
             builder.setVibrate(new long[]{0, 2000});
-            builder.setColor(Color.parseColor("#4CAF50"));
+            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.greencheck);
+            builder.extend(new NotificationCompat.WearableExtender().setBackground(bm));
         } else if (title.equals("Higher Price")){
             builder.setVibrate(new long[]{0, 500, 500, 500, 500, 500});
-            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.arrow_up);
+            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.arrowup);
             builder.extend(new NotificationCompat.WearableExtender().setBackground(bm));
         } else {
             builder.setVibrate(new long[]{0, 200, 200, 200, 200, 200});

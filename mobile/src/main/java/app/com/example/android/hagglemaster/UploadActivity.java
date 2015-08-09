@@ -113,7 +113,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver() , realPhoto);
 //            Bitmap bitmap = Bitmap.createScaledBitmap(bm, dptopx(120), dptopx(120), true);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos);
 
             img = bos.toByteArray();
         }

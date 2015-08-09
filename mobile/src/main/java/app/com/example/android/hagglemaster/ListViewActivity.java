@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -133,7 +134,10 @@ public class ListViewActivity extends Activity {
                                 if (price.matches("")) {
                                     Toast.makeText(getApplicationContext(), "Please enter a number!", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    sendNotification("Haggle for: ", price);
+                                    sendNotification("Haggle for: ", new DecimalFormat("#.00").format(Double.parseDouble(price)));
+                                    edt.setText("");
+                                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                                 }
                             }
                         });
@@ -148,6 +152,9 @@ public class ListViewActivity extends Activity {
                                     Toast.makeText(getApplicationContext(), "Please enter a message!", Toast.LENGTH_SHORT).show();
                                 } else {
                                     sendNotification("Message: ", message);
+                                    edt.setText("");
+                                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                                 }
                             }
                         });
