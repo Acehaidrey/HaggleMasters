@@ -4,6 +4,9 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -118,18 +121,22 @@ public class ReceiveClass extends WearableListenerService{
                         getString(R.string.purchase), clickPendingIntent);
         if (title.equals("Lower Price")){
             builder.setVibrate(new long[]{0, 500, 500, 500});
-        }
-        else if (title.equals("Leave it")){
+            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.arrow_down);
+            builder.extend(new NotificationCompat.WearableExtender().setBackground(bm));
+        } else if (title.equals("Leave it")){
             builder.setVibrate(new long[]{0, 200});
-        }
-        else if (title.equals("Take it")){
+            builder.setColor(Color.parseColor("#F44336"));
+        } else if (title.equals("Take it")){
             builder.setVibrate(new long[]{0, 2000});
-        }
-        else if (title.equals("Higher Price")){
+            builder.setColor(Color.parseColor("#4CAF50"));
+        } else if (title.equals("Higher Price")){
             builder.setVibrate(new long[]{0, 500, 500, 500, 500, 500});
-        }
-        else {
+            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.arrow_up);
+            builder.extend(new NotificationCompat.WearableExtender().setBackground(bm));
+        } else {
             builder.setVibrate(new long[]{0, 200, 200, 200, 200, 200});
+            Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.mail);
+            builder.extend(new NotificationCompat.WearableExtender().setBackground(bm));
         }
 
         Notification notification = builder.build();

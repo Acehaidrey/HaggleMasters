@@ -145,7 +145,6 @@ public class SearchDetails extends FragmentActivity {
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -192,13 +191,11 @@ public class SearchDetails extends FragmentActivity {
         RatingBar rb = (RatingBar) findViewById(R.id.ratingBar); //TODO: implement live
         rb.setRating(rating);
 
-
     }
 
     /** get the timestamp. */
     private void timeStamp() {
         DateFormat df = DateFormat.getDateInstance();
-
 
         TextView timeStamp = (TextView) findViewById(R.id.timestamp);
         try {
@@ -208,6 +205,8 @@ public class SearchDetails extends FragmentActivity {
 
             if (diff < 1) {
                 timeStamp.setText("last purchase made today");
+            } else if (diff >= 1 && diff < 2) {
+                timeStamp.setText("last purchase made 1 day ago");
             } else {
                 timeStamp.setText("last purchase made " + String.valueOf(diff) + " days ago");
             }

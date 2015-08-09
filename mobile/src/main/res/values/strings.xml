@@ -12,7 +12,7 @@
     <string name="upload_submit">Upload</string>
     <string name="price">Item Price</string>
     <string name="title_activity_display_results">DisplayResultsActivity</string>
-    <string name="result_title">Search Results</string>
+    <string name="result_title">Search Results for: </string>
     <string name="Location">Location:</string>
     <string name="Description">Description:</string>
     <string name="Name">Name:</string>

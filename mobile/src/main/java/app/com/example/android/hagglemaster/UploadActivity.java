@@ -75,27 +75,10 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        TextView t = (TextView) findViewById(R.id.title);
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
-        t.setTypeface(type);
+
+        fontText();
+
         mHaggleDB = new HaggleDB(getApplicationContext());
-        TextView t1 = (TextView)findViewById(R.id.textView2);
-        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
-        t1.setTypeface(type1);
-        TextView t2 = (TextView)findViewById(R.id.textView);
-        t2.setTypeface(type1);
-        EditText t3 = (EditText)findViewById(R.id.title_text);
-        t3.setTypeface(type1);
-        EditText t4 = (EditText)findViewById(R.id.price_text);
-        t4.setTypeface(type1);
-        TextView t5 = (TextView)findViewById(R.id.textView4);
-        t5.setTypeface(type1);
-        TextView t6 = (TextView)findViewById(R.id.textView5);
-        t6.setTypeface(type1);
-        EditText t7 = (EditText)findViewById(R.id.description_text);
-        t7.setTypeface(type1);
-
-
 
         addListenerOnRatingBar();
 
@@ -110,8 +93,6 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
-
-
 
     }
 
@@ -362,6 +343,28 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
         final float scale = getResources().getDisplayMetrics().density;
         int padding_in_px = (int) (px * scale + 0.5f);
         return padding_in_px;
+    }
+
+    /** set font for writing in layout */
+    private void fontText() {
+        TextView t = (TextView) findViewById(R.id.title);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
+        t.setTypeface(type);
+        TextView t1 = (TextView)findViewById(R.id.textView2);
+        Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t1.setTypeface(type1);
+        TextView t2 = (TextView)findViewById(R.id.textView);
+        t2.setTypeface(type1);
+        EditText t3 = (EditText)findViewById(R.id.title_text);
+        t3.setTypeface(type1);
+        EditText t4 = (EditText)findViewById(R.id.price_text);
+        t4.setTypeface(type1);
+        TextView t5 = (TextView)findViewById(R.id.textView4);
+        t5.setTypeface(type1);
+        TextView t6 = (TextView)findViewById(R.id.textView5);
+        t6.setTypeface(type1);
+        EditText t7 = (EditText)findViewById(R.id.description_text);
+        t7.setTypeface(type1);
     }
 
 }

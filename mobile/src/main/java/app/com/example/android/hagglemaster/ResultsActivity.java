@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 
 public class ResultsActivity extends Activity {
@@ -38,6 +39,10 @@ public class ResultsActivity extends Activity {
     private ArrayList<byte[]> imageResults;
     private ArrayList<Float> ratingResults;
 
+    private HashMap<double[], Double> sumLocPrice;
+    private HashMap<double[], Integer> numUsers;
+    private HashMap<double[], String> descList;
+
     private double avgVal;
 
     @Override
@@ -47,12 +52,14 @@ public class ResultsActivity extends Activity {
         recoverIntentData();
         // setting the text to Search results for... query item
         TextView titleView = (TextView) findViewById(R.id.title);
-
         Typeface type1 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
         titleView.setTypeface(type1);
-
         String cap = querySearch.substring(0, 1).toUpperCase() + querySearch.substring(1);
-        titleView.setText("Search Results for: " + cap);
+        titleView.append(" " + cap);
+
+        sumLocPrice = new HashMap<double[], Double>();
+        numUsers = new HashMap<double[], Integer>();
+        descList = new HashMap<double[], String>();
 
         dynamicDisplay();
     }
@@ -72,7 +79,7 @@ public class ResultsActivity extends Activity {
             final int j = i;
             LinearLayout newll = new LinearLayout(this);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            p.setMargins(0, 0, 0, dptopx(4));
+            p.setMargins(0, 0, 0, dptopx(3));
             newll.setLayoutParams(p);
             newll.setOrientation(LinearLayout.HORIZONTAL);
             newll.setBackgroundColor(getResources().getColor(R.color.offwhite));
@@ -234,6 +241,33 @@ public class ResultsActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // TODO: i dont think this hashmap will work correctly since key is double array and need to
+    // TODO: make sure those values are the same
+    private void setHashmaps() {
+        for (int c = 0; c < latResults.size(); c++) {
+            double[] latlng = new double[]{latResults.get(c), longResults.get(c)};
+            if (numUsers.containsKey(latlng)) {
+                numUsers.put(latlng, numUsers.get(latlng) + 1);
+            } else {
+                numUsers.put(latlng, 1);
+            }
+
+            if (sumLocPrice.containsKey(latlng)) {
+                sumLocPrice.put(latlng, sumLocPrice.get(latlng) + priceResults.get(c));
+            } else {
+                sumLocPrice.put(latlng, priceResults.get(c));
+            }
+
+            if (descList.containsKey(latlng)) {
+                descList.put(latlng, descList.get(latlng) + "\n\n" + descriptionResults.get(c));
+            } else {
+                descList.put(latlng, descriptionResults.get(c));
+            }
+        }
+
+
     }
 
 }
