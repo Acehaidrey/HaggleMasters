@@ -30,12 +30,11 @@
     <string name="avgprice">Avg. Price: </string>
     <string name="price2">Price: </string>
     <string name="lastprice">Last Price: </string>
+    <string name="title_activity_redirect">Redirect</string>
+    <string name="hello_world">Hello world!</string>
 
     <color name="newblu">#CC122C4B</color>
     <color name="offwhite">#FEFBF7</color>
     <color name="darkgray">#a3a3a3</color>
     <color name="blu">#122C4B</color>
-    <string name="title_activity_redirect">Redirect</string>
-
-    <string name="hello_world">Hello world!</string>
 </resources>
