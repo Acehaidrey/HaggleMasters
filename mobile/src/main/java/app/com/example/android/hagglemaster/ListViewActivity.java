@@ -59,7 +59,7 @@ public class ListViewActivity extends Activity {
         TextView t = (TextView) findViewById(R.id.title);
         Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Pacifico.ttf");
         t.setTypeface(type);
-
+        fontText();
         showPrices();
 
 //        TextView textView = (TextView) findViewById(R.id.date);
@@ -235,6 +235,22 @@ public class ListViewActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    public void fontText(){
+        TextView t1 = (TextView)findViewById(R.id.averageprice);
+        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
+        t1.setTypeface(type);
+        TextView t2 = (TextView)findViewById(R.id.lastprice);
+        t2.setTypeface(type);
+        TextView t3 = (TextView)findViewById(R.id.price);
+        t3.setTypeface(type);
+        TextView t4 = (TextView)findViewById(R.id.message);
+        t4.setTypeface(type);
+        EditText t5 = (EditText) findViewById(R.id.editPrice);
+        t5.setTypeface(type);
+        EditText t6 = (EditText) findViewById(R.id.editMessage);
+        t6.setTypeface(type);
+    }
+
 
 }
 
