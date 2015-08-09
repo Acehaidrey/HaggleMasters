@@ -77,8 +77,7 @@ public class SearchDetails extends FragmentActivity {
         TextView t2 = (TextView) findViewById(R.id.averageprice);
         Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
         t2.setTypeface(type2);
-
-
+        
         timeStamp();
         getMyLocationAddress();
         setUpMapIfNeeded();
@@ -95,7 +94,6 @@ public class SearchDetails extends FragmentActivity {
                 SearchDetails.this.startService(wear);
             }
         });
-
     }
 
     private void setUpMapIfNeeded() {
@@ -153,6 +151,7 @@ public class SearchDetails extends FragmentActivity {
 
     /** get all the intent values */
     private void getIntentVals() {
+
         Intent detailsIntent = getIntent();
         title = detailsIntent.getStringExtra("title");
         desc = detailsIntent.getStringExtra("description");

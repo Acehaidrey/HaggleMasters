@@ -20,7 +20,8 @@
         <activity
             android:name=".HandheldActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +31,8 @@
         <activity
             android:name=".SearchDetails"
             android:label="@string/title_activity_search_details"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
         </activity>
 
         <service android:name=".MyReceiverService"
@@ -50,7 +52,8 @@
             android:name=".ListViewActivity"
             android:label="ListViewActivity"
             android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,13 +64,15 @@
             android:name=".UploadActivity"
             android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
             android:label="@string/title_activity_upload"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
 
         </activity>
         <activity
             android:name=".ResultsActivity"
             android:label="@string/title_activity_results"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
         </activity>
 
         <meta-data
@@ -80,7 +85,8 @@
         <activity
             android:name=".Redirect"
             android:label="@string/title_activity_redirect"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
         </activity>
     </application>
 

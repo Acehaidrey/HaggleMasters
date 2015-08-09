@@ -122,7 +122,8 @@ public class ReceiveClass extends WearableListenerService{
         if (title.equals("Lower Price")){
             builder.setVibrate(new long[]{0, 500, 500, 500});
             Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.arrowdown);
-            builder.extend(new NotificationCompat.WearableExtender().setBackground(bm));
+            builder.extend(new NotificationCompat.WearableExtender()
+                    .setBackground(bm));
         } else if (title.equals("Leave it")){
             builder.setVibrate(new long[]{0, 200});
             Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.redcheck);
