@@ -134,7 +134,7 @@ public class ListViewActivity extends Activity {
                                 if (price.matches("")) {
                                     Toast.makeText(getApplicationContext(), "Please enter a number!", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    sendNotification("Haggle for: ", new DecimalFormat("#.00").format(Double.parseDouble(price)));
+                                    sendNotification("Haggle for: " + new DecimalFormat("#.00").format(Double.parseDouble(price)), "");
                                     edt.setText("");
                                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);

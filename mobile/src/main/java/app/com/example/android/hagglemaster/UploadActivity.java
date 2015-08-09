@@ -241,7 +241,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
 
     public Uri getImageUri(Context inContext, Bitmap inImage, OutputStream os) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, os);
+        inImage.compress(Bitmap.CompressFormat.JPEG, 10, os);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
