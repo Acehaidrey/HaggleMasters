@@ -32,6 +32,7 @@
             android:name=".SearchDetails"
             android:label="@string/title_activity_search_details"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTop">
         </activity>
 
@@ -65,6 +66,7 @@
             android:configChanges="locale|touchscreen|orientation|screenLayout|screenSize|keyboardHidden|uiMode"
             android:label="@string/title_activity_upload"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTop">
 
         </activity>
@@ -72,6 +74,7 @@
             android:name=".ResultsActivity"
             android:label="@string/title_activity_results"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTop">
         </activity>
 
