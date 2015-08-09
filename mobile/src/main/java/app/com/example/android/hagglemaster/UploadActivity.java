@@ -186,7 +186,7 @@ public class UploadActivity extends Activity implements GoogleApiClient.Connecti
     public void cameraOpen(View view) {
         new Thread(new Runnable() {
             public void run() {
-        dispatchTakePictureIntent();
+                dispatchTakePictureIntent();
     }}).start();
     }
 
