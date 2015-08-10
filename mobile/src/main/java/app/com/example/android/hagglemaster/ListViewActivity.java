@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +38,7 @@ import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.wearable.PutDataRequest;
 
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -134,7 +137,7 @@ public class ListViewActivity extends Activity {
                                 if (price.matches("")) {
                                     Toast.makeText(getApplicationContext(), "Please enter a number!", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    sendNotification("Haggle for: " + new DecimalFormat("#.00").format(Double.parseDouble(price)), "");
+                                    sendNotification("Haggle for: $" + new DecimalFormat("#.00").format(Double.parseDouble(price)), "");
                                     edt.setText("");
                                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -249,6 +252,16 @@ public class ListViewActivity extends Activity {
         t5.setTypeface(type);
         EditText t6 = (EditText) findViewById(R.id.editMessage);
         t6.setTypeface(type);
+        TextView t7 = (TextView) findViewById(R.id.textView3);
+        SpannableString content = new SpannableString("Preset Commands");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        t7.setText(content);
+        t7.setTypeface(type, Typeface.BOLD);
+        SpannableString content1 = new SpannableString("Personal Commands");
+        content1.setSpan(new UnderlineSpan(), 0, content1.length(), 0);
+        TextView t8 = (TextView) findViewById(R.id.textView6);
+        t8.setText(content1);
+        t8.setTypeface(type, Typeface.BOLD);
     }
 
 

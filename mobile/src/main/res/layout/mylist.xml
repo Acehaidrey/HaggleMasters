@@ -42,8 +42,9 @@
         android:layout_marginLeft="30dp"
         android:layout_alignParentStart="false"
         android:layout_marginBottom="59dp"
-        android:layout_marginTop="75dp"
-        android:background="@drawable/button"/>
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:layout_below="@+id/textView3" />
 
     <Button
         android:layout_width="120dp"
@@ -94,12 +95,12 @@
         android:text="@string/lastprice"
         android:layout_above="@+id/sendPrice"
         android:layout_alignStart="@+id/leave"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="15dp" />
 
     <TextView android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/offwhite"
         android:text="Suggest Price: "
         android:layout_alignParentStart="true"
@@ -124,7 +125,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:layout_marginRight="80dp"
+        android:layout_marginRight="70dp"
         android:layout_alignBottom="@+id/price">
     </EditText>
 
@@ -132,7 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/offwhite"
         android:text="Message: "
         android:layout_alignTop="@+id/editMessage"
@@ -178,6 +179,32 @@
         android:src="@drawable/money"
         android:layout_alignBottom="@+id/editPrice"
         android:layout_alignStart="@+id/sendMessage"
-        android:layout_marginBottom="2dp" />
+        android:layout_marginBottom="0dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Preset Commands"
+        android:id="@+id/textView3"
+        android:textColor="@color/offwhite"
+        android:textStyle="bold"
+        android:layout_below="@+id/title"
+        android:textSize="24sp"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Personal Commands"
+        android:id="@+id/textView6"
+        android:textColor="@color/offwhite"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_alignStart="@+id/lower"
+        android:layout_above="@+id/averageprice"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_marginBottom="13dp" />
 
 </RelativeLayout>

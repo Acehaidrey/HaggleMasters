@@ -142,6 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:textColor="@color/offwhite"
+                    android:textSize="16sp"
                     android:text="the birds and the bees are singing in the trees and grapes are tasty but so is boba"
                     android:textStyle="italic"
                     android:layout_marginLeft="10dp"
