@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
@@ -39,9 +40,9 @@ public class ResultsActivity extends Activity {
     private ArrayList<byte[]> imageResults;
     private ArrayList<Float> ratingResults;
 
-    private HashMap<double[], Double> sumLocPrice;
-    private HashMap<double[], Integer> numUsers;
-    private HashMap<double[], String> descList;
+//    private HashMap<double[], Double> sumLocPrice;
+//    private HashMap<double[], Integer> numUsers;
+//    private HashMap<double[], String> descList;
 
     private double avgVal;
 
@@ -57,9 +58,10 @@ public class ResultsActivity extends Activity {
         String cap = querySearch.substring(0, 1).toUpperCase() + querySearch.substring(1);
         titleView.append(" " + cap);
 
-        sumLocPrice = new HashMap<double[], Double>();
-        numUsers = new HashMap<double[], Integer>();
-        descList = new HashMap<double[], String>();
+//        sumLocPrice = new HashMap<double[], Double>();
+//        numUsers = new HashMap<double[], Integer>();
+//        descList = new HashMap<double[], String>();
+//        setHashmaps();
 
         dynamicDisplay();
     }
@@ -245,29 +247,30 @@ public class ResultsActivity extends Activity {
 
     // TODO: i dont think this hashmap will work correctly since key is double array and need to
     // TODO: make sure those values are the same
-    private void setHashmaps() {
-        for (int c = 0; c < latResults.size(); c++) {
-            double[] latlng = new double[]{latResults.get(c), longResults.get(c)};
-            if (numUsers.containsKey(latlng)) {
-                numUsers.put(latlng, numUsers.get(latlng) + 1);
-            } else {
-                numUsers.put(latlng, 1);
-            }
-
-            if (sumLocPrice.containsKey(latlng)) {
-                sumLocPrice.put(latlng, sumLocPrice.get(latlng) + priceResults.get(c));
-            } else {
-                sumLocPrice.put(latlng, priceResults.get(c));
-            }
-
-            if (descList.containsKey(latlng)) {
-                descList.put(latlng, descList.get(latlng) + "\n\n" + descriptionResults.get(c));
-            } else {
-                descList.put(latlng, descriptionResults.get(c));
-            }
-        }
-
-
-    }
-
+//    private void setHashmaps() {
+//        double[] latlng = new double[] {0, 0};
+//        for (int c = 0; c < latResults.size(); c++) {
+////            double[] latlng = new double[]{latResults.get(c), longResults.get(c)};
+//            if (numUsers.containsKey(latlng)) {
+//                numUsers.put(latlng, numUsers.get(latlng) + 1);
+//            } else {
+//                numUsers.put(latlng, 1);
+//            }
+//
+//            if (sumLocPrice.containsKey(latlng)) {
+//                sumLocPrice.put(latlng, sumLocPrice.get(latlng) + priceResults.get(c));
+//            } else {
+//                sumLocPrice.put(latlng, priceResults.get(c));
+//            }
+//
+//            if (descList.containsKey(latlng)) {
+//                descList.put(latlng, descList.get(latlng) + "\n\n" + descriptionResults.get(c));
+//            } else {
+//                descList.put(latlng, descriptionResults.get(c));
+//            }
+//        }
+//        Log.d(TAG, numUsers.toString());
+//        Log.d(TAG, sumLocPrice.toString());
+//        Log.d(TAG, descList.toString());
+//    }
 }

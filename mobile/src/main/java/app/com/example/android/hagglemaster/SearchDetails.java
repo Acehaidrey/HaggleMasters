@@ -77,6 +77,8 @@ public class SearchDetails extends FragmentActivity {
         TextView t2 = (TextView) findViewById(R.id.averageprice);
         Typeface type2 = Typeface.createFromAsset(getAssets(),"fonts/Raleway-Italic.ttf");
         t2.setTypeface(type2);
+        TextView t3 = (TextView) findViewById(R.id.description_title);
+        t3.setTypeface(type1);
 
         timeStamp();
         getMyLocationAddress();
