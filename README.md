@@ -9,3 +9,13 @@ An android wear and handheld app that helps our target users become more familia
 <li>Whitney Xu</li>
 <li>Sarah Huang</li>
 </ul>
+<h2> How do you use this app? </h2>
+<p> There are two ways you can do this: </p>
+<ol>
+<li> You can clone this project and run from Android Studio. Make sure you have a wear emulator (>API20) running and 
+a phone emulator (>API19) that has GPS and Camera capabilities turned on. If you don't have your phone and wear connected
+take a look at this <a href="https://docs.google.com/presentation/d/1U1Hq4u-H56KD-0XUHgSjKcX0XTI_LgIk7G-5j2FtUQg/edit#slide=id.p"></li>
+<li> You can download the APKs and install the app to your wear and handheld device following the same API restricts
+as above. </li>
+</ol>
+NOTE: If you're using geny motion or any other emulator, make sure you have TURNED ON the GPS and Camera options.
