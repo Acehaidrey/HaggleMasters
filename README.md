@@ -18,5 +18,5 @@ take a look at this <a href="https://docs.google.com/presentation/d/1U1Hq4u-H56K
 <li> You can download the APKs and install the app to your wear and handheld device following the same API restricts
 as above. You can find the APKs along with more information about this project at our <a href="https://www.hackster.io/team-jaws3/grpf3">hackster</a> submission! </li>
 </ol>
-NOTE: If you're using geny motion or any other emulator, make sure you have TURNED ON the GPS and Camera options.
-NOTE: The database will be empty (using local database instead of a central one, didn't get to implement it ): ) so please be sure to add an item first by clicking on the "share a purchase" button in the search page!
+<strong>NOTE: </strong>If you're using geny motion or any other emulator, make sure you have TURNED ON the GPS and Camera options. <br>
+<strong>NOTE: </strong>The database will be empty (using local database instead of a central one, didn't get to implement it ): ) so please be sure to add an item first by clicking on the "share a purchase" button in the search page!
