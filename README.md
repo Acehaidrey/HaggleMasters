@@ -19,4 +19,5 @@ take a look at this <a href="https://docs.google.com/presentation/d/1U1Hq4u-H56K
 as above. You can find the APKs along with more information about this project at our <a href="https://www.hackster.io/team-jaws3/grpf3">hackster</a> submission! </li>
 </ol>
 <strong>NOTE: </strong>If you're using geny motion or any other emulator, make sure you have TURNED ON the GPS and Camera options. <br>
-<strong>NOTE: </strong>The database will be empty (using local database instead of a central one, didn't get to implement it ): ) so please be sure to add an item first by clicking on the "share a purchase" button in the search page!
+<strong>NOTE: </strong>The database will be empty (using local database instead of a central one, didn't get to implement it ): ) so please be sure to add an item first by clicking on the "share a purchase" button in the search page! <br>
+<strong> NOTE: </strong> If the maps aren't registering our causing your app to break on the Details page, then make sure to switch out the google key with your own google key that you can get from <a href="https://developers.google.com/maps/documentation/android/start?hl=en"> here</a> and switch out the google maps key in the google maps key xml file in the mobile/values section.
